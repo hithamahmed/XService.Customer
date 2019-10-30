@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entities\Documents\DocServiceCategory.cs" />
+    <Compile Remove="Entities\Documents\DocServices.cs" />
+    <Compile Remove="Entities\General\Country.cs" />
+    <Compile Remove="Entities\General\Government.cs" />
+    <Compile Remove="Entities\General\LocationArea.cs" />
+    <Compile Remove="EntityBase.cs" />
+    <Compile Remove="Migrations\20191030123219_initial-document issued.cs" />
+    <Compile Remove="Migrations\20191030123219_initial-document issued.Designer.cs" />
+    <Compile Remove="Migrations\20191030123557_initial-document issued.cs" />
+    <Compile Remove="Migrations\20191030123557_initial-document issued.Designer.cs" />
+    <Compile Remove="ServiceRequiredDocuments.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\services\General.Services.Core\General.Services.Core.csproj" />
+  </ItemGroup>
+
+</Project>

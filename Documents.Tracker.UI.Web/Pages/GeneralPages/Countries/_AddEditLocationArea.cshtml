@@ -1,0 +1,32 @@
+﻿@model  General.Services.Core.DTO.LocationAreaDTO
+
+    <form class="kt-form kt-form--label-right" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @*@Html.AntiForgeryToken()*@
+        <input type="hidden" asp-for="Id " />
+        <input type="hidden" asp-for="GovernmentId" />
+
+        <div class="kt-portlet__body">
+            <div class="form-group row">
+                <div class="col-lg-12">
+                    <label>Full Name:</label>
+                    <input asp-for="Name" class="form-control" placeholder="ex:Jabria,Salmya Old Souq">
+                    <span class="form-text text-muted">Location Area</span>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__foot">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <button id="btnPost" asp-page-handler="SavelocationArea" type="submit" class="btn btn-primary">Save</button>
+                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                    </div>
+                    @*<div class="col-lg-6 kt-align-right">
+                        <button type="reset" class="btn btn-danger">Delete</button>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </form>
+

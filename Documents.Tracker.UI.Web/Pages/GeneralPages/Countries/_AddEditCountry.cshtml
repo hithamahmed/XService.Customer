@@ -1,0 +1,76 @@
+﻿
+@model  General.Services.Core.DTO.CountryDTO
+
+    <form class="kt-form kt-form--label-right" method="post" >
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @*@Html.AntiForgeryToken()*@
+        <input type="hidden" asp-for="Id " />
+
+        <div class="kt-portlet__body">
+            <div class="form-group row">
+                <div class="col-lg-12">
+                    <label>Full Name:</label>
+                    <input asp-for="Name" class="form-control" placeholder="ex: Kuwait, Egypt">
+                    <span class="form-text text-muted">Country name</span>
+                </div>
+
+                <div class="col-lg-12">
+                    <label>Full Name:</label>
+                    <input asp-for="DefaultLang" class="form-control" placeholder="ex: en-US , ar-KW">
+                    <span class="form-text text-muted">Default Languge</span>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__foot">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <button id="btnPost"  asp-page-handler="SaveCountry" type="submit" class="btn btn-primary">Save</button>
+                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                    </div>
+                    @*<div class="col-lg-6 kt-align-right">
+                        <button type="reset" class="btn btn-danger">Delete</button>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+<script>
+    $('#btnPost11').on('click', function () {
+        var _data = {"Id":request.Id,"Name":request.Name};
+
+        $.ajax({
+            type: "POST",
+            //url: "/generalpages/countries?handler=SaveCountry",
+            url: '/?handler=SaveCountry',
+            //beforeSend: function (xhr) {
+            //    xhr.setRequestHeader("XSRF-TOKEN",
+            //        $('input:hidden[name="__RequestVerificationToken"]').val());
+            //},
+            data: JSON.stringify(_data),
+            //data: JSON.stringify({
+            //    Id: request.Id,
+            //    Name: request.Name
+            //}),
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                //var dvItems = $("#dvPostItems");
+                //dvItems.empty();
+                //$.each(response, function (i, item) {
+                //    var $tr = $('<li>').append(item).appendTo(dvItems);
+                //});
+                  alert(response);
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    })
+</script>

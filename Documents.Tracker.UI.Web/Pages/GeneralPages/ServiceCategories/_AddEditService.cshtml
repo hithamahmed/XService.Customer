@@ -1,0 +1,44 @@
+﻿
+@model  General.Services.Core.DTO.ServiceCategoryDTO
+
+    <form class="kt-form kt-form--label-right" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" asp-for="RefId " />
+        <input type="hidden" asp-for="ServiceCategoryId " />
+
+        <div class="kt-portlet__body">
+            <div class="form-group row">
+                <div class="col-lg-12">
+                    <label>Full Name:</label>
+                    <input asp-for="Name" class="form-control" placeholder="ex: Create Compnay, Mainteance">
+                    <span class="form-text text-muted">Service name</span>
+                </div>
+
+                <div class="col-lg-12">
+                    <label>Service Price:</label>
+                    <input asp-for="Price" type="number" step=".05" class="form-control" placeholder="ex: 100, 1.500">
+                    <span class="form-text text-muted">Service Price</span>
+                </div>
+
+                <div class="col-lg-12">
+                    <label>Icon Name:</label>
+                    <input asp-for="IconName" class="form-control" placeholder="ex: Legal, Private, Government, Foods">
+                    <span class="form-text text-muted">Icon name</span>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__foot">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <button id="btnPost" asp-page-handler="SaveService" type="submit" class="btn btn-primary">Save</button>
+                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+ 

@@ -1,0 +1,208 @@
+﻿@page 
+@model Documents.Tracker.UI.Web.Pages.CountriesModel
+@{
+    ViewData["Title"] = Model.ModelTitle?.ToString();
+    var cntlname = ViewContext.RouteData.Values["Page"].ToString();
+}
+
+
+<!-- begin:: Content Head -->
+<div class="kt-subheader  kt-grid__item" id="kt_subheader">
+    <div class="kt-container  kt-container--fluid ">
+        @*<div class="kt-subheader__main">
+            <h3 class="kt-subheader__title">Multi Column Forms</h3>
+            <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+            <span class="kt-subheader__desc">#XRS-45670</span>
+            <a href="#" class="btn btn-label-warning btn-bold btn-sm btn-icon-h kt-margin-l-10">
+                Add New1
+            </a>
+            <div class="kt-input-icon kt-input-icon--right kt-subheader__search kt-hidden">
+                <input type="text" class="form-control" placeholder="Search order..." id="generalSearch">
+                <span class="kt-input-icon__icon kt-input-icon__icon--right">
+                    <span><i class="flaticon2-search-1"></i></span>
+                </span>
+            </div>
+        </div>*@
+    </div>
+</div>
+<!-- end:: Content Head -->
+ 
+
+<!-- begin:: Content -->
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <!--begin::Portlet-->
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <span class="kt-portlet__head-icon">
+                            <i class="kt-font-brand flaticon2-architecture-and-city"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-title">
+                            Countries
+                        </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="kt-portlet__head-wrapper">
+                            <div class="kt-portlet__head-actions">
+                                <partial name="_Exportbar" />
+                                &nbsp;
+                                <a href="#" onclick="AddEdit(0,'@cntlname','AddEditCountry','id')" class="btn btn-brand btn-elevate btn-icon-sm">
+                                    <i class="la la-plus"></i>
+                                    New Country
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--begin::Form-->
+            
+                    <div class="kt-portlet__body">
+                        <!--begin: Datatable -->
+
+                        <div class="table-responsive">
+                            <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
+                                <thead>
+                                    <tr>
+                                        <th width="10%">Country</th>
+                                        <th width="10%"></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.countries != null)
+                                    {
+                                        @foreach (var item in Model.countries)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.Name
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        <button type="button" onclick="AddEdit(@item.Id,'@cntlname','AddEditCountry','id')" class="btn btn-sm  btn-icon"><i class="flaticon-edit"></i></button>
+                                                        <form method="post"><button type="submit" asp-page-handler="DisableCountry" asp-route-id="@item.Id" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete"></i></button></form>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="15%">
+                                                                    Government
+                                                                </th>
+                                                                <th width="15%">
+                                                                    <a href="#" onclick="AddEditGovernment('&Countryid=' + @item.Id,0,'@cntlname','AddEditGovernment','id')" class="btn btn-sm btn-brand btn-elevate btn-icon-sm">
+                                                                        <i class="la la-plus"></i>
+                                                                        New
+                                                                    </a>
+                                                                </th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            @if (item.Governments != null)
+                                                            {
+                                                                foreach (var gov in item.Governments.ToList())
+                                                                {
+                                                                    <tr>
+                                                                        <td>
+                                                                            @gov.Name
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="btn-group" role="group">
+                                                                                <button type="button" onclick="AddEditGovernment('&Countryid=' + @item.Id,@gov.Id,'@cntlname','AddEditGovernment','id')" class="btn btn-sm btn-info btn-icon">edit</button>
+                                                                                <form method="post"><button type="submit" asp-page-handler="DisableGovernment" asp-route-id="@gov.Id" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-danger btn-icon"><i class="flaticon-delete"></i></button></form>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <table class="table table-bordered">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th width="15%">
+                                                                                            Location
+                                                                                        </th>
+                                                                                        <th width="15%">
+                                                                                            <a href="#" onclick="AddEditLocation('&Governmentid=' + @gov.Id,0,'@cntlname','AddEditlocationArea','id')" class="btn btn-sm btn-brand btn-elevate btn-icon-sm">
+                                                                                                <i class="la la-plus"></i>
+                                                                                                New
+                                                                                            </a>
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+
+                                                                                    @if (gov.LocationAreas != null)
+                                                                                    {
+                                                                                        foreach (var loc in gov.LocationAreas.ToList())
+                                                                                        {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            @loc.Name
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div class="btn-group" role="group">
+                                                                                                <button type="button" onclick="AddEditLocation('&Governmentid=' + @gov.Id,@loc.Id,'@cntlname','AddEditlocationArea','id')" class="btn btn-sm  btn-info btn-elevate-hover btn-icon">edit</button>
+                                                                                                <form method="post">
+                                                                                                    <button type="submit"
+                                                                                                            asp-page-handler="DisableLocationArea"
+                                                                                                            asp-route-id="@loc.Id"
+                                                                                                            onclick="confirm('Are you sure you want to delete?');"
+                                                                                                            class="btn btn-sm btn-danger btn-elevate-hover btn-icon">
+                                                                                                        <i class="flaticon2-delete"></i>
+                                                                                                    </button>
+                                                                                                </form>
+                                                                                            </div>
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                        }
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--end: Datatable -->
+                    </div>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end:: Content -->
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#kt_table_1').DataTable({
+                //scrollY: 300,
+                deferRender: true,
+                //scroller: true,
+                fixedHeader: true
+                , order: [[0, 'asc']],
+                rowGroup: { dataSrc: 0 },
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'excel', 'pdf', 'print'
+                ]
+            })
+        });
+    </script>
+}

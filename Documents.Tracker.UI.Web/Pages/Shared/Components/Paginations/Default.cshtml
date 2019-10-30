@@ -1,0 +1,37 @@
+﻿@page
+@model Documents.Tracker.UI.Web.Extensions.Pager
+@{ 
+    var pagemodel = Model;
+} 
+
+    <div class="center">
+        <div class="pagination">
+            @if (pagemodel.EndPage > 1)
+            {
+                @if (pagemodel.CurrentPage > 1)
+                {
+
+                    <a asp-action="Index">First</a>
+                }
+
+                @for (var page = pagemodel.StartPage; page <= pagemodel.EndPage; page++)
+                {
+                    var p = page;
+
+                    <a asp-action="Index" asp-route-page=@p class="@(page == pagemodel.CurrentPage ? "active" : "")">@p </a>
+                }
+
+                @if (pagemodel.CurrentPage < pagemodel.TotalPages)
+                {
+                    <a asp-action="Index" asp-route-page="@(pagemodel.CurrentPage + 1)">Next</a>
+                    <a asp-action="Index" asp-route-page="@(pagemodel.TotalPages)">Last</a>
+                }
+
+                @if (pagemodel.CurrentPage > 1)
+                {
+                    <a asp-action="Index" asp-route-page="@(pagemodel.CurrentPage - 1)">Previous</a>
+                }
+            }
+        </div>
+    </div>
+
