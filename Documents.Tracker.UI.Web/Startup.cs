@@ -37,7 +37,7 @@ namespace Documents.Tracker.UI.Web
             
  
             string defConn = Configuration.GetConnectionString("DefaultConnection");
-           
+
             //IMapper mapper = MapperSetup.IMapperSetup();
             //services.AddSingleton(mapper);
 

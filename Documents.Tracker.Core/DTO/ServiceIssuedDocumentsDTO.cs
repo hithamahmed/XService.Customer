@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Documents.Tracker.Core.DTO
 {
     public class ServiceIssuedDocumentsDTO : DocumentBaseDTO
     {
-        
+
         [Required]
         public int ServiceId { get; set; }
 
@@ -17,6 +14,6 @@ namespace Documents.Tracker.Core.DTO
 
         [MaxLength(50)]
         public string Description { get; set; }
- 
+
     }
 }

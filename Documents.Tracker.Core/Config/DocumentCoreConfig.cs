@@ -1,22 +1,25 @@
-﻿using AutoMapper;
-using Documents.Tracker.Core.Config.Mapper;
+﻿using Documents.Tracker.Core.Config.Mapper;
+using Documents.Tracker.Core.DocumentCore.Consumers;
 using Documents.Tracker.Data;
+using General.App.Consumers.Core.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Documents.Tracker.Core.Config
 {
     public static class DocumentCoreConfig
     {
-          public static IServiceCollection DocumentCoreSetup(this IServiceCollection services, string connectionstring)
+        public static IServiceCollection DocumentCoreSetup(this IServiceCollection services, string connectionstring)
         {
+
+
+            services.AddScoped<IConsumersCore, ClientsGeneralCore>();
             services.AddScoped<IServiceRequiredDocumentsCore, ServiceRequiredDocumentsCore>();
             services.AddScoped<IServiceIssuedDocumentsCore, ServiceIssuedDocumentsCore>();
             services.AddSingleton(MapperCore.Mapper);
 
+            services.ClientsCoreSetup(connectionstring);
 
             return services.AddDbContext<DocumentContext>(options =>
             {

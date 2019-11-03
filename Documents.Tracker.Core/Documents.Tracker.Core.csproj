@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\..\services\General.AppClients.Core\General.App.Consumers.Core.csproj" />
     <ProjectReference Include="..\..\services\General.Services.Core\General.Services.Core.csproj" />
     <ProjectReference Include="..\Documents.Tracking.Data\Documents.Tracker.Data.csproj" />
   </ItemGroup>

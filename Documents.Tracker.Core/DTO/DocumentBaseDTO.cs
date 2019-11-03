@@ -1,5 +1,4 @@
-﻿using System;
-using ApplicationCore.Interfaces;
+﻿using ApplicationCore.Interfaces;
 
 namespace Documents.Tracker.Core
 {

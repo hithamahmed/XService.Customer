@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Documents.Tracker.Core.Config.Mapper;
+﻿using Documents.Tracker.Core.Config.Mapper;
 using Documents.Tracker.Core.DTO;
 using Documents.Tracker.Data;
 using Documents.Tracking.Data.Entities;
@@ -7,12 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Documents.Tracker.Core
 {
-    internal class ServiceIssuedDocumentsCore : MapperCore,IServiceIssuedDocumentsCore
+    internal class ServiceIssuedDocumentsCore : MapperCore, IServiceIssuedDocumentsCore
     {
         //private readonly IMapper _mapper;
         private readonly DocumentContext _db;
@@ -21,7 +19,7 @@ namespace Documents.Tracker.Core
             _db = db;
             //_mapper = mapper;
         }
-    
+
         public async Task<int> AddEditServiceIssuedDocuments(ServiceIssuedDocumentsDTO serviceDocumentsIssued)
         {
             try
@@ -51,7 +49,10 @@ namespace Documents.Tracker.Core
             {
                 var documentsIssued = _db.DocIssued.Find(ServiceId);
                 if (documentsIssued == null)
+                {
                     return 0;
+                }
+
                 documentsIssued.IsDeleted = !documentsIssued.IsDeleted;
                 return await _db.SaveChangesAsync();
             }
