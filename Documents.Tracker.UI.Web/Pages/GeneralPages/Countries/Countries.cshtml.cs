@@ -29,10 +29,10 @@ namespace Documents.Tracker.UI.Web.Pages
             countries = await CountryService.GetAllCountries();
             foreach (var country in countries)
             {
-                var Governments = country.Governments = await CountryService.GetAllGovernmentsByCountry(country.Id).ConfigureAwait(false);
+                var Governments = country.Governments = await CountryService.GetAllGovernmentsByCountry(country.RefId).ConfigureAwait(false);
                 foreach (var government in Governments)
                 {
-                    var locationareas = government.LocationAreas = await CountryService.GetAllAreasByGoverment(government.Id).ConfigureAwait(false);
+                    var locationareas = government.LocationAreas = await CountryService.GetAllAreasByGoverment(government.RefId).ConfigureAwait(false);
                 }
             }
             return Page();

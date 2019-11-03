@@ -4,13 +4,13 @@
     <form class="kt-form kt-form--label-right" method="post" >
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @*@Html.AntiForgeryToken()*@
-        <input type="hidden" asp-for="Id " />
+        <input type="hidden" asp-for="RefId " />
 
         <div class="kt-portlet__body">
             <div class="form-group row">
                 <div class="col-lg-12">
                     <label>Full Name:</label>
-                    <input asp-for="Name" class="form-control" placeholder="ex: Kuwait, Egypt">
+                    <input asp-for="Name" required class="form-control" placeholder="ex: Kuwait, Egypt">
                     <span class="form-text text-muted">Country name</span>
                 </div>
 

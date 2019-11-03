@@ -35,34 +35,9 @@ namespace Documents.Tracker.UI.Web
                 options.MinimumSameSitePolicy = SameSiteMode.Strict;
             });
             
-           
-            //services.AddDbContext<GeneralContext>(options =>
-            //{
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-            //    sqlServerOptionsAction: sqlOptions =>
-            //    {
-            //        sqlOptions.
-            //         MigrationsAssembly("Application.Infrastructure.MSSQL");
-
-            //        //Configuring Connection Resiliency:
-            //        sqlOptions.
-            //        EnableRetryOnFailure(maxRetryCount: 5,
-            //        maxRetryDelay: TimeSpan.FromSeconds(30),
-            //        errorNumbersToAdd: null);
-
-            //    });
-
-            //    //Changing default behavior when client evaluation occurs to throw.
-            //    //Default in EFCore would be to log warning when client evaluation is done.
-            //    //options.ConfigureWarnings(warnings => warnings.Throw(
-            //    //    RelationalEventId.QueryClientEvaluationWarning));
-            //});
+ 
             string defConn = Configuration.GetConnectionString("DefaultConnection");
-            //ApplicationConfig.AppCoreContextSetup(services, defConn);
-            //GeneralConfigContexts.GeneralContextSetup(services, defConn);
-            //DocumentContextConfig.DocumentConfigContext(services, defConn);
-            //ConfigLocalization.AppCoreContextSetup(services, defConn);
-
+           
             //IMapper mapper = MapperSetup.IMapperSetup();
             //services.AddSingleton(mapper);
 
@@ -79,14 +54,14 @@ namespace Documents.Tracker.UI.Web
             services.AppLocalizationSetup(defConn);
             services.DocumentCoreSetup(defConn);
             services.GeneralContextSetup(defConn);
-
+            services.StaffCoreSetup(defConn);
             //var mapperconfig = new MapperConfiguration(confg =>
             //confg.AddMaps(
             //    new[] { "Documents.Tracker.Core", "General.Services.Core" }
             //    ));
             //IMapper Docmapper = mapperconfig.CreateMapper();
             //services.AddSingleton(Docmapper);
-            
+
 
             services.AddLocalization();
             services.Configure<RequestLocalizationOptions>(

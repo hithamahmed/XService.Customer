@@ -82,8 +82,8 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group" role="group">
-                                                        <button type="button" onclick="AddEdit(@item.Id,'@cntlname','AddEditCountry','id')" class="btn btn-sm  btn-icon"><i class="flaticon-edit"></i></button>
-                                                        <form method="post"><button type="submit" asp-page-handler="DisableCountry" asp-route-id="@item.Id" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete"></i></button></form>
+                                                        <button type="button" onclick="AddEdit(@item.RefId,'@cntlname','AddEditCountry','id')" class="btn btn-sm  btn-icon"><i class="flaticon-edit"></i></button>
+                                                        <form method="post"><button type="submit" asp-page-handler="DisableCountry" asp-route-id="@item.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete"></i></button></form>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -94,7 +94,7 @@
                                                                     Government
                                                                 </th>
                                                                 <th width="15%">
-                                                                    <a href="#" onclick="AddEditGovernment('&Countryid=' + @item.Id,0,'@cntlname','AddEditGovernment','id')" class="btn btn-sm btn-brand btn-elevate btn-icon-sm">
+                                                                    <a href="#" onclick="AddEditGovernment('&Countryid=' + @item.RefId,0,'@cntlname','AddEditGovernment','id')" class="btn btn-sm btn-brand btn-elevate btn-icon-sm">
                                                                         <i class="la la-plus"></i>
                                                                         New
                                                                     </a>
@@ -114,8 +114,8 @@
                                                                         </td>
                                                                         <td>
                                                                             <div class="btn-group" role="group">
-                                                                                <button type="button" onclick="AddEditGovernment('&Countryid=' + @item.Id,@gov.Id,'@cntlname','AddEditGovernment','id')" class="btn btn-sm btn-info btn-icon">edit</button>
-                                                                                <form method="post"><button type="submit" asp-page-handler="DisableGovernment" asp-route-id="@gov.Id" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-danger btn-icon"><i class="flaticon-delete"></i></button></form>
+                                                                                <button type="button" onclick="AddEditGovernment('&Countryid=' + @item.RefId,@gov.RefId,'@cntlname','AddEditGovernment','id')" class="btn btn-sm btn-info btn-icon">edit</button>
+                                                                                <form method="post"><button type="submit" asp-page-handler="DisableGovernment" asp-route-id="@gov.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-danger btn-icon"><i class="flaticon-delete"></i></button></form>
                                                                             </div>
                                                                         </td>
                                                                         <td>
@@ -126,7 +126,7 @@
                                                                                             Location
                                                                                         </th>
                                                                                         <th width="15%">
-                                                                                            <a href="#" onclick="AddEditLocation('&Governmentid=' + @gov.Id,0,'@cntlname','AddEditlocationArea','id')" class="btn btn-sm btn-brand btn-elevate btn-icon-sm">
+                                                                                            <a href="#" onclick="AddEditLocation('&Governmentid=' + @gov.RefId,0,'@cntlname','AddEditlocationArea','id')" class="btn btn-sm btn-brand btn-elevate btn-icon-sm">
                                                                                                 <i class="la la-plus"></i>
                                                                                                 New
                                                                                             </a>
@@ -145,11 +145,11 @@
                                                                                         </td>
                                                                                         <td>
                                                                                             <div class="btn-group" role="group">
-                                                                                                <button type="button" onclick="AddEditLocation('&Governmentid=' + @gov.Id,@loc.Id,'@cntlname','AddEditlocationArea','id')" class="btn btn-sm  btn-info btn-elevate-hover btn-icon">edit</button>
+                                                                                                <button type="button" onclick="AddEditLocation('&Governmentid=' + @gov.RefId,@loc.RefId,'@cntlname','AddEditlocationArea','id')" class="btn btn-sm  btn-info btn-elevate-hover btn-icon">edit</button>
                                                                                                 <form method="post">
                                                                                                     <button type="submit"
                                                                                                             asp-page-handler="DisableLocationArea"
-                                                                                                            asp-route-id="@loc.Id"
+                                                                                                            asp-route-id="@loc.RefId"
                                                                                                             onclick="confirm('Are you sure you want to delete?');"
                                                                                                             class="btn btn-sm btn-danger btn-elevate-hover btn-icon">
                                                                                                         <i class="flaticon2-delete"></i>

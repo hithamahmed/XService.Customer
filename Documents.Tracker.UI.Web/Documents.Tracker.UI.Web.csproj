@@ -21,9 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\ApplicationInfrastructure\Infra.MSSQL\Application.Infrastructure.MSSQL.csproj" />
+    <ProjectReference Include="..\..\..\Core\ApplicationInfrastructure\Infra.MSSQL\Application.Infrastructure.MSSQL.csproj" />
+    <ProjectReference Include="..\..\services\General.Employees.Core\General.Staff.Core.csproj" />
+    <ProjectReference Include="..\..\services\General.Services.Core\General.Services.Core.csproj" />
     <ProjectReference Include="..\Documents.Tracker.Core\Documents.Tracker.Core.csproj" />
-    <ProjectReference Include="..\services\General.Services.Core\General.Services.Core.csproj" />
   </ItemGroup>
 
 </Project>

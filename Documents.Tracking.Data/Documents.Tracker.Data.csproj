@@ -7,9 +7,14 @@
   <ItemGroup>
     <Compile Remove="Entities\Documents\DocServiceCategory.cs" />
     <Compile Remove="Entities\Documents\DocServices.cs" />
+    <Compile Remove="Entities\Employees\EmployeeAttendance .cs" />
+    <Compile Remove="Entities\Employees\Employees.cs" />
+    <Compile Remove="Entities\Employees\EmployeeShifts.cs" />
     <Compile Remove="Entities\General\Country.cs" />
     <Compile Remove="Entities\General\Government.cs" />
     <Compile Remove="Entities\General\LocationArea.cs" />
+    <Compile Remove="Entities\ShiftPeriods.cs" />
+    <Compile Remove="Entities\Shifts.cs" />
     <Compile Remove="EntityBase.cs" />
     <Compile Remove="Migrations\20191030123219_initial-document issued.cs" />
     <Compile Remove="Migrations\20191030123219_initial-document issued.Designer.cs" />
@@ -23,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\ApplicationCore\ApplicationCore.csproj" />
-    <ProjectReference Include="..\services\General.Services.Core\General.Services.Core.csproj" />
+    <ProjectReference Include="..\..\..\Core\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\..\services\General.Services.Core\General.Services.Core.csproj" />
   </ItemGroup>
 
 </Project>

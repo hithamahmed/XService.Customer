@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -9,9 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\..\..\Core\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\..\services\General.Services.Core\General.Services.Core.csproj" />
     <ProjectReference Include="..\Documents.Tracking.Data\Documents.Tracker.Data.csproj" />
-    <ProjectReference Include="..\services\General.Services.Core\General.Services.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
