@@ -16,6 +16,7 @@ namespace Documents.Tracker.Core.Config.Mapper
                 cfg.AddProfile<MapperProfile>();
             });
             var mapper = config.CreateMapper();
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
             return mapper;
         });
 

@@ -13,7 +13,7 @@ namespace Documents.Tracker.Core.Config
         public static IServiceCollection DocumentCoreSetup(this IServiceCollection services, string connectionstring)
         {
 
-
+            services.AddScoped<ICountryCore, CountryGeneralCore>();
             services.AddScoped<IConsumersCore, ClientsGeneralCore>();
             services.AddScoped<IServiceRequiredDocumentsCore, ServiceRequiredDocumentsCore>();
             services.AddScoped<IServiceIssuedDocumentsCore, ServiceIssuedDocumentsCore>();

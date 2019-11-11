@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Documents.Tracker.Core.DTO
@@ -19,7 +20,7 @@ namespace Documents.Tracker.Core.DTO
         public string LastName { get; set; }
 
         [DisplayName("Phone Number")]
-        public int MobileNumber { get; set; }
+        public long MobileNumber { get; set; }
 
         [MaxLength(20)]
         [DisplayName("Identity Number")]
@@ -28,5 +29,7 @@ namespace Documents.Tracker.Core.DTO
 
         [MaxLength(20)]
         public string PassportNumber { get; set; }
+
+        public ICollection<AppConsumerAddressDTO> CounsumerAddresses { get; set; }
     }
 }
