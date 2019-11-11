@@ -1,8 +1,10 @@
 ﻿@page
-@model Documents.Tracker.UI.Web.Pages.AppConsumers.ConsumersModel
+@model Documents.Tracker.UI.Web.Pages.AppConsumers.ConsumerAddressModel
+
+
 @{
-ViewData["Title"] = "Consumers";
-var cntlname = ViewContext.RouteData.Values["Page"].ToString();
+    ViewData["Title"] = "Consumers";
+    var cntlname = ViewContext.RouteData.Values["Page"].ToString();
 }
 <!-- begin:: Content Head -->
 <div class="kt-subheader  kt-grid__item" id="kt_subheader">
@@ -23,18 +25,22 @@ var cntlname = ViewContext.RouteData.Values["Page"].ToString();
                             <i class="kt-font-brand flaticon2-architecture-and-city"></i>
                         </span>
                         <h3 class="kt-portlet__head-title">
-                            Consumers
+                            Consumer Addresses
                         </h3>
                     </div>
                     <div class="kt-portlet__head-toolbar">
                         <div class="kt-portlet__head-wrapper">
                             <div class="kt-portlet__head-actions">
+                                <a asp-page="/AppConsumers/Consumers" class="btn btn-dark btn-icon-sm">
+                                    <i class="flaticon2-back"></i>
+                                    Back
+                                </a>
                                 <partial name="_Exportbar" />
                                 &nbsp;
 
-                                <a href="#" onclick="AddEdit(0,'@cntlname','AddEditConsumer','RefId')" class="btn btn-brand btn-elevate btn-icon-sm">
+                                <a href="#" onclick="AddEditForm('&ConsumerRefId=' + @Model.ManageAppConsumerDTO.Consumer.RefId,0,'@cntlname','AddEditConsumerAddress','RefId')" class="btn btn-brand btn-elevate btn-icon-sm">
                                     <i class="la la-plus"></i>
-                                    New Consumer
+                                    New Consumer Address
                                 </a>
                             </div>
                         </div>
@@ -48,36 +54,41 @@ var cntlname = ViewContext.RouteData.Values["Page"].ToString();
                         <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
                             <thead>
                                 <tr>
-                                    <th width="10%">Full Name</th>
-                                    <th width="10%">Identity Id</th>
+                                    <th width="20%">Location</th>
+                                    <th width="40%">Address</th>
                                     <th width="10%">Phone Number</th>
-                                    <th width="10%" class="notexport"></th>
+                                    <th width="10%">Default</th>
+                                    <th class="notexport"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (Model.ConsumerList != null)
+                                @if (Model.ManageAppConsumerDTO.AppConsumerAddresses != null)
                                 {
-                                    @foreach (var item in Model.ConsumerList)
+                                    @foreach (var item in Model.ManageAppConsumerDTO.AppConsumerAddresses)
                                     {
-                                        <tr>
-                                            <td>
-                                                @item.FullName
-                                            </td>
-                                            <td>
-                                                @item.IdentityId
-                                            </td>
-                                            <td>
-                                                @item.MobileNumber
-                                            </td>
-                                            <td>
-                                                <div class="btn-group " role="group">
-                                                    <button type="button" onclick="AddEdit(@item.RefId,'@cntlname','AddEditConsumer','RefId')" class="btn btn-sm btn-warning ">edit</button>
-                                                    <form method="post"><button type="submit" asp-page-handler="DisableConsumer" asp-route-RefId="@item.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete-1"></i></button></form>
-                                                    <form method="get"><a asp-page="/AppConsumers/ConsumerAddress" asp-route-ConsumerRefId="@item.RefId" class="btn btn-sm btn-light btn-icon "><i class="ui-icon-contact"></i></a></form>
-                                                </div>
-                                            </td>
-
-                                        </tr>
+                                <tr>
+                                    <td>
+                                        @item.FullLocation
+                                    </td>
+                                    <td>
+                                        @item.Address1
+                                    </td>
+                                    <td>
+                                        @item.PhoneNumber
+                                    </td>
+                                    <td>
+                                        @if (item.IsDefault)
+                                        {<i class="flaticon2-check-mark"></i>}
+                                        else
+                                        { <i class="flaticon2-line"></i>}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group " role="group">
+                                            <button type="button" onclick="AddEdit(@item.RefId,'@cntlname','AddEditConsumerAddress','RefId')" class="btn btn-sm btn-warning ">edit</button>
+                                            <form method="post"><button type="submit" asp-page-handler="SetDefaultConsumerAddress" asp-route-consumerRefId="@item.ConsumerId" asp-route-RefId="@item.RefId" class="btn btn-sm btn-icon "><i class="flaticon2-checkmark"></i></button></form>
+                                        </div>
+                                    </td>
+                                </tr>
                                     }
                                 }
                             </tbody>
@@ -99,7 +110,7 @@ var cntlname = ViewContext.RouteData.Values["Page"].ToString();
                 //scroller: true,
                 fixedHeader: true
                 , order: [[0, 'asc']],
-                //rowGroup: { dataSrc: 0 },
+
                 dom: 'Bfrtip',
                 buttons: [
                     {

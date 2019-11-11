@@ -72,6 +72,49 @@ var AddEditForm = function (ppv, pv, e, h, p) {
 }
 /******************************************************/
 
+var governments = function (i) {
+
+    $.ajax({
+        type: 'GET',
+        url: '/AppConsumers/ConsumerAddress?handler=GovernmentByCountry&countryId=' + i.value,
+        success: function (data) {
+            alert(data);
+            var $select = $('#GovernmentId');
+            $select.html('');
+            $.each(data, function (key, entry) {
+                $select.append($('<option></option>').attr('value', entry.refId).text(entry.name));
+            })
+        },
+        error: function (error) {
+            alert("Error: " + error);
+        }
+    })
+}
+var datalist = function (i, t, u) {
+    var $url = u;
+    var $targetDD = t;
+    var $parm = i;
+
+    $.ajax({
+        type: 'GET',
+        url: $url + $parm.value,
+        success: function (data) {
+            var $select = $($targetDD);
+            $select.html('');
+            $select.empty();
+            $select.append('<option selected="true" disabled>--Choose--</option>');
+            $select.prop('selectedIndex', 0);
+
+            $.each(data, function (key, entry) {
+                $select.append($('<option></option>').attr('value', entry.refId).text(entry.name));
+            })
+        },
+        error: function (error) {
+            alert("Error: " + error);
+        }
+    })
+}
+
 var AddTeamMemberHolder = function (id, e) {
     debugger;
     var TeamHeadPrivsel = document.getElementById("TeamHeadPriv");
@@ -491,8 +534,6 @@ var ViewForm = function (id, e) {
 
     });
 }
-
-
 
 var deleteMeetingDecision = function (id, e) {
     $.confirm({
