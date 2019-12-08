@@ -1,24 +1,22 @@
 ﻿
-@model  Documents.Tracker.Core.DTO.ServiceDocumentsRequirementsDTO
+@model  Documents.Tracker.Core.DTO.ProductDocumentsRequirementsOTO
 
     <form class="kt-form kt-form--label-right" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <input type="hidden" asp-for="RefId " />
-        <input type="hidden" asp-for="ServiceId " />
+        <input type="hidden" asp-for="ProductUKey " />
 
         <div class="kt-portlet__body">
             <div class="form-group row">
                 <div class="col-lg-12">
-                    <label>Full Name:</label>
+                    <label>Document name:</label>
                     <input asp-for="Name" required class="form-control" placeholder="ex: Civil Copy, Passport Copy">
-                    <span class="form-text text-muted">Document name</span>
                 </div>
 
                 <div class="col-lg-12">
-                    <label>Service Price:</label>
+                    <label>Document Description:</label>
                     <input asp-for="Description"  class="form-control" placeholder="ex: Civil Copy, Passport Copy">
-                    <span class="form-text text-muted">Document Description</span>
                 </div>
 
                 <div class="col-lg-12">

@@ -73,7 +73,7 @@ var cntlname = ViewContext.RouteData.Values["Page"].ToString();
                                                 <div class="btn-group " role="group">
                                                     <button type="button" onclick="AddEdit(@item.RefId,'@cntlname','AddEditConsumer','RefId')" class="btn btn-sm btn-warning ">edit</button>
                                                     <form method="post"><button type="submit" asp-page-handler="DisableConsumer" asp-route-RefId="@item.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete-1"></i></button></form>
-                                                    <form method="get"><a asp-page="/AppConsumers/ConsumerAddress" asp-route-ConsumerRefId="@item.RefId" class="btn btn-sm btn-light btn-icon "><i class="ui-icon-contact"></i></a></form>
+                                                    <form method="get"><a asp-page="/AppConsumers/ConsumerAddress" asp-route-ConsumerRefId="@item.RefId" class="btn btn-sm  btn-icon "><i class="flaticon2-pin"></i></a></form>
                                                 </div>
                                             </td>
 

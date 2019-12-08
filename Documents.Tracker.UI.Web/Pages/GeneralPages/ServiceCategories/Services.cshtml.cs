@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Documents.Tracker.Core;
+using Documents.Tracker.Core.DTO;
 using Documents.Tracker.UI.Web.DTO;
 using General.Services.Core;
 using General.Services.Core.DTO;
@@ -14,55 +16,89 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
 {
     public class ServicesModel : PageModel
     {
-        private IServicesCategory servicesCategory { get; set; }
-        
-        public IMapper mapper { get; set; }
-        public IEnumerable<CategoryDTO> Categories { get; set; }
+        //private IServicesCategory servicesCategory { get; set; }
+        private readonly IQueryGeneralService generalService;
+        private readonly ICommandGeneralService commandGeneralService;
+        //public IMapper mapper { get; set; }
+        public ICollection<CategoriesOTO> Categories { get; set; }
 
-        public ServicesModel(IServicesCategory _servicesCategory, IMapper _mapper)
+        public ServicesModel(
+            IQueryGeneralService _generalService, 
+            ICommandGeneralService _commandGeneralService)
         {
-            servicesCategory = _servicesCategory;
-            mapper = _mapper;
+            generalService = _generalService;
+            commandGeneralService = _commandGeneralService;
+            //mapper = _mapper;
         }
 
         #region Cateories
 
         public async Task<IActionResult> OnGet()
         {
-            Categories = await servicesCategory.GetCategories();
-            foreach (var category in Categories)
-            {
-                category.ServiceCategories = await servicesCategory.GetListServicesByCategory(category.RefId).ConfigureAwait(false);
-
-            }
+            ICollection<CategoriesOTO> categoriesList = new List<CategoriesOTO>();
+            Categories = await generalService.GetAllCategoriesWithSubs();
+            //IQueryable<CategoriesOTO> _QueryCats = Categories.AsQueryable();
+            //foreach (var parentcat in categoriesList)
+            //{
+            //    parentcat.SubCategories = GetSubs(parentcat.RefId, _QueryCats);
+            //    Categories.Add(parentcat);
+            //}
+            //foreach (var category in Categories)
+            //{
+            //    if (!category.ParentCategoryId.HasValue)
+            //        category.Products = await generalService.GetListProductsByCategory(category.RefId).ConfigureAwait(false);
+            //    else
+            //    {
+            //        foreach (var subcategory in category.SubCategories)
+            //        {
+            //            category.Products = await generalService.GetListProductsByCategory(category.ParentCategoryId.Value).ConfigureAwait(false);
+            //        }
+            //    }
+            //}
             return Page();
         }
+        private ICollection<CategoriesOTO> GetSubs(int parentCode, IQueryable<CategoriesOTO> _newList)
+        {
+
+            IQueryable<CategoriesOTO> childItems = generalService.GetAllSubCategories(parentCode).Result.AsQueryable();
+            if (childItems.ToList().Count > 0)
+            {
+                childItems.ToList().ForEach(x => x.SubCategories = GetSubs(x.RefId, _newList));
+            }
+            return childItems.ToList();
+        }
+
         public async Task<IActionResult> OnGetAddEditCategoryAsync(int RefId)
         {
-            CategoryDTO category = new CategoryDTO();
+            CategoriesOTO category = new CategoriesOTO();
             if (RefId > 0)
             {
-                category = await servicesCategory.GetCategoryById(RefId);
+                category = await generalService.GetCategoryById(RefId);
             }
+            category.SubCategories = generalService.GetAllCategories()
+                .Result.Where(x=> x.RefId != RefId ).ToList();
             return Partial("_AddEditCategory", category);
         }
-        public IActionResult OnPostSaveCategory(CategoryDTO category)
+        public IActionResult OnPostSaveCategory(CategoriesOTO category)
         {
             if (!ModelState.IsValid)
                 return RedirectToPage();
 
-            int i = servicesCategory.AddEditCategory(category).Result;
+            if (category.ParentCategoryId == 0)
+                category.ParentCategoryId = null;
+
+            int i = commandGeneralService.AddEditCategory(category).Result;
             return RedirectToPage();
         }
         public IActionResult OnPostDisableCategory(int RefId)
         {
 
-            int i = servicesCategory.EnableDisableCategory(RefId).Result;
+            int i = commandGeneralService.EnableDisableCategory(RefId).Result;
             return RedirectToPage();
         }
         public JsonResult OnGetCategory(string categoryname)
         {
-            var allCategories =   servicesCategory.GetCategories().Result;
+            var allCategories =   generalService.GetAllCategories().Result;
             var categories = allCategories.Where(x => categoryname.Contains(x.Name))
                 .Select(x=> 
                 new { label = x.Name, value = x.RefId }).ToList();
@@ -75,16 +111,16 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
         {
             try
             {
-                ServiceCategoryDTO serviceCategory = new ServiceCategoryDTO
+                ProductOTO product = new ProductOTO
                 {
-                    ServiceCategoryId = categoryid
+                    CategoryId = categoryid
                 };
 
                 if (RefId > 0)
                 {
-                    serviceCategory = await servicesCategory.GetServiceCategoryById(RefId);
+                    product = await generalService.GetProductById(RefId);
                 }
-                return Partial("_AddEditService", serviceCategory);
+                return Partial("_AddEditService", product);
             }
             catch (Exception ex)
             {
@@ -92,14 +128,14 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
                 return RedirectToPage();
             }
         }
-        public IActionResult OnPostSaveService(ServiceCategoryDTO service)
+        public IActionResult OnPostSaveService(ProductOTO service)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return RedirectToPage();
 
-                int i = servicesCategory.AddEditService(service).Result;
+                int i = commandGeneralService.AddEditProduct(service).Result;
                 return RedirectToPage();
             }
             catch (Exception ex)
@@ -112,7 +148,7 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
         {
             try
             {
-                int i = servicesCategory.EnableDisableService(RefId).Result;
+                int i = commandGeneralService.EnableDisableProduct(RefId).Result;
                 return RedirectToPage();
             }
             catch (Exception ex)
@@ -121,11 +157,11 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
                 return RedirectToPage();
             }
         }
-        public IActionResult OnPostChangeServiceCategory(int RefId, int NewServiceCategoryId)
+        public IActionResult OnPostChangeServiceCategory(int RefId, int NewProductCategoryId)
         {
             try
             {
-                int i = servicesCategory.ChangeServiceCategory(RefId, NewServiceCategoryId).Result;
+                int i = commandGeneralService.ChangeProductCategory(RefId, NewProductCategoryId).Result;
                 return RedirectToPage();
             }
             catch (Exception ex)
@@ -139,34 +175,34 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
         {
             try
             {
-                ChangeCategoryDTO serviceCategory = new ChangeCategoryDTO
+                ChangeCategoryDTO category = new ChangeCategoryDTO
                 {
                     ServiceCategoryId = categoryid
                 };
 
-                var allCategories = servicesCategory.GetCategories().Result;
+                var allCategories = generalService.GetAllCategories().Result;
                 var categories = allCategories
                     .Select(x =>
                     new { label = x.Name, value = x.RefId }).ToList();
                 
                 if (RefId > 0)
                 {
-                    var CurrentserviceCategory = await servicesCategory.GetServiceCategoryById(RefId);
-                    serviceCategory = new ChangeCategoryDTO
+                    var product = await generalService.GetProductById(RefId);
+                    category = new ChangeCategoryDTO
                     {
-                        RefId = CurrentserviceCategory.RefId,
-                        Name = CurrentserviceCategory.Name,
+                        RefId = product.RefId,
+                        Name = product.Name,
                         ServiceCategoryId = categoryid,
                         NewServiceCategoryId = categoryid,
                     };
-                    serviceCategory.CategoriesSelectList = 
-                        new SelectList(categories, "value", "label", serviceCategory.ServiceCategoryId.ToString());
+                    category.CategoriesSelectList = 
+                        new SelectList(categories, "value", "label", category.ServiceCategoryId.ToString());
                 }
                 else
-                    serviceCategory.CategoriesSelectList = 
+                    category.CategoriesSelectList = 
                         new SelectList(categories, "value", "label");
 
-                return Partial("_ChangeServiceCategory", serviceCategory);
+                return Partial("_ChangeServiceCategory", category);
             }
             catch (Exception ex)
             {
@@ -177,8 +213,6 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
 
         #endregion
 
-        #region Required Documents
-
-        #endregion
+       
     }
 }

@@ -2,7 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DTO\ManageServiceIssueDocumentsOTO.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
@@ -18,6 +23,13 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\assets\plugins\general\ion-rangeslider\img\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\ServiceDocuments\ServicesIssuedDocuments.cshtml" />
+    <None Include="Pages\ServiceDocuments\ServicesRequiredDocument.cshtml" />
+    <None Include="Pages\ServiceDocuments\_AddEditIssuedDocs.cshtml" />
+    <None Include="Pages\ServiceDocuments\_AddEditRequiredDocs.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

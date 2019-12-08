@@ -12,26 +12,32 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 {
     public class ConsumerAddressModel : PageModel
     {
-        private IConsumersCore ClientsCore { get; set; }
-        private ICountryCore CountryService { get; set; }
+        //private IConsumersProfileCore ClientsCore { get; set; }
+        private IQueryConsumersServices consumersServices { get; set; }
+        private ICommandConsumerServices commandConsumerServices { get; set; }
+        private IQueryGeneralService CountryService { get; set; }
 
-        public ManageAppConsumersDTO ManageAppConsumerDTO { get; set; }
+        public ConsumersProfileOTO ManageAppConsumerDTO { get; set; }
         
-        public ConsumerAddressModel(IConsumersCore _clientscore, ICountryCore _CountryService)
+        public ConsumerAddressModel(
+            //IConsumersProfileCore _clientscore, 
+            IQueryGeneralService _CountryService,
+            IQueryConsumersServices _consumersServices,
+            ICommandConsumerServices _commandConsumerServices)
         {
-            ClientsCore = _clientscore;
+            //ClientsCore = _clientscore;
             CountryService = _CountryService;
+            consumersServices = _consumersServices;
+            commandConsumerServices = _commandConsumerServices;
         }
         public async Task<IActionResult> OnGet(int ConsumerRefId)
         {
             try
             {
-                ManageAppConsumerDTO = new ManageAppConsumersDTO();
+                ManageAppConsumerDTO = new ConsumersProfileOTO();
                 if (ModelState.IsValid)
                 {
-                    ManageAppConsumerDTO.Consumer = await ClientsCore.GetSingleConsumer(ConsumerRefId);
-                    var ConsumAddresses = await ClientsCore.GetConsumerAddresses(ConsumerRefId);
-                    ManageAppConsumerDTO.AppConsumerAddresses = ConsumAddresses;
+                    ManageAppConsumerDTO = await consumersServices.GetSingleConsumerWithAddressByConsumerId(ConsumerRefId);
                 }
                    
 
@@ -46,12 +52,12 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 
         public async Task<IActionResult> OnGetAddEditConsumerAddressAsync(int ConsumerRefId,int RefId)
         {
-            AppConsumerAddressDTO consumerAddress = new AppConsumerAddressDTO { 
+            ConsumerAddressOTO consumerAddress = new ConsumerAddressOTO { 
             ConsumerId = ConsumerRefId
             };
             if (RefId > 0)
             {
-                consumerAddress = await ClientsCore.GetConsumerAddressById(RefId);
+                consumerAddress = await consumersServices.GetSingleConsumerAddressByAddressId(RefId);
             }
             var allcountries = CountryService.GetCountriesList().Result;
             var countries = allcountries
@@ -83,7 +89,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
             return new JsonResult(locationsList);
         }
 
-        public IActionResult OnPostSaveConsumerAddress(AppConsumerAddressDTO conusmerAddress)
+        public IActionResult OnPostSaveConsumerAddress(ConsumerAddressOTO conusmerAddress)
         {
             try
             {
@@ -94,7 +100,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
                 }
                     
 
-                int i = ClientsCore.AddEditConsumerAddress(conusmerAddress).Result;
+                int i = commandConsumerServices.AddOrEditConsumerAddressByConsumer(conusmerAddress).Result;
                 return RedirectToPage("ConsumerAddress", new { ConsumerRefId = conusmerAddress.RefId });
             }
             catch (Exception ex)
@@ -110,7 +116,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
         {
             try
             {
-                int i = ClientsCore.SetConsumerAddressAsDefault(RefId).Result;
+                int i = commandConsumerServices.SetDefaultConsumerAddressByAddressId(RefId).Result;
                 return RedirectToPage("ConsumerAddress", new { ConsumerRefId = consumerRefId });
             }
             catch (Exception ex)

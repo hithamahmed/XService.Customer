@@ -24,7 +24,7 @@
                             <i class="kt-font-brand flaticon2-architecture-and-city"></i>
                         </span>
                         <h3 class="kt-portlet__head-title">
-                            Services Categories
+                            Product Categories
                         </h3>
                     </div>
                     <div class="kt-portlet__head-toolbar">
@@ -53,7 +53,7 @@
                 </div>
             </div>*@
 
-                <div class="kt-portlet__body">
+                @*<div class="kt-portlet__body">
                     <div class="accordion accordion-solid accordion-toggle-plus" id="accordionExample6">
                         @if (Model.Categories != null)
                         {
@@ -91,9 +91,9 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if (item.ServiceCategories != null)
+                                                    @if (item.Products != null)
                                                     {
-                                                        foreach (var service in item.ServiceCategories.ToList())
+                                                        foreach (var service in item.Products.ToList())
                                                         {
                                                             <tr>
 
@@ -122,7 +122,7 @@
                             }
                         }
                     </div>
-                </div>
+                </div>*@
 
                 <div class="kt-portlet__body">
                     <!--begin: Datatable -->
@@ -133,7 +133,7 @@
                                 <tr>
                                     <th width="10%">Category</th>
                                     <th width="10%" class="notexport"></th>
-                                    <th class="notexport"></th>
+                               
                                 </tr>
                             </thead>
                             <tbody>
@@ -141,65 +141,93 @@
                                 {
                                     @foreach (var item in Model.Categories)
                                     {
+
                                         <tr>
+                                            @if (item.ParentCategoryId == null)
+                                            {
+                                                <td>
+                                                    @item.Name
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group " role="group">
+                                                        <button type="button" onclick="AddEdit(@item.RefId,'@cntlname','AddEditCategory','RefId')" class="btn btn-sm  btn-icon"><i class="flaticon-edit"></i></button>
+                                                        <form method="post"><button type="submit" asp-page-handler="DisableCategory" asp-route-RefId="@item.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete"></i></button></form>
+                                                    </div>
+                                                </td>
+
+                                            }
+
+                                            @*<td>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="30%">
+                                        Services
+                                    </th>
+                                    <th>
+                                        Price
+                                    </th>
+                                    <th  class="notexport">
+                                        <a href="#" onclick="AddEditForm('&categoryid=' + @item.RefId,0,'@cntlname','AddEditService','RefId')" class="btn btn-sm btn-brand btn-elevate btn-icon-sm">
+                                            <i class="la la-plus"></i>
+                                            New
+                                        </a>
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (item.Products != null)
+                                {
+                                    foreach (var service in item.Products.ToList())
+                                    {
+                                        <tr>
+
                                             <td>
-                                                @item.Name
+                                                @service.Name
                                             </td>
                                             <td>
-                                                <div class="btn-group " role="group">
-                                                    <button type="button" onclick="AddEdit(@item.RefId,'@cntlname','AddEditCategory','RefId')" class="btn btn-sm  btn-icon"><i class="flaticon-edit"></i></button>
-                                                    <form method="post"><button type="submit" asp-page-handler="DisableCategory" asp-route-RefId="@item.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete"></i></button></form>
+                                                <span class="badge badge-info">@service.Price</span>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button type="button" onclick="AddEditForm('&categoryid=' + @item.RefId,@service.RefId,'@cntlname','AddEditService','RefId')" class="btn btn-sm btn-warning ">edit</button>
+                                                    <form method="post"><button type="submit" asp-page-handler="DisableService" asp-route-RefId="@service.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-danger btn-icon "><i class="flaticon-delete"></i></button></form>
+                                                    <button type="button" onclick="AddEditForm('&categoryid=' + @item.RefId,@service.RefId,'@cntlname','ChangeCategory','RefId')" class="btn btn-sm btn-dark ">Change Category</button>
+                                                    <form method="get"><a asp-page="/ServiceDocuments/ServicesRequiredDocument" asp-route-serviceRefId="@service.RefId" class="btn btn-sm btn-warning btn-icon "><i class="flaticon2-document"></i></a></form>
+                                                    <form method="get"><a asp-page="/ServiceDocuments/ServicesIssuedDocuments" asp-route-serviceRefId="@service.RefId" class="btn btn-sm btn-light btn-icon "><i class="flaticon-doc"></i></a></form>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th width="30%">
-                                                                Services
-                                                            </th>
-                                                            <th>
-                                                                Price
-                                                            </th>
-                                                            <th  class="notexport">
-                                                                <a href="#" onclick="AddEditForm('&categoryid=' + @item.RefId,0,'@cntlname','AddEditService','RefId')" class="btn btn-sm btn-brand btn-elevate btn-icon-sm">
-                                                                    <i class="la la-plus"></i>
-                                                                    New
-                                                                </a>
-                                                            </th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                        @if (item.ServiceCategories != null)
-                                                        {
-                                                            foreach (var service in item.ServiceCategories.ToList())
-                                                            {
-                                                                <tr>
-
-                                                                    <td>
-                                                                        @service.Name
-                                                                    </td>
-                                                                    <td>
-                                                                        <span class="badge badge-info">@service.Price</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="btn-group" role="group">
-                                                                            <button type="button" onclick="AddEditForm('&categoryid=' + @item.RefId,@service.RefId,'@cntlname','AddEditService','RefId')" class="btn btn-sm btn-warning ">edit</button>
-                                                                            <form method="post"><button type="submit" asp-page-handler="DisableService" asp-route-RefId="@service.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-danger btn-icon "><i class="flaticon-delete"></i></button></form>
-                                                                            <button type="button" onclick="AddEditForm('&categoryid=' + @item.RefId,@service.RefId,'@cntlname','ChangeCategory','RefId')" class="btn btn-sm btn-dark ">Change Category</button>
-                                                                            <form method="get"><a asp-page="/ServiceDocuments/ServicesRequiredDocument" asp-route-serviceRefId="@service.RefId" class="btn btn-sm btn-warning btn-icon "><i class="flaticon2-document"></i></a></form>
-                                                                            <form method="get"><a asp-page="/ServiceDocuments/ServicesIssuedDocuments" asp-route-serviceRefId="@service.RefId" class="btn btn-sm btn-light btn-icon "><i class="flaticon-doc"></i></a></form>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            }
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            </td>
                                         </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </td>*@
+                                        </tr>
+
+                                        @if (item.SubCategories != null)
+                                        {
+
+                                            @foreach (var subitem in item.SubCategories)
+                                            {
+                                                <tr>
+                                                    <td>@item.Name</td>
+                                                    <td>
+                                                        @subitem.Name
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group " role="group">
+                                                            <button type="button" onclick="AddEdit(@subitem.RefId,'@cntlname','AddEditCategory','RefId')" class="btn btn-sm  btn-icon"><i class="flaticon-edit"></i></button>
+                                                            <form method="post"><button type="submit" asp-page-handler="DisableCategory" asp-route-RefId="@subitem.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete"></i></button></form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                        }
+
                                     }
                                 }
                             </tbody>

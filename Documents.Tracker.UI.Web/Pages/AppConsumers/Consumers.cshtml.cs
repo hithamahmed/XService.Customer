@@ -11,12 +11,16 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 {
     public class ConsumersModel : PageModel
     {
-        private IConsumersCore  ClientsCore { get; set; }
-        public IEnumerable<APPConsumerDTO> ConsumerList { get; set; }
+        private IQueryConsumersServices consumersServices { get; set; }
+        private ICommandConsumerServices commandConsumer { get; set; }
+        public IEnumerable<ConsumerOTO> ConsumerList { get; set; }
 
-        public ConsumersModel(IConsumersCore _clientscore)
+        public ConsumersModel(
+            IQueryConsumersServices _consumersServices,
+            ICommandConsumerServices _commandConsumer)
         {
-            ClientsCore = _clientscore;
+            consumersServices = _consumersServices;
+            commandConsumer = _commandConsumer;
         }
 
         public async Task<IActionResult> OnGet()
@@ -24,7 +28,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
             try
             {
                 if (ModelState.IsValid)
-                    ConsumerList = await ClientsCore.GetConsumers();
+                    ConsumerList = await consumersServices.GetAllConsumers();
 
                 return Page();
             }
@@ -38,21 +42,21 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 
         public async Task<IActionResult> OnGetAddEditConsumerAsync(int RefId)
         {
-            APPConsumerDTO consumer  = new APPConsumerDTO();
+            ConsumerOTO consumer  = new ConsumerOTO();
             if (RefId > 0)
             {
-                consumer = await ClientsCore.GetSingleConsumer(RefId);
+                consumer = await consumersServices.GetSingleConsumerByConusmerId(RefId);
             }
             return Partial("_AddEditConsumer", consumer);
         }
-        public IActionResult OnPostSaveConsumer(APPConsumerDTO conusmer)
+        public IActionResult OnPostSaveConsumer(ConsumerOTO conusmer)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return RedirectToPage();
 
-                int i = ClientsCore.AddEditConsumer(conusmer).Result;
+                int i = commandConsumer.AddOrEditConsumerByConsumer(conusmer).Result;
                 return RedirectToPage();
             }
             catch (Exception ex)
@@ -68,7 +72,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
         {
             try
             {
-                int i = ClientsCore.EnableDisableConsumer(RefId).Result;
+                int i = commandConsumer.SetEnableDisableConsumerByConusmerId(RefId).Result;
                 return RedirectToPage();
             }
             catch (Exception ex)

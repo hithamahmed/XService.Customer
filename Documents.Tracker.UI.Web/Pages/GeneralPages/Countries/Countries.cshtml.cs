@@ -14,12 +14,11 @@ namespace Documents.Tracker.UI.Web.Pages
         public IEnumerable<CountryDTO> countries { get; set; }
         public IEnumerable<GovernmentDTO> governments { get; set; }
         public IEnumerable<LocationAreaDTO> locationAreas { get; set; }
-        public IMapper mapper { get; set; }
+        //public IMapper mapper { get; set; }
 
-        public CountriesModel(ICountries _CountryService, IMapper _mapper)
+        public CountriesModel(ICountries _CountryService)
         {
             CountryService = _CountryService;
-            mapper = _mapper;
         }
 
         #region Countries

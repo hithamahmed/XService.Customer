@@ -1,5 +1,5 @@
 ﻿
-@model  Documents.Tracker.Core.DTO.AppConsumerAddressDTO
+@model  Documents.Tracker.Core.DTO.ConsumerAddressOTO
 
     <form class="kt-form kt-form--label-right" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -15,23 +15,51 @@
                     <span class="form-text text-muted">Address</span>
                 </div>
                 <div class="col-lg-12">
+                    <label>Address2:</label>
+                    <input asp-for="Address2" required class="form-control" />
+                    <span class="form-text text-muted">Address2</span>
+                </div>
+                <div class="col-lg-12">
+                    <label>BlockNo:</label>
+                    <input asp-for="BlockNo" required class="form-control" />
+                    <span class="form-text text-muted">Block No</span>
+                </div>
+                <div class="col-lg-12">
+                    <label>BuildingNo:</label>
+                    <input asp-for="BuildingNo" required class="form-control" />
+                    <span class="form-text text-muted">Building No</span>
+                </div>
+                <div class="col-lg-12">
+                    <label>Floor No:</label>
+                    <input asp-for="FloorNo" required class="form-control" />
+                    <span class="form-text text-muted">Floor No</span>
+                </div>
+                <div class="col-lg-12">
+                    <label>Flat No:</label>
+                    <input asp-for="FlatOfficeNo" required class="form-control" />
+                    <span class="form-text text-muted">Flat No</span>
+                </div>
+
+
+
+                <div class="col-lg-12">
                     <label>Full Name:</label>
-                    <select required asp-for="CountryId" class="form-control" 
-                            asp-items="@(new SelectList(Model.CountriesList, "RefId", "Name"))" 
+                    <select required asp-for="CountryId" class="form-control"
+                            asp-items="@(new SelectList(Model.CountriesList, "RefId", "Name"))"
                             onchange="datalist(this,'#GovernmentId','/AppConsumers/ConsumerAddress?handler=GovernmentByCountry&countryId=')">
                     </select>
                     <span class="form-text text-muted">Service name</span>
                 </div>
                 <div class="col-lg-12">
                     <label>Government:</label>
-                    <select required asp-for="GovernmentId" class="form-control" 
+                    <select required asp-for="GovernmentId" class="form-control"
                             onchange="datalist(this,'#LocationAreaId','/AppConsumers/ConsumerAddress?handler=LocationByGovernment&governmentId=')">
                     </select>
                     <span class="form-text text-muted">Government</span>
                 </div>
                 <div class="col-lg-12">
                     <label>Location Area:</label>
-                    <select required asp-for="LocationAreaId" class="form-control" ></select>
+                    <select required asp-for="LocationAreaId" class="form-control"></select>
                     <span class="form-text text-muted">Area</span>
                 </div>
                 <div class="col-lg-12">
@@ -39,7 +67,7 @@
                     <input asp-for="PhoneNumber" class="form-control" placeholder="ex: Address phone number">
                     <span class="form-text text-muted">Phone Number</span>
                 </div>
-            
+
             </div>
         </div>
         <div class="kt-portlet__foot">

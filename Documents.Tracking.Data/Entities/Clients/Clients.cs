@@ -4,17 +4,22 @@ namespace Documents.Tracking.Data.Entities
 {
     public class Clients : EntityBase
     {
-        [MaxLength(50)]
-        public string Name { get; set; }
-        [MaxLength(15)]
-        public string Mobilenumber { get; set; }
-        [MaxLength(100)]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-        [MaxLength(50)]
-        public string IdentifierIdNumber { get; set; }
-        public bool AppBlocked { get; set; } = false;
 
+        [Required]
+        [MaxLength(20)]
+        public string FirstName { get; set; } = "";
 
+        [MaxLength(20)]
+        public string LastName { get; set; } = "";
+        //[MaxLength(20)]
+        [DataType(DataType.PhoneNumber)]
+        public long? MobileNumber { get; set; }
+
+        [MaxLength(20)]
+        [Required]
+        public string IdentityId { get; set; } = "";
+
+        [MaxLength(20)]
+        public string PassportNumber { get; set; } = "";
     }
 }

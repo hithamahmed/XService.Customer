@@ -2,10 +2,30 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Interface\**" />
+    <Compile Remove="Repositories\**" />
+    <EmbeddedResource Remove="Interface\**" />
+    <EmbeddedResource Remove="Repositories\**" />
+    <None Remove="Interface\**" />
+    <None Remove="Repositories\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="DTO\ServiceDocumentsRequirementsDTO.cs" />
+    <Compile Remove="DTO\ServiceIssuedDocumentsDTO.cs" />
+    <Compile Remove="FrontCore\ConsumersFrontServices.cs" />
     <Compile Remove="MapperConfig.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Interface\IServiceIssuedDocumentsCore.cs" />
+    <Compile Include="Interface\IServiceRequiredDocumentsCore.cs" />
+    <Compile Include="Repositories\ServiceIssuedDocumentsCore.cs" />
+    <Compile Include="Repositories\ServiceRequiredDocumentsCore.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +37,11 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="BackCore\" />
+    <Folder Include="FrontCore\" />
   </ItemGroup>
 
 </Project>

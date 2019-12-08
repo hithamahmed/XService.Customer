@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "ServicesDocuments";
     var cntlname = ViewContext.RouteData.Values["Page"].ToString();
+    var serviceRefId = Model.serviceRequiredDocuments.serviceRefId;
 }
 
 <!-- begin:: Content Head -->
@@ -29,14 +30,18 @@
                     <div class="kt-portlet__head-toolbar">
                         <div class="kt-portlet__head-wrapper">
                             <div class="kt-portlet__head-actions">
-                                <a asp-page="/GeneralPages/ServiceCategories/Services" class="btn btn-dark btn-icon-sm">
+                                <a asp-page="/ServiceDocuments/Services" class="btn btn-dark btn-icon-sm">
                                     <i class="flaticon2-back"></i>
                                     Back
                                 </a>
                                 <partial name="_Exportbar" />
                                 &nbsp;
 
-                                <a href="#" onclick="AddEditForm('&Serviceid=' + @Model.manageServiceDTO.ServiceCategory.RefId,0,'@cntlname','AddEditServiceRequiredDocs','RefId')" class="btn btn-brand btn-elevate btn-icon-sm">
+                                @*<a href="#" onclick="AddEditForm('&Serviceid=' + @Model.manageServiceDTO.Product.RefId,0,'@cntlname','AddEditServiceRequiredDocs','RefId')" class="btn btn-brand btn-elevate btn-icon-sm">
+            <i class="la la-plus"></i>
+            New Required Documents
+        </a>*@
+                                <a href="#" onclick="AddEditForm('&Serviceid=' + @serviceRefId,0,'@cntlname','AddEditServiceRequiredDocs','RefId')" class="btn btn-brand btn-elevate btn-icon-sm">
                                     <i class="la la-plus"></i>
                                     New Required Documents
                                 </a>
@@ -59,31 +64,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (Model.manageServiceDTO.serviceDocumentsRequirements != null)
+                                @if (Model.serviceRequiredDocuments != null && Model.serviceRequiredDocuments.ProductDocumentsRequirements != null)
                                 {
-                                    @foreach (var item in Model.manageServiceDTO.serviceDocumentsRequirements)
+                                    @foreach (var item in Model.serviceRequiredDocuments.ProductDocumentsRequirements)
                                     {
-                                <tr>
-                                    <td>
-                                        @item.Name
-                                    </td>
-                                    <td>
-                                        @item.Description
-                                    </td>
-                                    <td>
-                                        @if (item.IsRequired)
-                                        {<i class="flaticon2-check-mark"></i>}
-                                        else
-                                        {<i class="flaticon2-line"></i>}
-                                    </td>
-                                    <td>
-                                        <div class="btn-group " role="group">
-                                            <button type="button" onclick="AddEditForm('&Serviceid=' + @item.ServiceId,@item.RefId,'@cntlname','AddEditServiceRequiredDocs','RefId')" class="btn btn-sm btn-warning ">edit</button>
-                                            <form method="post"><button type="submit" asp-page-handler="DisableServiceRequiredDocs" asp-route-RefId="@item.RefId" asp-route-serviceid="@item.ServiceId"  onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete"></i></button></form>
-                                        </div>
-                                    </td>
+                                        <tr>
+                                            <td>
+                                                @item.Name
+                                            </td>
+                                            <td>
+                                                @item.Description
+                                            </td>
+                                            <td>
+                                                @if (item.IsRequired)
+                                                {<i class="flaticon2-check-mark"></i>}
+                                                else
+                                                {<i class="flaticon2-line"></i>}
+                                            </td>
+                                            <td>
+                                                <div class="btn-group " role="group">
+                                                    <button type="button" onclick="AddEditForm('&Serviceid=' + @item.ProductUKey,@item.RefId,'@cntlname','AddEditServiceRequiredDocs','RefId')" class="btn btn-sm btn-warning ">edit</button>
+                                                    @*<button type="button" onclick="AddEditForm('&Serviceid=' + @item.ProductId,@item.RefId,'@cntlname','AddEditServiceRequiredDocs','RefId')" class="btn btn-sm btn-warning ">edit</button>*@
+                                                    <form method="post"><button type="submit" asp-page-handler="DisableServiceRequiredDocs" asp-route-RefId="@item.RefId" asp-route-serviceid="@item.ProductUKey" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete"></i></button></form>
+                                                </div>
+                                            </td>
 
-                                </tr>
+                                        </tr>
                                     }
                                 }
                             </tbody>
@@ -105,7 +111,7 @@
                 //scroller: true,
                 fixedHeader: true
                 , order: [[0, 'asc']],
-                rowGroup: { dataSrc: 0 },
+                //rowGroup: { dataSrc: 0 },
                 dom: 'Bfrtip',
                 buttons: [
                     {

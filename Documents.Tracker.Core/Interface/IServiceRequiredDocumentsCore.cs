@@ -1,4 +1,6 @@
 ﻿using Documents.Tracker.Core.DTO;
+using General.Services.Core.DTO;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,26 +13,26 @@ namespace Documents.Tracker.Core
         /// </summary>
         /// <param name="serviceDocumentsRequirements"></param>
         /// <returns></returns>
-        public Task<int> AddEditServiceRequiredDocuments(ServiceDocumentsRequirementsDTO serviceDocumentsRequirements);
+        public Task<int> AddEditServiceRequiredDocuments(ProductDocumentsRequirementsOTO serviceDocumentsRequirements);
 
         /// <summary>
         /// Delete Required Documents by id
         /// </summary>
         /// <param name="ServiceId"></param>
         /// <returns></returns>
-        public Task<int> EnableDisableServiceRequiredDocuments(int ServiceId);
+        public Task<int> EnableDisableServiceRequiredDocuments(int requiredDocId);
 
         /// <summary>
         /// Get single required documents
         /// </summary>
         /// <param name="requiredDocsId"></param>
         /// <returns></returns>
-        public Task<ServiceDocumentsRequirementsDTO> GetServiceRequiredDocument(int requiredDocId);
+        public Task<ProductDocumentsRequirementsOTO> GetServiceRequiredDocument(int requiredDocId);
         /// <summary>
         /// Get all required documents by service id
         /// </summary>
         /// <param name="serviceId"></param>
         /// <returns></returns>
-        Task<ICollection<ServiceDocumentsRequirementsDTO>> GetRequiredDocumentsByServiceId(int serviceId);
+        Task<ICollection<ProductDocumentsRequirementsOTO>> GetRequiredDocumentsByServiceId(int productUKey);
     }
 }

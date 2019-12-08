@@ -1,5 +1,7 @@
 ﻿using ApplicationCore.Interfaces;
 using Documents.Tracking.Data.Entities;
+using General.App.Consumers.Core.Entities;
+using General.Services.Core.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,14 @@ namespace Documents.Tracker.Data
     {
 
         public DbSet<DocRequirements> DocRequirements { get; set; }
-        public DbSet<DocFinal> DocIssued { get; set; }
+        public DbSet<DocIssued> DocIssued { get; set; }
+        //public DbSet<ConsumerServices> ConsumerServices { get; set; }
+        //public DbSet<Category> Categories { get; set; }
+
+        //public DbSet<Product> Products { get; set; }
+        //public DbSet<ProductImages> ProductImages { get; set; }
+
+
 
 
         public DocumentContext(DbContextOptions<DocumentContext> options)
@@ -24,6 +33,11 @@ namespace Documents.Tracker.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Ignore<Product>();
+            //modelBuilder.Ignore<ProductImages>();
+            //modelBuilder.Ignore<Category>();
+
+
             GeneralQueryFilter(modelBuilder);
         }
 

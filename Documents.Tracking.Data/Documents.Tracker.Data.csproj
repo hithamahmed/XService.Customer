@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,10 +17,8 @@
     <Compile Remove="Entities\ShiftPeriods.cs" />
     <Compile Remove="Entities\Shifts.cs" />
     <Compile Remove="EntityBase.cs" />
-    <Compile Remove="Migrations\20191030123219_initial-document issued.cs" />
-    <Compile Remove="Migrations\20191030123219_initial-document issued.Designer.cs" />
-    <Compile Remove="Migrations\20191030123557_initial-document issued.cs" />
-    <Compile Remove="Migrations\20191030123557_initial-document issued.Designer.cs" />
+    <Compile Remove="Migrations\20191205133156_documents.cs" />
+    <Compile Remove="Migrations\20191205133156_documents.Designer.cs" />
     <Compile Remove="ServiceRequiredDocuments.cs" />
   </ItemGroup>
 
@@ -29,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\..\services\General.AppClients.Core\General.App.Consumers.Core.csproj" />
     <ProjectReference Include="..\..\services\General.Services.Core\General.Services.Core.csproj" />
   </ItemGroup>
 

@@ -16,15 +16,14 @@ namespace Documents.Tracker.UI.Web.Pages.Staffs
     public class EmployeesModel : PageModel
     {
         private IEmployees employeeRepos { get; set; }
-        public IMapper mapper { get; set; }
+        //public IMapper mapper { get; set; }
         public IEnumerable<EmployeeDTO> EmployeesList { get; set; }
 
-        public EmployeesModel(IEmployees _employeeRepos,
-             IMapper _mapper)
+        public EmployeesModel(IEmployees _employeeRepos)
         {
             employeeRepos = _employeeRepos;
  
-            mapper = _mapper;
+            //mapper = _mapper;
         }
 
         public async Task<IActionResult> OnGet()

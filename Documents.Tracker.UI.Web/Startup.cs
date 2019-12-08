@@ -53,7 +53,8 @@ namespace Documents.Tracker.UI.Web
             services.ApplicationInfraSetup(defConn);
             services.AppLocalizationSetup(defConn);
             services.DocumentCoreSetup(defConn);
-            services.GeneralContextSetup(defConn);
+            //services.RegisterAllTypes<IInvoicingService>(new[] { typeof(Startup).Assembly });
+            //services.GeneralContextSetup(defConn);
             services.StaffCoreSetup(defConn);
             //var mapperconfig = new MapperConfiguration(confg =>
             //confg.AddMaps(

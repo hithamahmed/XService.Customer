@@ -8,49 +8,55 @@ using AutoMapper;
 using Documents.Tracker.Core;
 using Documents.Tracker.Core.DTO;
 using General.Services.Core;
+using General.Services.Core.DTO;
+using General.Services.Core.Interface;
+using Documents.Tracker.UI.Web.DTO;
 
 namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 {
     public class ServicesIssuedDocumentsModel : PageModel
     {
-        private IServiceIssuedDocumentsCore serviceIssuedDocuments { get; set; }
-        public IServicesCategory servicesCategory { get; set; }
-        public IMapper mapper { get; set; }
-        public ManageServiceDTO manageServiceDTO { get; set; }
+        private readonly IQueryProductDocuments queryServiceDocuments;
+        private readonly ICommandProductDocuments commandProductDocuments;
+       // public IProducts servicesCategory { get; set; }
+        //public IMapper mapper { get; set; }
+        public ManageServiceIssueDocumentsOTO serviceIssueDocumentsOTO { get; set; }
 
-        public ServicesIssuedDocumentsModel(IServiceIssuedDocumentsCore _serviceIssuedDocuments,
-            IServicesCategory _servicesCategory, IMapper _mapper)
+        public ServicesIssuedDocumentsModel(
+            IQueryProductDocuments _queryserviceDocuments,
+            ICommandProductDocuments _commandProductDocuments)
+            //IProducts _servicesCategory)
         {
-            serviceIssuedDocuments = _serviceIssuedDocuments;
-            servicesCategory = _servicesCategory;
-            mapper = _mapper;
+            queryServiceDocuments = _queryserviceDocuments;
+            commandProductDocuments = _commandProductDocuments;
+            //servicesCategory = _servicesCategory;
+            //mapper = _mapper;
         }
 
         public async Task<IActionResult> OnGet(int serviceRefId)
         {
-            var servicecategory = await servicesCategory.GetServiceCategoryById(serviceRefId);
-            var serviceDocumentsRequirements = await serviceIssuedDocuments.GetIssuedDocumentsByServiceId(serviceRefId);
+            //var servicecategory = await queryServiceDocuments.GetProductByUKey(serviceRefId);
+            var issueddocs = await queryServiceDocuments.GetIssuedDocumentsByServiceId(serviceRefId);
+            serviceIssueDocumentsOTO = new ManageServiceIssueDocumentsOTO();
+            serviceIssueDocumentsOTO.serviceRefId = serviceRefId;
+            serviceIssueDocumentsOTO.serviceIssueDocumentsDTO = issueddocs;
 
-            manageServiceDTO = new ManageServiceDTO();
-            manageServiceDTO.ServiceCategory = servicecategory;
-            manageServiceDTO.serviceIssuedDocuments = serviceDocumentsRequirements;
             return Page();
         }
 
-        public async Task<IActionResult> OnGetAddEditServiceIssuedDocsAsync(int Serviceid, int RefId)
+        public async Task<IActionResult> OnGetAddEditServiceIssuedDocsAsync(int Serviceid,int RefId)
         {
             try
             {
-                ServiceIssuedDocumentsDTO documentsRequirements = new ServiceIssuedDocumentsDTO
-                {
-                    ServiceId = Serviceid
+                ProductIssuedDocumentsOTO ProductIssuedDocuments = new ProductIssuedDocumentsOTO {
+                    ProductUKey = Serviceid
                 };
 
                 if (RefId > 0)
                 {
-                    documentsRequirements = await serviceIssuedDocuments.GetServiceIssuedDocument(RefId);
+                    ProductIssuedDocuments = await queryServiceDocuments.GetServiceIssuedDocument(RefId);
                 }
-                return Partial("_AddEditIssuedDocs", documentsRequirements);
+                return Partial("_AddEditIssuedDocs", ProductIssuedDocuments);
             }
             catch (Exception ex)
             {
@@ -58,15 +64,15 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
                 return RedirectToPage();
             }
         }
-        public IActionResult OnPostSaveServiceIssuedDocs(ServiceIssuedDocumentsDTO service)
+        public IActionResult OnPostSaveServiceIssuedDocs(ProductIssuedDocumentsOTO service)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return RedirectToPage();
 
-                int i = serviceIssuedDocuments.AddEditServiceIssuedDocuments(service).Result;
-                return RedirectToPage("ServicesIssuedDocuments", new { serviceRefId = service.ServiceId });
+                int i = commandProductDocuments.AddEditServiceIssuedDocuments(service).Result;
+                return RedirectToPage("ServicesIssuedDocuments", new { serviceRefId = service.ProductUKey });
             }
             catch (Exception ex)
             {
@@ -78,7 +84,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
         {
             try
             {
-                int i = serviceIssuedDocuments.EnableDisableServiceIssuedDocuments(RefId).Result;
+                int i = commandProductDocuments.EnableDisableServiceIssuedDocuments(RefId).Result;
                 return RedirectToPage("ServicesIssuedDocuments", new { serviceRefId = serviceid });
             }
             catch (Exception ex)

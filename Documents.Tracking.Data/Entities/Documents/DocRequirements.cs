@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using General.Services.Core.Entity;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,10 +8,11 @@ namespace Documents.Tracking.Data.Entities
 {
     public class DocRequirements : EntityBase
     {
-        [ForeignKey("ServiceId")]
-        public virtual ServiceCategory ServiceCategory { get; set; }
+        [ForeignKey("ProductUKey")]
+        //[NotMapped]
+        public virtual Product Product { get; set; }
         [Required]
-        public int ServiceId { get; set; }
+        public int ProductUKey { get; set; }
 
         [Required]
         [MaxLength(50)]
