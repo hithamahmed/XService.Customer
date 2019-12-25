@@ -35,7 +35,7 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
 
         public async Task<IActionResult> OnGet()
         {
-            ICollection<CategoriesOTO> categoriesList = new List<CategoriesOTO>();
+            //ICollection<CategoriesOTO> categoriesList = new List<CategoriesOTO>();
             Categories = await generalService.GetAllCategoriesWithSubs();
             //IQueryable<CategoriesOTO> _QueryCats = Categories.AsQueryable();
             //foreach (var parentcat in categoriesList)

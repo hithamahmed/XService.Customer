@@ -17,7 +17,7 @@ namespace Documents.Tracker.Core.DTO
         public virtual Product Product { get; set; }
         public int ConsumerId { get; set; }
         public int ProductId { get; set; }
-
+        public string ProductUKey { get; set; }
         [DataType(DataType.Date)] public DateTime StartDate { get; set; } 
 
         [DataType(DataType.Date)] public DateTime? FinishedDate { get; set; }

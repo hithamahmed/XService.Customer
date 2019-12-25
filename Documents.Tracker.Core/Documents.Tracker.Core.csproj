@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="DTO\General\ServicesOTO.cs" />
     <Compile Remove="DTO\ServiceDocumentsRequirementsDTO.cs" />
     <Compile Remove="DTO\ServiceIssuedDocumentsDTO.cs" />
     <Compile Remove="FrontCore\ConsumersFrontServices.cs" />
@@ -30,6 +31,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\..\..\Security\Application.XIdentity.Core\Application.XIdentity.Core.csproj" />
+    <ProjectReference Include="..\..\Orders\Orders.Data\Orders.Data.csproj" />
     <ProjectReference Include="..\..\services\General.AppClients.Core\General.App.Consumers.Core.csproj" />
     <ProjectReference Include="..\..\services\General.Services.Core\General.Services.Core.csproj" />
     <ProjectReference Include="..\Documents.Tracking.Data\Documents.Tracker.Data.csproj" />

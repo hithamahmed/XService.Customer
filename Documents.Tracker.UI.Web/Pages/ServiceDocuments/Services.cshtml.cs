@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 {
+    //[AutoValidateAntiforgeryToken]
     public class ServicesModel : PageModel
     {
         private readonly IQueryGeneralService generalService;
@@ -55,6 +56,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
                 return RedirectToPage();
             }
         }
+        
         public IActionResult OnPostSaveService(ProductOTO service)
         {
             try

@@ -31,7 +31,7 @@
                     <div class="kt-portlet__head-toolbar">
                         <div class="kt-portlet__head-wrapper">
                             <div class="kt-portlet__head-actions">
-                                <partial name="_Exportbar" />
+                                @*<partial name="_Exportbar" />*@
                                 &nbsp;
                                 <a href="#" onclick="AddEdit(0,'@cntlname','AddEditService','RefId')" class="btn btn-brand btn-elevate btn-icon-sm">
                                     <i class="la la-plus"></i>
@@ -79,6 +79,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group">
+                                            <button type="button" onclick="AddEdit('@item.RefId','@cntlname','AddEditService','RefId')" class="btn btn-sm btn-warning ">edit</button>
                                             <form method="post"><button type="submit" asp-page-handler="DisableService" asp-route-RefId="@item.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-danger btn-icon "><i class="flaticon-delete"></i></button></form>
                                             <button type="button" onclick="AddEditForm('&categoryid=' + @item.RefId,@item.RefId,'@cntlname','ChangeCategory','RefId')" class="btn btn-sm btn-dark ">Change Category</button>
                                             <form method="get"><a asp-page="/ServiceDocuments/ServicesRequiredDocument" asp-route-serviceRefId="@item.RefId" class="btn btn-sm btn-warning btn-icon "><i class="flaticon2-document"></i></a></form>
@@ -115,7 +116,7 @@
                 //scroller: true,
                 fixedHeader: true
                 , order: [[0, 'asc']],
-                rowGroup: { dataSrc: 0 },
+                rowGroup: { dataSrc: 2 },
                 dom: 'Bfrtip',
                 buttons: [
                     {

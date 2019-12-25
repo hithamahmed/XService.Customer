@@ -48,12 +48,15 @@ namespace Documents.Tracker.Core.Config.Mapper
             CreateMap<GovernmentDTO, GovernmentOTO>().ReverseMap();
             CreateMap<LocationAreaDTO, LocationAreasOTO>().ReverseMap();
             CreateMap<CategoryDTO, CategoriesOTO>().ReverseMap();
-            CreateMap<ProductDTO, ServicesOTO>()
-                .ForMember(x => x.ProductId, o => o.MapFrom(s => s.RefId))
-                .ReverseMap();
+            //CreateMap<ProductDTO, ServicesOTO>()
+            //    .ForMember(x => x.ProductId, o => o.MapFrom(s => s.RefId))
+            //    .ReverseMap();
 
             CreateMap<Category, CategoriesOTO>().ForMember(x => x.RefId, o => o.Ignore()).ReverseMap();
-            CreateMap<Product, ProductOTO>().ForMember(x => x.RefId, o => o.Ignore()).ReverseMap();
+            CreateMap<Product, ProductOTO>()
+                .ForMember(x => x.ProductUKey, o => o.MapFrom(s => s.UKey))
+                .ForMember(x => x.RefId, o => o.Ignore())
+                .ReverseMap();
             CreateMap<ProductDTO, ProductOTO>().ReverseMap();
 
         }

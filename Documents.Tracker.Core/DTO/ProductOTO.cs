@@ -7,6 +7,8 @@ namespace Documents.Tracker.Core.DTO
 {
     public class ProductOTO : CoreBaseOTO
     {
+        [MaxLength(200)]
+        public string ProductUKey { get; set; }
         [MaxLength(50)]
         public string Code { get; set; }
 
@@ -26,9 +28,11 @@ namespace Documents.Tracker.Core.DTO
         [DisplayFormat(DataFormatString = "{0:0.###}")]
         public decimal Price { get; set; }
 
-        public int? AvailableStock { get; set; } = 0;
+         
+        //public int? AvailableStock { get; set; } = 0;
 
         public CategoriesOTO Category { get; set; }
+
         [AutoMapper.IgnoreMap]
         public ICollection<CategoriesOTO> Categories { get; set; }
     }

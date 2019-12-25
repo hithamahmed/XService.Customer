@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
+using Application.XIdentity.Core.Setup;
 namespace Documents.Tracker.Core.Config
 {
     public static class DocumentCoreConfig
@@ -36,6 +36,7 @@ namespace Documents.Tracker.Core.Config
 
             services.ClientsCoreSetup(connectionstring);
             services.GeneralContextSetup(connectionstring);
+            services.IdentityCoreSetup(connectionstring);
 
             return services.AddDbContext<DocumentContext>(options =>
             {

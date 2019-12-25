@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Orders.Data.Config;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -56,6 +57,8 @@ namespace Documents.Tracker.UI.Web
             //services.RegisterAllTypes<IInvoicingService>(new[] { typeof(Startup).Assembly });
             //services.GeneralContextSetup(defConn);
             services.StaffCoreSetup(defConn);
+            services.OrderContextSetup(defConn);
+            
             //var mapperconfig = new MapperConfiguration(confg =>
             //confg.AddMaps(
             //    new[] { "Documents.Tracker.Core", "General.Services.Core" }
@@ -115,7 +118,7 @@ namespace Documents.Tracker.UI.Web
                         "public,max-age=" + durationInSeconds;
                 }
             });
-            app.UseMiddleware<StackifyMiddleware.RequestTracerMiddleware>();
+            //app.UseMiddleware<StackifyMiddleware.RequestTracerMiddleware>();
 
             app.UseCookiePolicy();
 
