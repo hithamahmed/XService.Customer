@@ -1,6 +1,5 @@
 ﻿using ApplicationCore.Interfaces;
 using Documents.Tracking.Data.Entities;
-using General.App.Consumers.Core.Entities;
 using General.Services.Core.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;

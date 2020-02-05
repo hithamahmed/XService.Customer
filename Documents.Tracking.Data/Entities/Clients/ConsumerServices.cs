@@ -1,5 +1,4 @@
 ﻿using ApplicationCore.Entities;
-using General.App.Consumers.Core.Entities;
 using General.Services.Core.Entity;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +8,7 @@ namespace Documents.Tracking.Data.Entities
     public class ConsumerServices : ApplicationCore.Entities.EntityBase
     {
         [ForeignKey("ConsumerId")]
-        public virtual Consumer Consumers { get; set; }
+        public virtual Application.XIdentity.Core.CustomUser Consumers { get; set; }
         public int ConsumerId { get; set; }
 
         [ForeignKey("ProductUKey")]

@@ -1,5 +1,4 @@
 ﻿using ApplicationCore.Entities;
-using General.App.Consumers.Core.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Documents.Tracking.Data.Entities
@@ -7,7 +6,7 @@ namespace Documents.Tracking.Data.Entities
     public class ClientServiceFollowUp : EntityBase
     {
         [ForeignKey("ConsumerId")]
-        public Consumer Clients { get; set; }
+        public Application.XIdentity.Core.CustomUser Clients { get; set; }
         [Required]public int ConsumerId { get; set; }
 
         [ForeignKey("ServiceId")]

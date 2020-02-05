@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Entities\DocumentsFiles\DocumentAttachmentFiles.cs" />
     <Compile Remove="Entities\Documents\DocServiceCategory.cs" />
     <Compile Remove="Entities\Documents\DocServices.cs" />
     <Compile Remove="Entities\Employees\EmployeeAttendance .cs" />
@@ -28,8 +29,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\..\..\files\ManageFiles.Data\ManageFiles.Data.csproj" />
     <ProjectReference Include="..\..\services\General.AppClients.Core\General.App.Consumers.Core.csproj" />
     <ProjectReference Include="..\..\services\General.Services.Core\General.Services.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\DocumentsFiles\" />
   </ItemGroup>
 
 </Project>
