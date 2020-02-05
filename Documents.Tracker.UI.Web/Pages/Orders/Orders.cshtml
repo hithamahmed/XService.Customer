@@ -1,9 +1,12 @@
 ﻿@page
-@model Documents.Tracker.UI.Web.Pages.AppConsumers.ConsumersModel
+@model Documents.Tracker.UI.Web.Pages.Orders.OrdersModel
 @{
-    ViewData["Title"] = "Consumers";
+    ViewData["Title"] = "Orders";
     var cntlname = ViewContext.RouteData.Values["Page"].ToString();
+
 }
+
+
 <!-- begin:: Content Head -->
 <div asp-validation-summary="All" class="text-danger"></div>
 <div class="kt-subheader  kt-grid__item" id="kt_subheader">
@@ -12,6 +15,7 @@
     </div>
 </div>
 <!-- end:: Content Head -->
+
 
 
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
@@ -24,7 +28,7 @@
                             <i class="kt-font-brand flaticon2-architecture-and-city"></i>
                         </span>
                         <h3 class="kt-portlet__head-title">
-                            Consumers
+                            Orders
                         </h3>
                     </div>
                     <div class="kt-portlet__head-toolbar">
@@ -33,10 +37,10 @@
                                 <partial name="_Exportbar" />
                                 &nbsp;
 
-                                <a href="#" onclick="AddEdit(0,'@cntlname','AddEditConsumer','RefId')" class="btn btn-brand btn-elevate btn-icon-sm">
+                                @*<a href="#" onclick="AddEdit(0,'@cntlname','AddEditConsumer','RefId')" class="btn btn-brand btn-elevate btn-icon-sm">
                                     <i class="la la-plus"></i>
                                     New Consumer
-                                </a>
+                                </a>*@
                             </div>
                         </div>
                     </div>
@@ -49,32 +53,32 @@
                         <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
                             <thead>
                                 <tr>
-                                    <th width="10%">Full Name</th>
+                                    <th width="10%">Id</th>
                                     @*<th width="10%">Identity Id</th>*@
-                                    <th width="10%">Phone Number</th>
+                                    <th width="10%">Start Date</th>
                                     <th width="10%" class="notexport"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (Model.ConsumerList != null)
+                                @if (Model.orders != null)
                                 {
-                                    @foreach (var item in Model.ConsumerList)
+                                    @foreach (var item in Model.orders)
                                     {
                                         <tr>
                                             <td>
-                                                @item.FullName
+                                                <a asp-page="/Orders/OrderDetails" asp-route-id="@item.OrderKey" >@item.OrderKey</a>  
                                             </td>
-                                                @*
-                                                    <td>@item.IdentityId</td>
-                                                *@
+                                            @*
+                                                <td>@item.IdentityId</td>
+                                            *@
                                             <td>
-                                                @item.PhoneNumber
+                                                @item.OrderDate
                                             </td>
                                             <td>
                                                 <div class="btn-group " role="group">
-                                                    <button type="button" onclick="AddEdit('@item.RefId','@cntlname','AddEditConsumer','RefId')" class="btn btn-sm btn-warning ">edit</button>
-                                                    <form method="post"><button type="submit" asp-page-handler="DisableConsumer" asp-route-RefId="@item.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete-1"></i></button></form>
-                                                    <form method="get"><a asp-page="/AppConsumers/ConsumerAddress" asp-route-ConsumerRefId="@item.RefId" class="btn btn-sm  btn-icon "><i class="flaticon2-pin"></i></a></form>
+                                                    <button type="button" onclick="AddEdit('@item.OrderKey','@cntlname','AddEditConsumer','RefId')" class="btn btn-sm btn-warning ">edit</button>
+                                                    <form method="post"><button type="submit" asp-page-handler="DisableConsumer" asp-route-RefId="@item.OrderKey" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete-1"></i></button></form>
+                                                    <form method="get"><a asp-page="/AppConsumers/ConsumerAddress" asp-route-ConsumerRefId="@item.OrderKey" class="btn btn-sm  btn-icon "><i class="flaticon2-pin"></i></a></form>
                                                 </div>
                                             </td>
                                         </tr>

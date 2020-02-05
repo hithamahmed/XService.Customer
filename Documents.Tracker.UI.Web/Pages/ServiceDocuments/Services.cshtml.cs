@@ -14,14 +14,17 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
     //[AutoValidateAntiforgeryToken]
     public class ServicesModel : PageModel
     {
+        private readonly IQueryProductServices _productServices;
         private readonly IQueryGeneralService generalService;
         private readonly ICommandGeneralService commandGeneralService;
-        public ICollection<ProductOTO> productServices { get; set; }
+        public ICollection<ProductOTO> ProductsList { get; set; }
 
         public ServicesModel(
+            IQueryProductServices productServices,
             IQueryGeneralService _generalService,
             ICommandGeneralService _commandGeneralService)
         {
+            _productServices = productServices;
             generalService = _generalService;
             commandGeneralService = _commandGeneralService;
         }
@@ -30,7 +33,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 
         public async Task<IActionResult> OnGet()
         {
-            productServices = await generalService.GetListOfProductsWithCategory();
+            ProductsList = await _productServices.GetListOfProductsWithCategory();
             return Page();
         }
 

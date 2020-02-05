@@ -39,35 +39,16 @@ namespace Documents.Tracker.UI.Web
  
             string defConn = Configuration.GetConnectionString("DefaultConnection");
 
-            //IMapper mapper = MapperSetup.IMapperSetup();
-            //services.AddSingleton(mapper);
-
-            //IMapper Docmapper = Documents.Tracker.Core.Config.Mapper.MapperSetup.IMapperSetup();
-            //services.AddSingleton(Docmapper);
-
-
-            //services.AddScoped<ICountries, CountryServices>();
-            //services.AddScoped<IServicesCategory, ServiceCategoryServices>();
-
-            //services.AddScoped<IServiceRequiredDocumentsCore, ServiceRequiredDocumentsCore>();
-            //services.AddScoped<IServiceIssuedDocumentsCore, ServiceIssuedDocumentsCore>();
             services.ApplicationInfraSetup(defConn);
             services.AppLocalizationSetup(defConn);
             services.DocumentCoreSetup(defConn);
             //services.RegisterAllTypes<IInvoicingService>(new[] { typeof(Startup).Assembly });
-            //services.GeneralContextSetup(defConn);
-            services.StaffCoreSetup(defConn);
-            services.OrderContextSetup(defConn);
-            
-            //var mapperconfig = new MapperConfiguration(confg =>
-            //confg.AddMaps(
-            //    new[] { "Documents.Tracker.Core", "General.Services.Core" }
-            //    ));
-            //IMapper Docmapper = mapperconfig.CreateMapper();
-            //services.AddSingleton(Docmapper);
-
-
+            //services.StaffCoreSetup(defConn);
+            //services.OrderContextSetup(defConn);
+           
             services.AddLocalization();
+            
+
             services.Configure<RequestLocalizationOptions>(
                        options =>
                        {

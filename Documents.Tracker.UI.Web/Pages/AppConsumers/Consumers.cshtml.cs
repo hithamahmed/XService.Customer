@@ -17,10 +17,11 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 
         public ConsumersModel(
             IQueryConsumersServices _consumersServices,
-            ICommandConsumerServices _commandConsumer)
+            ICommandConsumerServices _commandConsumer
+            )
         {
             consumersServices = _consumersServices;
-            commandConsumer = _commandConsumer;
+            //commandConsumer = _commandConsumer;
         }
 
         public async Task<IActionResult> OnGet()
@@ -40,23 +41,23 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 
         }
 
-        public async Task<IActionResult> OnGetAddEditConsumerAsync(int RefId)
+        public async Task<IActionResult> OnGetAddEditConsumerAsync(string RefId)
         {
             ConsumerOTO consumer  = new ConsumerOTO();
-            if (RefId > 0)
+            if (!string.IsNullOrWhiteSpace(RefId))
             {
                 consumer = await consumersServices.GetSingleConsumerByConusmerId(RefId);
             }
             return Partial("_AddEditConsumer", consumer);
         }
-        public IActionResult OnPostSaveConsumer(ConsumerOTO conusmer)
+        public async Task<IActionResult> OnPostSaveConsumer(ConsumerOTO conusmer)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return RedirectToPage();
 
-                int i = commandConsumer.AddOrEditConsumerByConsumer(conusmer).Result;
+                int i = await commandConsumer.EditConsumerProfile(conusmer);
                 return RedirectToPage();
             }
             catch (Exception ex)
@@ -72,7 +73,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
         {
             try
             {
-                int i = commandConsumer.SetEnableDisableConsumerByConusmerId(RefId).Result;
+                //int i = commandConsumer.SetEnableDisableConsumerByConusmerId(RefId).Result;
                 return RedirectToPage();
             }
             catch (Exception ex)

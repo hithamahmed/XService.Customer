@@ -8,32 +8,35 @@
 
         <div class="kt-portlet__body">
             <div class="form-group row">
-                <div class="col-lg-12">
-                    <label>First Name:</label>
-                    <input asp-for="FirstName"required class="form-control" placeholder="ex: Legal, Private, Government, Foods">
-                    <span class="form-text text-muted">First Name</span>
-                </div>
+                @*<div class="col-lg-12">
+            <label>First Name:</label>
+            <input asp-for="FirstName"required class="form-control" placeholder="ex: Legal, Private, Government, Foods">
+            <span class="form-text text-muted">First Name</span>
+        </div>
 
+        <div class="col-lg-12">
+            <label>Last Name:</label>
+            <input asp-for="LastName" class="form-control" placeholder="ex: Legal, Private, Government, Foods">
+            <span class="form-text text-muted">First Name</span>
+        </div>*@
                 <div class="col-lg-12">
-                    <label>Last Name:</label>
-                    <input asp-for="LastName" class="form-control" placeholder="ex: Legal, Private, Government, Foods">
-                    <span class="form-text text-muted">First Name</span>
+                    <label>Full Name:</label>
+                    <input asp-for="FullName" class="form-control">
                 </div>
                 <div class="col-lg-12">
-                    <label>Passport Number:</label>
-                    <input asp-for="MobileNumber" type="tel" class="form-control" placeholder="ex: Legal, Private, Government, Foods">
-                    <span class="form-text text-muted">Passport Number</span>
+                    <label>Phone Number:</label>
+                    <input asp-for="PhoneNumber" type="tel" class="form-control">
                 </div>
-                <div class="col-lg-12">
-                    <label>Identity Id:</label>
-                    <input asp-for="IdentityId" required class="form-control" placeholder="ex: Legal, Private, Government, Foods">
-                    <span class="form-text text-muted">Identity Id</span>
-                </div>
-                <div class="col-lg-12">
-                    <label>Passport Number:</label>
-                    <input asp-for="PassportNumber" class="form-control" placeholder="ex: Legal, Private, Government, Foods">
-                    <span class="form-text text-muted">Passport Number</span>
-                </div>
+                @*<div class="col-lg-12">
+            <label>Identity Id:</label>
+            <input asp-for="IdentityId" required class="form-control" placeholder="ex: Legal, Private, Government, Foods">
+            <span class="form-text text-muted">Identity Id</span>
+        </div>
+        <div class="col-lg-12">
+            <label>Passport Number:</label>
+            <input asp-for="PassportNumber" class="form-control" placeholder="ex: Legal, Private, Government, Foods">
+            <span class="form-text text-muted">Passport Number</span>
+        </div>*@
             </div>
         </div>
         <div class="kt-portlet__foot">

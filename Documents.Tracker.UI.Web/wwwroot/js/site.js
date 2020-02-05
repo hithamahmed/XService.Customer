@@ -1,5 +1,36 @@
 ﻿
+var SetOrderStatus = function (e,h,ppvs) {
+    var ans = confirm("Are you sure ?");
+    var url = "" + e + "?handler=" + h + "&" + ppvs;
+    var orderkey
+    var statusid
 
+    if (ans) {
+        $.ajax({
+            type: "POST",
+            //headers: {
+            //    RequestVerificationToken:
+            //        $('input:hidden[name="__RequestVerificationToken"]').val()
+            //},
+            url: url,
+            //data: ppvs,
+            success: function () {
+                alert(" Saved.");
+            }
+        })
+    }
+
+    //$(function () {
+    //    $('#submit').on('click', function (evt) {
+    //        evt.preventDefault();
+    //        $.post('', $('form').serialize(), function () {
+    //            alert('Posted using jQuery');
+    //        });
+    //    });
+    //});
+
+
+}
 
 var AddEdit = function (pv, e, h ,p) {
     var url = "" + e + "?handler=" + h + "&" + p + "=" + pv;

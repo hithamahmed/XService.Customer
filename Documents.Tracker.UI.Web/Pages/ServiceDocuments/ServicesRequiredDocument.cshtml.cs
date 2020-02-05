@@ -25,8 +25,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 
         public ServicesRequiredDocumentsModel(
                         IQueryProductDocuments _serviceIssuedDocuments,
-                        ICommandProductDocuments _commandProductDocuments,
-                        IProducts _servicesCategory)
+                        ICommandProductDocuments _commandProductDocuments)
         {
             serviceDocuments = _serviceIssuedDocuments;
             commandProductDocuments = _commandProductDocuments;

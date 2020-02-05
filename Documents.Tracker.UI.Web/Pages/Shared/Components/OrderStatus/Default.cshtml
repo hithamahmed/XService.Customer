@@ -1,0 +1,13 @@
+﻿@using OrdersCore = global::Orders.Core.OrderExt
+@*
+
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var statuslist = Enum.GetNames(typeof(OrdersCore.OrderStatusEnums)).ToList();
+}
+
+@foreach (var item in statuslist)
+{
+    <button class="dropdown-item" type="button">@item.ToString()</button>
+}

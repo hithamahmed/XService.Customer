@@ -30,7 +30,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
             consumersServices = _consumersServices;
             commandConsumerServices = _commandConsumerServices;
         }
-        public async Task<IActionResult> OnGet(int ConsumerRefId)
+        public async Task<IActionResult> OnGet(string ConsumerRefId)
         {
             try
             {
