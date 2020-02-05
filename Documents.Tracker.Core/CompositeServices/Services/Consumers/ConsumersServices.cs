@@ -1,32 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.XIdentity.Core.DTO;
 using Documents.Tracker.Core.Config.Mapper;
 using Documents.Tracker.Core.DTO;
 using General.App.Consumers.Core;
-using General.App.Consumers.Core.DTO;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Documents.Tracker.Core
 {
     internal class ConsumersServices : MapperCore, IQueryConsumersServices, ICommandConsumerServices
     {
         //private readonly IConsumersProfileCore consumersProfileCore;
-        private readonly IConsumers consumersProfileCore;
-        private readonly IConsumerAddress consumersAddressCore;
-        public ConsumersServices(IConsumers _consumersProfileCore
-            , IConsumerAddress _consumersAddressCore)
+        private readonly IConsumersCore consumersProfileCore;
+        //private readonly IConsumerAddress consumersAddressCore;
+
+        public ConsumersServices(
+            //IConsumerAddress _consumersAddressCore,
+            IConsumersCore _consumersProfileCore
+            )
         {
             consumersProfileCore = _consumersProfileCore;
-            consumersAddressCore = _consumersAddressCore;
+            //consumersAddressCore = _consumersAddressCore;
         }
 
 
-        public async Task<ICollection<ConsumerAddressOTO>> GetAllConsumerAddressesByConsumerId(int consumerId)
+        public async Task<ICollection<ConsumerAddressOTO>> GetAllConsumerAddressesByConsumerId(string consumerId)
         {
             try
             {
-                var x = await consumersAddressCore.GetAllConsumerAddresses(consumerId);
+                var x = await consumersProfileCore.GetAllConsumerAddresses(consumerId);
                 return Mapper.Map<ICollection<ConsumerAddressOTO>>(x);
             }
             catch (Exception)
@@ -35,12 +37,13 @@ namespace Documents.Tracker.Core
                 throw;
             }
         }
+
         public async Task<ICollection<ConsumerOTO>> GetAllConsumers()
         {
             try
             {
                 var x = await consumersProfileCore.GetAllConsumers();
-                return Mapper.Map<ICollection<ConsumerOTO>>(x); 
+                return Mapper.Map<ICollection<ConsumerOTO>>(x);
             }
             catch (Exception)
             {
@@ -48,11 +51,12 @@ namespace Documents.Tracker.Core
                 throw;
             }
         }
+
         public async Task<ConsumerAddressOTO> GetSingleConsumerAddressByAddressId(int ConsumersAddressId)
         {
             try
             {
-                var x = await consumersAddressCore.GetConsumerAddressById(ConsumersAddressId);
+                var x = await consumersProfileCore.GetConsumerAddressById(ConsumersAddressId);
                 return Mapper.Map<ConsumerAddressOTO>(x);
             }
             catch (Exception)
@@ -61,11 +65,11 @@ namespace Documents.Tracker.Core
                 throw;
             }
         }
-        public async Task<ConsumerOTO> GetSingleConsumerByConusmerId(int conusmerId)
+        public async Task<ConsumerOTO> GetSingleConsumerByConusmerId(string conusmerId)
         {
             try
             {
-                var x = await consumersProfileCore.GetConsumerById(conusmerId);
+                var x = await consumersProfileCore.GetConsumerByKey(conusmerId);
                 return Mapper.Map<ConsumerOTO>(x);
             }
             catch (Exception)
@@ -74,7 +78,8 @@ namespace Documents.Tracker.Core
                 throw;
             }
         }
-        public async Task<ConsumersProfileOTO> GetSingleConsumerWithAddressByConsumerId(int consumerId)
+
+        public async Task<ConsumersProfileOTO> GetSingleConsumerWithAddressByConsumerId(string consumerId)
         {
             ConsumersProfileOTO manageAppConsumerDTO = new ConsumersProfileOTO();
             try
@@ -83,7 +88,7 @@ namespace Documents.Tracker.Core
                 manageAppConsumerDTO.Consumer = Mapper.Map<ConsumerOTO>(x);
 
                 var ConsumAddresses = await GetAllConsumerAddressesByConsumerId(consumerId);
-                   
+
                 manageAppConsumerDTO.AppConsumerAddresses = ConsumAddresses;
                 return manageAppConsumerDTO;
             }
@@ -93,12 +98,11 @@ namespace Documents.Tracker.Core
             }
         }
 
-
         public async Task<int> SetDefaultConsumerAddressByAddressId(int ConsumersAddressId)
         {
             try
             {
-                return await consumersAddressCore.SetConsumerAddressAsDefault(ConsumersAddressId);
+                return await consumersProfileCore.SetConsumerAddressAsDefault(ConsumersAddressId);
             }
             catch (Exception)
             {
@@ -106,36 +110,53 @@ namespace Documents.Tracker.Core
                 throw;
             }
         }
-        public async Task<int> SetEnableDisableConsumerByConusmerId(int conusmerId)
-        {
-            try
-            {
-                return await consumersProfileCore.EnableDisableConsumer(conusmerId);
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
-        }
+        //public async Task<int> SetEnableDisableConsumerByConusmerId(int conusmerId)
+        //{
+        //    try
+        //    {
+        //        return await consumersProfileCore.EnableDisableConsumer(conusmerId);
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
+
         public async Task<int> AddOrEditConsumerAddressByConsumer(ConsumerAddressOTO Consumer)
         {
             try
             {
                 var x = Mapper.Map<ConsumerAddressDTO>(Consumer);
-                return await consumersAddressCore.AddEditConsumerAddress(x);
+                return await consumersProfileCore.AddEditConsumerAddress(x);
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        public async Task<int> AddOrEditConsumerByConsumer(ConsumerOTO conusmer)
+
+        //public async Task<int> AddOrEditConsumerByConsumer(ConsumerOTO conusmer)
+        //{
+        //    try
+        //    {
+        //        var x = Mapper.Map<ConsumerDTO>(conusmer);
+        //        return await consumersProfileCore.AddEditConsumer(x);
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
+
+        public async Task<int> EditConsumerProfile(ConsumerOTO conusmer)
         {
             try
             {
                 var x = Mapper.Map<ConsumerDTO>(conusmer);
-                return await consumersProfileCore.AddEditConsumer(x);
+                return await consumersProfileCore.EditConsumerProfile(x);
             }
             catch (Exception)
             {
@@ -143,6 +164,5 @@ namespace Documents.Tracker.Core
                 throw;
             }
         }
-
     }
 }

@@ -2,9 +2,8 @@
 
 namespace Documents.Tracker.Core.DTO
 {
-    public class ProductDocumentsRequirementsOTO : DocumentBaseOTO
+    public class ProductIssuedDocumentsOTO : CoreBaseOTO
     {
-
 
         [Required]
         public int ProductUKey { get; set; }
@@ -15,11 +14,8 @@ namespace Documents.Tracker.Core.DTO
 
         [MaxLength(50)]
         public string Description { get; set; }
-
-        public bool IsRequired { get; set; }
-
+        [AutoMapper.IgnoreMap]
         public ProductOTO Product { get; set; }
-
 
     }
 }

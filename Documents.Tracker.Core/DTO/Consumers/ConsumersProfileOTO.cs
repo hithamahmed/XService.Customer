@@ -1,8 +1,5 @@
-﻿using General.App.Consumers.Core.DTO;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace Documents.Tracker.Core.DTO
 {

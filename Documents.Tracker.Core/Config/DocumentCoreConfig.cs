@@ -1,63 +1,84 @@
-﻿using Documents.Tracker.Core.Config.Mapper;
-//using Documents.Tracker.Core.DocumentCore.Consumers;
+﻿//using Documents.Tracker.Core.DocumentCore.Consumers;
 //using Documents.Tracker.Core.FrontCore;
-using Documents.Tracker.Data;
+using Application.Notifications.Core.Config;
+using Application.XIdentity.Core.Setup;
+using Documents.Tracker.Core.CompositeServices;
+using Documents.Tracker.Core.CompositeServices.Services.Documents;
+using Documents.Tracker.Core.CompositeServices.Services.Orders;
+using Documents.Tracker.Core.Repositories;
+using Documents.Tracker.Data.Setup;
+using General.App.Consumers.Core;
 using General.App.Consumers.Core.Config;
+using General.App.Consumers.Core.Repositories;
 using General.Services.Core.Setup;
+using ManageFiles.Core.Setup;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Orders.Core.Config;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Application.XIdentity.Core.Setup;
+
 namespace Documents.Tracker.Core.Config
 {
     public static class DocumentCoreConfig
     {
         public static IServiceCollection DocumentCoreSetup(this IServiceCollection services, string connectionstring)
         {
+            services.ConsumerCoreSetup();
+            services.AddNotificationsServices();
+            services.AddIdentityServices(connectionstring);
+            services.AddGeneralServices(connectionstring);
+            services.AddDocumentContext(connectionstring);
+            //services.AddTransient<IConsumers, ConsumerServices>();
+            services.AddOrdersServices(connectionstring);
+            services.AddManageFilesServices(connectionstring);
+
             //services.AddScoped<IGeneralCore, CountryGeneralCore>();
             //services.AddScoped<IConsumersProfileCore, ClientsGeneralCore>();
-            services.AddScoped<IServiceRequiredDocumentsCore, ServiceRequiredDocumentsCore>();
-            services.AddScoped<IServiceIssuedDocumentsCore, ServiceIssuedDocumentsCore>();
+            services.AddTransient<IServiceRequiredDocumentsCore, ServiceRequiredDocumentsCore>();
+            services.AddTransient<IServiceIssuedDocumentsCore, ServiceIssuedDocumentsCore>();
             //services.AddScoped<IConsumersServicesCore,ConsumerServicesCore>();
             //services.AddScoped<IConsumerFrontServices, ConsumersFrontServices>();
 
-            services.AddScoped<IQueryGeneralService, GeneralServices>();
-            services.AddScoped<ICommandGeneralService, GeneralServices>();
+            services.AddTransient<IQueryGeneralService, GeneralServices>();
+            services.AddTransient<ICommandGeneralService, GeneralServices>();
 
-            services.AddScoped<IQueryConsumersServices, ConsumersServices>();
-            services.AddScoped<ICommandConsumerServices, ConsumersServices>();
+            services.AddTransient<IQueryConsumersServices, ConsumersServices>();
+            services.AddTransient<ICommandConsumerServices, ConsumersServices>();
 
-            services.AddScoped<IQueryProductDocuments, ProductsServices> ();
-            services.AddScoped<ICommandProductDocuments, ProductsServices> ();
-            //services.AddSingleton(MapperCore.Mapper);
+            services.AddTransient<IQueryProductDocuments, ProductsServices>();
+            services.AddTransient<ICommandProductDocuments, ProductsServices>();
+            services.AddTransient<IQueryProductServices, ProductsServices>();
 
-            services.ClientsCoreSetup(connectionstring);
-            services.GeneralContextSetup(connectionstring);
-            services.IdentityCoreSetup(connectionstring);
+            services.AddTransient<IProductsCore, ProductsCore>();
+            services.AddTransient<IDocumentFilesService, DocumentsFileServices>();
 
-            return services.AddDbContext<DocumentContext>(options =>
-            {
-                options.UseSqlServer(connectionstring,
-                sqlServerOptionsAction: sqlOptions =>
-                {
-                    sqlOptions.
-                     MigrationsAssembly("Documents.Tracker.Data");
-                    //Configuring Connection Resiliency:
-                    sqlOptions.
-                    EnableRetryOnFailure(maxRetryCount: 5,
-                    maxRetryDelay: TimeSpan.FromSeconds(30),
-                    errorNumbersToAdd: null);
+            services.AddTransient<IQueryOrderService, OrdersServices>();
+            services.AddTransient<ICommandOrderService, OrdersServices>();
 
-                });
+            //services.AddDbContext<DocumentContext>(options =>
+            //{
+            //    options.UseSqlServer(connectionstring,
+            //    sqlServerOptionsAction: sqlOptions =>
+            //    {
+            //        sqlOptions.
+            //         MigrationsAssembly("Documents.Tracker.Data");
+            //        //Configuring Connection Resiliency:
+            //        sqlOptions.
+            //        EnableRetryOnFailure(maxRetryCount: 5,
+            //        maxRetryDelay: TimeSpan.FromSeconds(30),
+            //        errorNumbersToAdd: null);
 
-                //Changing default behavior when client evaluation occurs to throw.
-                //Default in EFCore would be to log warning when client evaluation is done.
-                //options.ConfigureWarnings(warnings => warnings.Throw(
-                //    RelationalEventId.QueryClientEvaluationWarning));
-            });
+            //    });
+
+            //    //Changing default behavior when client evaluation occurs to throw.
+            //    //Default in EFCore would be to log warning when client evaluation is done.
+            //    //options.ConfigureWarnings(warnings => warnings.Throw(
+            //    //    RelationalEventId.QueryClientEvaluationWarning));
+            //});
+
+            return services;
         }
         public static void RegisterAllTypes<T>(this IServiceCollection services, Assembly[] assemblies,
             ServiceLifetime lifetime = ServiceLifetime.Transient)
@@ -70,5 +91,5 @@ namespace Documents.Tracker.Core.Config
                 services.Add(new ServiceDescriptor(typeof(T), type, lifetime));
         }
     }
-    
+
 }

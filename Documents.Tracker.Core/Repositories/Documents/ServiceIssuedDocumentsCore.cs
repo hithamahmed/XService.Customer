@@ -2,7 +2,6 @@
 using Documents.Tracker.Core.DTO;
 using Documents.Tracker.Data;
 using Documents.Tracking.Data.Entities;
-using General.Services.Core.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Documents.Tracker.Core
 {
-    internal class ServiceIssuedDocumentsCore : MapperCore, IServiceIssuedDocumentsCore 
+    internal class ServiceIssuedDocumentsCore : MapperCore, IServiceIssuedDocumentsCore
     {
         //private readonly IMapper _mapper;
         private readonly DocumentContext _db;
@@ -34,7 +33,7 @@ namespace Documents.Tracker.Core
                 {
                     _db.DocIssued.Update(documentsIssued);
                 }
-                
+
                 return await _db.SaveChangesAsync();
             }
             catch (Exception)
@@ -76,13 +75,13 @@ namespace Documents.Tracker.Core
             }
         }
 
-        public async Task<ICollection<ProductIssuedDocumentsOTO>> GetIssuedDocumentsByServiceId(int productUKey)
+        public async Task<ICollection<ProductIssuedDocumentsOTO>> GetIssuedDocumentsByServiceId(int productId)
         {
             try
             {
                 var documentsIssued = await _db.DocIssued
                     //.Include(x=>x.Product)
-                    .Where(x => x.ProductUKey == productUKey)
+                    .Where(x => x.ProductUKey == productId)
                     .ToListAsync();
 
                 var x = Mapper.Map<ICollection<ProductIssuedDocumentsOTO>>(documentsIssued);

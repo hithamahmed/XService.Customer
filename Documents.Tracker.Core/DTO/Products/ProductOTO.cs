@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Documents.Tracker.Core.DTO
 {
@@ -14,6 +12,8 @@ namespace Documents.Tracker.Core.DTO
 
         [MaxLength(50)]
         public string Name { get; set; }
+        [MaxLength(50)]
+        public string NameAr { get; set; }
 
         [MaxLength(25)]
         public string ShortName { get; set; }
@@ -28,12 +28,17 @@ namespace Documents.Tracker.Core.DTO
         [DisplayFormat(DataFormatString = "{0:0.###}")]
         public decimal Price { get; set; }
 
-         
+
         //public int? AvailableStock { get; set; } = 0;
 
         public CategoriesOTO Category { get; set; }
 
         [AutoMapper.IgnoreMap]
         public ICollection<CategoriesOTO> Categories { get; set; }
+
+        [AutoMapper.IgnoreMap]
+        public ICollection<ProductDocumentsRequirementsOTO> ProductDocumentsRequirements { get; set; }
+        [AutoMapper.IgnoreMap]
+        public ICollection<ProductIssuedDocumentsOTO> ProductIssuedDocuments { get; set; }
     }
 }

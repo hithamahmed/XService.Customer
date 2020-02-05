@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Documents.Tracker.Core.DTO
 {
@@ -15,6 +13,8 @@ namespace Documents.Tracker.Core.DTO
 
         [MaxLength(50)]
         public string Name { get; set; }
+        [MaxLength(50)]
+        public string NameAr { get; set; }
         [MaxLength(100)]
         public string Description { get; set; }
         [MaxLength(250)]
@@ -25,6 +25,7 @@ namespace Documents.Tracker.Core.DTO
 
         public ICollection<CategoriesOTO> SubCategories { get; set; }
         //public ICollection<ProductOTO> Products { get; set; }
+
 
     }
 }

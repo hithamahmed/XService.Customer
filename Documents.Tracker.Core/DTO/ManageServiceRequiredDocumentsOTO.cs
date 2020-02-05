@@ -1,8 +1,4 @@
-﻿using Documents.Tracker.Core.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Documents.Tracker.Core.DTO
 {

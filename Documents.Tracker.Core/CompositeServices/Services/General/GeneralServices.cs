@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Documents.Tracker.Core.Config.Mapper;
+﻿using Documents.Tracker.Core.Config.Mapper;
 using Documents.Tracker.Core.DTO;
 using General.Services.Core;
 using General.Services.Core.DTO;
 using General.Services.Core.Interface;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Documents.Tracker.Core
 {
-    internal class GeneralServices :MapperCore, IQueryGeneralService , ICommandGeneralService
+    internal class GeneralServices : MapperCore, IQueryGeneralService, ICommandGeneralService
     {
         private readonly ICountries generalCore;
         private readonly IProducts servicesCategory;
@@ -42,7 +41,7 @@ namespace Documents.Tracker.Core
             {
                 var x = Mapper.Map<ProductDTO>(serviceCategory);
                 return await servicesCategory.AddEditProduct(x);
-                 
+
             }
             catch (Exception)
             {
@@ -94,10 +93,10 @@ namespace Documents.Tracker.Core
         {
             try
             {
-                var x =  servicesCategory.GetCategories().Result.Where(c => c.ParentCategoryId == null);
+                var x = servicesCategory.GetCategories().Result.Where(c => c.ParentCategoryId == null);
                 foreach (var sub in x.ToList())
                 {
-                    sub.SubCategories =  servicesCategory.GetSubCategories(sub.RefId).Result.ToList();
+                    sub.SubCategories = await servicesCategory.GetSubCategories(sub.RefId);
                 }
                 return Mapper.Map<ICollection<CategoriesOTO>>(x);
             }
@@ -178,19 +177,19 @@ namespace Documents.Tracker.Core
             }
         }
 
-        public async Task<ICollection<ProductOTO>> GetListOfProductsWithCategory()
-        {
-            try
-            {
-                var x = await servicesCategory.GetAllProductsWithCategory();
-                return Mapper.Map<ICollection<ProductOTO>>(x);
-            }
-            catch (Exception)
-            {
+        //public async Task<ICollection<ProductOTO>> GetListOfProductsWithCategory()
+        //{
+        //    try
+        //    {
+        //        var x = await servicesCategory.GetAllProductsWithCategory();
+        //        return Mapper.Map<ICollection<ProductOTO>>(x);
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
         public async Task<ICollection<ProductOTO>> GetListProductsByCategory(int CategoryId)
         {
@@ -224,21 +223,8 @@ namespace Documents.Tracker.Core
         {
             try
             {
-                var x = await servicesCategory.GetProductByUKey(productUKey);
+                var x = await servicesCategory.GetProductById(productUKey);
                 return Mapper.Map<ProductOTO>(x);
-             }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        public async Task<ProductDTO> GetProductCategoryById(int productUKey)
-        {
-            try
-            {
-                return await servicesCategory.GetProductByUKey(productUKey);
             }
             catch (Exception)
             {
@@ -246,5 +232,18 @@ namespace Documents.Tracker.Core
                 throw;
             }
         }
+
+        //public async Task<ProductDTO> GetProductCategoryById(int productUKey)
+        //{
+        //    try
+        //    {
+        //        return await servicesCategory.GetProductByUKey(productUKey);
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
     }
 }

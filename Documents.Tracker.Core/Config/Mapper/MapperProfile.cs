@@ -1,11 +1,11 @@
-﻿using AutoMapper;
+﻿using Application.XIdentity.Core.DTO;
+using AutoMapper;
 using Documents.Tracker.Core.DTO;
-using Documents.Tracker.Core.FrontDTO;
+using Documents.Tracker.Core.DTO.Orders;
 using Documents.Tracking.Data.Entities;
-using General.App.Consumers.Core.DTO;
-using General.App.Consumers.Core.Entities;
 using General.Services.Core.DTO;
 using General.Services.Core.Entity;
+using Orders.Core;
 
 namespace Documents.Tracker.Core.Config.Mapper
 {
@@ -22,23 +22,25 @@ namespace Documents.Tracker.Core.Config.Mapper
             CreateMap<DocIssued, ProductIssuedDocumentsOTO>()
                 .ForMember(x => x.RefId, o => o.MapFrom(s => s.Id))
                 .ReverseMap()
-                .ForMember(x=>x.Id , o=>o.MapFrom(s=>s.RefId));
+                .ForMember(x => x.Id, o => o.MapFrom(s => s.RefId));
 
-            CreateMap<ConsumerDTO, ConsumerOTO>().ReverseMap();
+            CreateMap<ConsumerDTO, ConsumerOTO>()
+                .ReverseMap();
+
             CreateMap<ConsumerAddressDTO, ConsumerAddressOTO>().ReverseMap();
 
-            CreateMap<Consumer, ConsumerDTO>()
-                .ForMember(x => x.RefId, o => o.Ignore()).ReverseMap();
+            //CreateMap<Consumer, ConsumerDTO>()
+            //    .ForMember(x => x.RefId, o => o.Ignore()).ReverseMap();
 
             CreateMap<DocStatus, DocStatusDTO>()
                 .ForMember(x => x.RefId, o => o.Ignore()).ReverseMap();
 
             CreateMap<ConsumerServices, ConsumerProductsOTO>()
                 .ForMember(x => x.RefId, o => o.Ignore())
-                .ForMember(x => x.DocStatus, o => o.MapFrom(s=>s.CurrentServiceStatus))
+                .ForMember(x => x.DocStatus, o => o.MapFrom(s => s.CurrentServiceStatus))
                 .ReverseMap()
                 .ForMember(x => x.CurrentServiceStatus, o => o.MapFrom(s => s.DocStatus));
-            
+
             //CreateMap<ServiceCategory, ServiceCategoryDTO>()
             //    .ForMember(x => x.RefId, o => o.MapFrom(s => s.Id))
             //    .ReverseMap()
@@ -58,6 +60,10 @@ namespace Documents.Tracker.Core.Config.Mapper
                 .ForMember(x => x.RefId, o => o.Ignore())
                 .ReverseMap();
             CreateMap<ProductDTO, ProductOTO>().ReverseMap();
+
+
+            CreateMap<OrderDTO, OrderOTO>().ReverseMap();
+            CreateMap<OrderItemDTO, OrderItemOTO>().ReverseMap();
 
         }
 

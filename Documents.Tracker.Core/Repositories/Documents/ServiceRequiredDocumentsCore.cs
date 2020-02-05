@@ -2,7 +2,6 @@
 using Documents.Tracker.Core.DTO;
 using Documents.Tracker.Data;
 using Documents.Tracking.Data.Entities;
-using General.Services.Core.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -80,11 +79,11 @@ namespace Documents.Tracker.Core
             }
         }
 
-        public async Task<ICollection<ProductDocumentsRequirementsOTO>> GetRequiredDocumentsByServiceId(int productUKey)
+        public async Task<ICollection<ProductDocumentsRequirementsOTO>> GetRequiredDocumentsByServiceId(int productId)
         {
             try
             {
-                var RequirementsDocs = await _db.DocRequirements.Where(x => x.ProductUKey == productUKey).ToListAsync();
+                var RequirementsDocs = await _db.DocRequirements.Where(x => x.ProductUKey == productId).ToListAsync();
                 return Mapper.Map<ICollection<ProductDocumentsRequirementsOTO>>(RequirementsDocs);
             }
             catch (Exception)

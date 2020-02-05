@@ -1,9 +1,6 @@
-﻿using General.Services.Core.DTO;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Documents.Tracker.Core.DTO
 {
@@ -23,13 +20,13 @@ namespace Documents.Tracker.Core.DTO
         [Required] [MaxLength(10)] public string BuildingNo { get; set; }
         [Required] [MaxLength(10)] public string FloorNo { get; set; }
         [Required] [MaxLength(10)] public string FlatOfficeNo { get; set; }
-        public long? PhoneNumber { get; set; }
+        //public long? PhoneNumber { get; set; }
         public bool IsDefault { get; set; } = false;
 
         [AutoMapper.IgnoreMap]
         public ICollection<CountriesOTO> CountriesList { get; set; }
         [AutoMapper.IgnoreMap]
         public string FullLocation { get; set; }
- 
+
     }
 }

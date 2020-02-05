@@ -23,16 +23,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Interface\IServiceIssuedDocumentsCore.cs" />
-    <Compile Include="Interface\IServiceRequiredDocumentsCore.cs" />
-    <Compile Include="Repositories\ServiceIssuedDocumentsCore.cs" />
-    <Compile Include="Repositories\ServiceRequiredDocumentsCore.cs" />
+    <Compile Include="Interface\ServiceDocumentFiles\IDocumentFilesRepository.cs" />
+    <Compile Include="Interface\IProductsCore.cs" />
+    <Compile Include="Interface\ServiceDocuments\IServiceIssuedDocumentsCore.cs" />
+    <Compile Include="Interface\ServiceDocuments\IServiceRequiredDocumentsCore.cs" />
+    <Compile Include="Repositories\DocumentFiles\DocumentFilesRepository.cs" />
+    <Compile Include="Repositories\Products\ProductsCore.cs" />
+    <Compile Include="Repositories\Documents\ServiceIssuedDocumentsCore.cs" />
+    <Compile Include="Repositories\Documents\ServiceRequiredDocumentsCore.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\ApplicationCore\ApplicationCore.csproj" />
-    <ProjectReference Include="..\..\..\Security\Application.XIdentity.Core\Application.XIdentity.Core.csproj" />
-    <ProjectReference Include="..\..\Orders\Orders.Data\Orders.Data.csproj" />
+    <ProjectReference Include="..\..\..\files\ManageFiles.Core\ManageFiles.Core.csproj" />
+    <ProjectReference Include="..\..\..\files\ManageFiles.Models\ManageFiles.Commons.csproj" />
+    <ProjectReference Include="..\..\Orders\Orders.Core\Orders.Core.csproj" />
+    <!--<ProjectReference Include="..\..\Orders\Orders.Data\Orders.Data.csproj" />-->
     <ProjectReference Include="..\..\services\General.AppClients.Core\General.App.Consumers.Core.csproj" />
     <ProjectReference Include="..\..\services\General.Services.Core\General.Services.Core.csproj" />
     <ProjectReference Include="..\Documents.Tracking.Data\Documents.Tracker.Data.csproj" />
@@ -43,8 +49,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BackCore\" />
     <Folder Include="FrontCore\" />
+    <Folder Include="Interface\Orders\" />
+    <Folder Include="Repositories\Consumers\" />
   </ItemGroup>
 
 </Project>
