@@ -21,7 +21,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
             )
         {
             consumersServices = _consumersServices;
-            //commandConsumer = _commandConsumer;
+            commandConsumer = _commandConsumer;
         }
 
         public async Task<IActionResult> OnGet()
@@ -64,7 +64,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
             {
 
                 ModelState.AddModelError("ex", ex.Message.ToString());
-                return Page();
+                return RedirectToPage();
             }
          
         }
