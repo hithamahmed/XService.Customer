@@ -38,6 +38,7 @@ namespace Documents.Tracker.Core.Config
             //services.AddScoped<IConsumersProfileCore, ClientsGeneralCore>();
             services.AddTransient<IServiceRequiredDocumentsCore, ServiceRequiredDocumentsCore>();
             services.AddTransient<IServiceIssuedDocumentsCore, ServiceIssuedDocumentsCore>();
+            
             //services.AddScoped<IConsumersServicesCore,ConsumerServicesCore>();
             //services.AddScoped<IConsumerFrontServices, ConsumersFrontServices>();
 

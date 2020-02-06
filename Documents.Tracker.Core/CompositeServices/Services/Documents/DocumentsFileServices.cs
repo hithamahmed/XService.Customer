@@ -1,4 +1,5 @@
 ﻿using Documents.Tracker.Core.DTO.Files;
+using ManageFiles.Commons.DTO;
 using ManageFiles.Commons.Interface;
 using ManageFiles.Core.Interface;
 using ManageFiles.Core.Services;
@@ -57,6 +58,18 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Documents
                 }
 
                 return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task AddEditDocumentFileType(AttachmentFileTypeDTO attachmentFilesType)
+        {
+            try
+            {
+                await filesRepository.AddEditAttachmentFileType(attachmentFilesType);
             }
             catch (Exception)
             {
