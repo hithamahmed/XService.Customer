@@ -75,11 +75,10 @@
                                                 @item.OrderDate
                                             </td>
                                             <td>
-                                                <div class="btn-group " role="group">
-                                                    <button type="button" onclick="AddEdit('@item.OrderKey','@cntlname','AddEditConsumer','RefId')" class="btn btn-sm btn-warning ">edit</button>
-                                                    <form method="post"><button type="submit" asp-page-handler="DisableConsumer" asp-route-RefId="@item.OrderKey" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete-1"></i></button></form>
-                                                    <form method="get"><a asp-page="/AppConsumers/ConsumerAddress" asp-route-ConsumerRefId="@item.OrderKey" class="btn btn-sm  btn-icon "><i class="flaticon2-pin"></i></a></form>
-                                                </div>
+                                                <form method="post" class="col-sm-6">
+                                                    <vc:set-order-status id="@item.OrderKey">
+                                                    </vc:set-order-status>
+                                                </form>
                                             </td>
                                         </tr>
                                     }

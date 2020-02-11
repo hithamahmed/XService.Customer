@@ -1,15 +1,13 @@
 ﻿using Documents.Tracker.Core.Config.Mapper;
 using Documents.Tracker.Core.DTO.Orders;
-using Orders.Core;
 using Orders.Core.Interface;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Documents.Tracker.Core.CompositeServices.Services.Orders
 {
-    internal class OrdersServices : MapperCore, IQueryOrderService,ICommandOrderService
+    internal class OrdersServices : MapperCore, IQueryOrderService, ICommandOrderService
     {
         private readonly IOrderServices _orderServices;
         private readonly IQueryConsumersServices _queryConsumers;
@@ -38,7 +36,7 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
             }
         }
 
-     
+
         public async Task<OrderOTO> GetOrderDetailsByOrderId(string id)
         {
             try
@@ -51,8 +49,8 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
                     {
                         var product = await _productServices.GetServiceDetailsByServiceId(item.ProductId);
                         item.Product = product;
-                    } 
-                        
+                    }
+
                     var cosnumer = await _queryConsumers.GetSingleConsumerWithAddressByConsumerId(orderDetails.ConsumerId);
                     if (cosnumer != null)
                     {
@@ -81,7 +79,7 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
 
                 throw;
             }
-    
+
         }
 
     }

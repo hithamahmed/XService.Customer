@@ -11,6 +11,11 @@
 
   <ItemGroup>
     <Compile Remove="DTO\ManageServiceIssueDocumentsOTO.cs" />
+    <Compile Remove="SharedComponents\ConsumersComponent.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Shared\Components\Consumers\Default.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Shared\Components\Consumers\" />
     <Folder Include="wwwroot\assets\plugins\general\ion-rangeslider\img\" />
   </ItemGroup>
 
@@ -43,9 +49,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\ApplicationInfrastructure\Infra.MSSQL\Application.Infrastructure.MSSQL.csproj" />
+    <ProjectReference Include="..\..\..\TodoTasks\TodoTasks.Commons\TodoTasks.Commons.csproj" />
     <ProjectReference Include="..\..\Orders\Orders.Core\Orders.Core.csproj" />
     <ProjectReference Include="..\..\services\General.Employees.Core\General.Staff.Core.csproj" />
     <ProjectReference Include="..\..\services\General.Services.Core\General.Services.Core.csproj" />
+    <ProjectReference Include="..\..\TodoTasks\Todo.Tasks.Core\TodoTasks.Core.csproj" />
     <ProjectReference Include="..\Documents.Tracker.Core\Documents.Tracker.Core.csproj" />
   </ItemGroup>
 

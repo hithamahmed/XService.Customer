@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Documents.Tracker.Core.DTO
 {
-    public class ConsumerOTO 
+    public class ConsumerOTO
     {
         public ConsumerOTO()
         {
@@ -15,7 +15,7 @@ namespace Documents.Tracker.Core.DTO
 
         [DisplayName("Full Name")]
         //public string FullName { get { return $"{FirstName} {LastName}"; } private set { } }
-        [StringLength(100)]public string FullName { get; set; }
+        [StringLength(100)] public string FullName { get; set; }
         public string UserName { get; set; }
         //[MaxLength(20)]
         //[DisplayName("First Name")]
@@ -39,7 +39,7 @@ namespace Documents.Tracker.Core.DTO
         //[AutoMapper.IgnoreMap]
 
         //public string PassportNumber { get; set; }
-        
+
         public ICollection<ConsumerAddressOTO> ConsumerAddresses { get; set; }
     }
 }

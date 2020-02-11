@@ -21,6 +21,59 @@
 
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
     <div class="row">
+        <div class="col-12">
+            <div class="col col-6">
+                <div class="kt-portlet">
+                    
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <span class="kt-portlet__head-icon">
+                                <i class="kt-font-brand flaticon2-architecture-and-city"></i>
+                            </span>
+                            <h3 class="kt-portlet__head-title">
+                                Customer Details
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="kt-portlet__body">
+                        <!--begin: Datatable -->
+
+                        <div class="table-responsive">
+
+                        </div>
+
+                        <!--end: Datatable -->
+                    </div>
+                </div>
+            </div>
+            <div class="col col-6">
+                <div class="kt-portlet">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <span class="kt-portlet__head-icon">
+                                <i class="kt-font-brand flaticon2-architecture-and-city"></i>
+                            </span>
+                            <h3 class="kt-portlet__head-title">
+                                Customer Details
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="kt-portlet__body">
+                        <!--begin: Datatable -->
+
+                        <div class="table-responsive">
+
+                        </div>
+
+                        <!--end: Datatable -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-12">
             <div class="kt-portlet">
                 <div class="kt-portlet__head">
@@ -37,11 +90,6 @@
                             <div class="kt-portlet__head-actions">
                                 <partial name="_Exportbar" />
                                 &nbsp;
-
-                                @*<a href="#" onclick="AddEdit(0,'@cntlname','AddEditConsumer','RefId')" class="btn btn-brand btn-elevate btn-icon-sm">
-                                        <i class="la la-plus"></i>
-                                        New Consumer
-                                    </a>*@
                             </div>
                         </div>
                     </div>
@@ -67,7 +115,7 @@
                                     @foreach (var item in Model.OrderDetails.OrderItems.ToList())
                                     {
                                         <tr>
-                                             
+
                                             @*
                                                 <td>@item.IdentityId</td>
                                             *@
@@ -81,12 +129,12 @@
                                                 @item.ProductUnit
                                             </td>
                                             @*<td>
-                                                <div class="btn-group " role="group">
-                                                    <button type="button" onclick="AddEdit('@item.OrderKey','@cntlname','AddEditConsumer','RefId')" class="btn btn-sm btn-warning ">edit</button>
-                                                    <form method="post"><button type="submit" asp-page-handler="DisableConsumer" asp-route-RefId="@item.OrderKey" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete-1"></i></button></form>
-                                                    <form method="get"><a asp-page="/AppConsumers/ConsumerAddress" asp-route-ConsumerRefId="@item.OrderKey" class="btn btn-sm  btn-icon "><i class="flaticon2-pin"></i></a></form>
-                                                </div>
-                                            </td>*@
+                                                    <div class="btn-group " role="group">
+                                                        <button type="button" onclick="AddEdit('@item.OrderKey','@cntlname','AddEditConsumer','RefId')" class="btn btn-sm btn-warning ">edit</button>
+                                                        <form method="post"><button type="submit" asp-page-handler="DisableConsumer" asp-route-RefId="@item.OrderKey" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete-1"></i></button></form>
+                                                        <form method="get"><a asp-page="/AppConsumers/ConsumerAddress" asp-route-ConsumerRefId="@item.OrderKey" class="btn btn-sm  btn-icon "><i class="flaticon2-pin"></i></a></form>
+                                                    </div>
+                                                </td>*@
                                         </tr>
                                     }
                                 }
@@ -97,6 +145,7 @@
                     <!--end: Datatable -->
                 </div>
             </div>
+
         </div>
     </div>
 </div>

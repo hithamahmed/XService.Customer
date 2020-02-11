@@ -35,12 +35,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\..\..\Delegators\Delegators.Core\Delegators.Core.csproj" />
     <ProjectReference Include="..\..\..\files\ManageFiles.Core\ManageFiles.Core.csproj" />
     <ProjectReference Include="..\..\..\files\ManageFiles.Models\ManageFiles.Commons.csproj" />
     <ProjectReference Include="..\..\Orders\Orders.Core\Orders.Core.csproj" />
-    <!--<ProjectReference Include="..\..\Orders\Orders.Data\Orders.Data.csproj" />-->
     <ProjectReference Include="..\..\services\General.AppClients.Core\General.App.Consumers.Core.csproj" />
+    <!--<ProjectReference Include="..\..\Orders\Orders.Data\Orders.Data.csproj" />-->
     <ProjectReference Include="..\..\services\General.Services.Core\General.Services.Core.csproj" />
+    <ProjectReference Include="..\..\TodoTasks\Todo.Tasks.Core\TodoTasks.Core.csproj" />
     <ProjectReference Include="..\Documents.Tracking.Data\Documents.Tracker.Data.csproj" />
   </ItemGroup>
 

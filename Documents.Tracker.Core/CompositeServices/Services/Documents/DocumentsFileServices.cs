@@ -2,10 +2,8 @@
 using ManageFiles.Commons.DTO;
 using ManageFiles.Commons.Interface;
 using ManageFiles.Core.Interface;
-using ManageFiles.Core.Services;
 using ManageFiles.Models.DTO;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Documents.Tracker.Core.CompositeServices.Services.Documents
@@ -16,7 +14,7 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Documents
         private IHandleFilesCore handleFiles { get; set; }
         private readonly IFilesCore filesCore;
         public DocumentsFileServices(IManageFilesCore _filesRepository
-            ,IFilesCore _filesCore
+            , IFilesCore _filesCore
             //, IHandleFilesCore _handleFiles
             )
         {
