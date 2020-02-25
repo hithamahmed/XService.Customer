@@ -7,6 +7,10 @@ namespace Documents.Tracker.Core.DTO.Orders
 {
     public class OrderOTO
     {
+        public OrderOTO()
+        {
+            OrderItems = new HashSet<OrderItemOTO>();
+        }
         [MaxLength(200)]
         public string OrderKey { get; set; }
 

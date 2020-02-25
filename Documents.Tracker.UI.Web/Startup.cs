@@ -1,7 +1,6 @@
 using Application.Infrastructure.MSSQL.Config;
 using ApplicationLocalizations.Config;
 using Documents.Tracker.Core.Config;
-using General.Services.Core.Setup;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Orders.Data.Config;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -35,8 +33,8 @@ namespace Documents.Tracker.UI.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.Strict;
             });
-            
- 
+
+
             string defConn = Configuration.GetConnectionString("DefaultConnection");
 
             services.ApplicationInfraSetup(defConn);
@@ -45,9 +43,9 @@ namespace Documents.Tracker.UI.Web
             //services.RegisterAllTypes<IInvoicingService>(new[] { typeof(Startup).Assembly });
             //services.StaffCoreSetup(defConn);
             //services.OrderContextSetup(defConn);
-           
+
             services.AddLocalization();
-            
+
 
             services.Configure<RequestLocalizationOptions>(
                        options =>
@@ -59,15 +57,15 @@ namespace Documents.Tracker.UI.Web
                            options.SupportedCultures = supportedCultures;
                            options.SupportedUICultures = supportedCultures;
 
-                               // You can change which providers are configured to determine the culture for requests, or even add a custom
-                               // provider with your own logic. The providers will be asked in order to provide a culture for each request,
-                               // and the first to provide a non-null result that is in the configured supported cultures list will be used.
-                               // By default, the following built-in providers are configured:
-                               // - QueryStringRequestCultureProvider, sets culture via "culture" and "ui-culture" query string values, useful for testing
-                               // - CookieRequestCultureProvider, sets culture via "ASPNET_CULTURE" cookie
-                               // - AcceptLanguageHeaderRequestCultureProvider, sets culture via the "Accept-Language" request header
-                               //options.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());
-                           });
+                           // You can change which providers are configured to determine the culture for requests, or even add a custom
+                           // provider with your own logic. The providers will be asked in order to provide a culture for each request,
+                           // and the first to provide a non-null result that is in the configured supported cultures list will be used.
+                           // By default, the following built-in providers are configured:
+                           // - QueryStringRequestCultureProvider, sets culture via "culture" and "ui-culture" query string values, useful for testing
+                           // - CookieRequestCultureProvider, sets culture via "ASPNET_CULTURE" cookie
+                           // - AcceptLanguageHeaderRequestCultureProvider, sets culture via the "Accept-Language" request header
+                           //options.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());
+                       });
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddRazorPages();
@@ -78,7 +76,7 @@ namespace Documents.Tracker.UI.Web
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage(); 
+                app.UseDeveloperExceptionPage();
             }
             else
             {

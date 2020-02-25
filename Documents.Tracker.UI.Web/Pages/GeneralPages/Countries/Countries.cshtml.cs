@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Documents.Tracker.UI.Web.Settings;
+﻿using Documents.Tracker.UI.Web.Settings;
 using General.Services.Core;
 using General.Services.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -28,10 +27,10 @@ namespace Documents.Tracker.UI.Web.Pages
             countries = await CountryService.GetAllCountries();
             foreach (var country in countries)
             {
-                var Governments = country.Governments = await CountryService.GetAllGovernmentsByCountry(country.RefId).ConfigureAwait(false);
+                var Governments = country.Governments = await CountryService.GetGovernmentsList(country.RefId).ConfigureAwait(false);
                 foreach (var government in Governments)
                 {
-                    var locationareas = government.LocationAreas = await CountryService.GetAllAreasByGoverment(government.RefId).ConfigureAwait(false);
+                    var locationareas = government.LocationAreas = await CountryService.GetLocationAreasList(government.RefId).ConfigureAwait(false);
                 }
             }
             return Page();
@@ -68,10 +67,10 @@ namespace Documents.Tracker.UI.Web.Pages
 
         public async Task<IActionResult> OnGetGovernments(int Countryid)
         {
-            governments = await CountryService.GetAllGovernmentsByCountry(Countryid);
+            governments = await CountryService.GetGovernmentsList(Countryid);
             return Page();
         }
-        public async Task<IActionResult> OnGetAddEditGovernmentAsync(int Countryid,int id)
+        public async Task<IActionResult> OnGetAddEditGovernmentAsync(int Countryid, int id)
         {
             GovernmentDTO government = new GovernmentDTO
             {
@@ -100,10 +99,10 @@ namespace Documents.Tracker.UI.Web.Pages
         #endregion
 
         #region Location Areas
-        
+
         public async Task<IActionResult> OnGetlocationAreas(int governmentid)
         {
-            locationAreas = await CountryService.GetAllAreasByGoverment(governmentid);
+            locationAreas = await CountryService.GetLocationAreasList(governmentid);
             return Page();
         }
         public async Task<IActionResult> OnGetAddEditlocationAreaAsync(int governmentid, int id)
@@ -132,7 +131,7 @@ namespace Documents.Tracker.UI.Web.Pages
             int i = CountryService.EnableDisableLocationArea(id).Result;
             return RedirectToPage();
         }
-        
+
         #endregion
     }
 }

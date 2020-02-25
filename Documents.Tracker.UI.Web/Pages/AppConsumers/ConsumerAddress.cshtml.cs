@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Documents.Tracker.Core;
+﻿using Documents.Tracker.Core;
 using Documents.Tracker.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 {
@@ -18,7 +16,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
         private IQueryGeneralService CountryService { get; set; }
 
         public ConsumersProfileOTO ManageAppConsumerDTO { get; set; }
-        
+
         public ConsumerAddressModel(
             //IConsumersProfileCore _clientscore, 
             IQueryGeneralService _CountryService,
@@ -39,7 +37,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
                 {
                     ManageAppConsumerDTO = await consumersServices.GetSingleConsumerWithAddressByConsumerId(ConsumerRefId);
                 }
-                   
+
 
                 return Page();
             }
@@ -50,10 +48,11 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
             }
         }
 
-        public async Task<IActionResult> OnGetAddEditConsumerAddressAsync(int ConsumerRefId,int RefId)
+        public async Task<IActionResult> OnGetAddEditConsumerAddressAsync(int ConsumerRefId, int RefId)
         {
-            ConsumerAddressOTO consumerAddress = new ConsumerAddressOTO { 
-            ConsumerId = ConsumerRefId
+            ConsumerAddressOTO consumerAddress = new ConsumerAddressOTO
+            {
+                ConsumerId = ConsumerRefId
             };
             if (RefId > 0)
             {
@@ -70,7 +69,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 
         public async Task<IActionResult> OnGetGovernmentByCountryAsync(int countryId)
         {
-            var govenmentsList =  await CountryService.GetGovernmentsByCountry(countryId);
+            var govenmentsList = await CountryService.GetGovernmentsByCountry(countryId);
             //var govenments = govenmentsList
             //    .Select(x =>
             //    new { label = x.Name, value = x.RefId }).ToList();
@@ -79,10 +78,10 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 
             return new JsonResult(govenmentsList);
         }
-        
+
         public async Task<IActionResult> OnGetLocationByGovernmentAsync(int governmentId)
         {
-            var locationsList = await CountryService.GetLocationByGovernment(governmentId);
+            var locationsList = await CountryService.GetLocationList(governmentId);
             //var locations = locationsList
             //   .Select(x =>
             //   new { label = x.Name, value = x.RefId }).ToList();
@@ -98,7 +97,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
                     ModelState.AddModelError("ex", ModelState.ErrorCount.ToString());
                     return Page();
                 }
-                    
+
 
                 int i = commandConsumerServices.AddOrEditConsumerAddressByConsumer(conusmerAddress).Result;
                 return RedirectToPage("ConsumerAddress", new { ConsumerRefId = conusmerAddress.RefId });
@@ -112,7 +111,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 
         }
 
-        public IActionResult OnPostSetDefaultConsumerAddress(int consumerRefId,int RefId)
+        public IActionResult OnPostSetDefaultConsumerAddress(int consumerRefId, int RefId)
         {
             try
             {

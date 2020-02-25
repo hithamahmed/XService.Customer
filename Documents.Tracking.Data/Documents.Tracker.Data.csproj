@@ -6,6 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Entities\Clients\**" />
+    <Compile Remove="Entities\Customers\**" />
+    <Compile Remove="Entities\ServiceTasks\**" />
+    <EmbeddedResource Remove="Entities\Clients\**" />
+    <EmbeddedResource Remove="Entities\Customers\**" />
+    <EmbeddedResource Remove="Entities\ServiceTasks\**" />
+    <None Remove="Entities\Clients\**" />
+    <None Remove="Entities\Customers\**" />
+    <None Remove="Entities\ServiceTasks\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Entities\DocumentsFiles\DocumentAttachmentFiles.cs" />
     <Compile Remove="Entities\Documents\DocServiceCategory.cs" />
     <Compile Remove="Entities\Documents\DocServices.cs" />

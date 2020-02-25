@@ -5,6 +5,7 @@ using Delegators.Core.Setup;
 using Documents.Tracker.Core.CompositeServices;
 using Documents.Tracker.Core.CompositeServices.Services.Documents;
 using Documents.Tracker.Core.CompositeServices.Services.Orders;
+using Documents.Tracker.Core.CompositeServices.Services.TodoTasks;
 using Documents.Tracker.Core.Repositories;
 using Documents.Tracker.Data.Setup;
 using General.App.Consumers.Core.Config;
@@ -55,6 +56,15 @@ namespace Documents.Tracker.Core.Config
             services.AddTransient<IQueryOrderService, OrdersServices>();
             services.AddTransient<ICommandOrderService, OrdersServices>();
 
+
+            //services.AddTransient<TodoTasksCore>();
+            //services.AddTransient<IQueryTodoTasksServices>(x => x.GetRequiredService<TodoTasksCore>());
+            //services.AddTransient<ICommandTodoTasksServices>(x => x.GetRequiredService<TodoTasksCore>());
+
+            services.AddTransient<IQueryTodoTasksServices, TodoTasksCore>();
+            services.AddTransient<ICommandTodoTasksServices, TodoTasksCore>();
+
+            //services.AddTransient<IValidationsTodoTasksServices, TodoTasksValidationsCore>();
             return services;
         }
         public static void RegisterAllTypes<T>(this IServiceCollection services, Assembly[] assemblies,

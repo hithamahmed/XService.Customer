@@ -32,8 +32,8 @@ var SetOrderStatus = function (e,h,ppvs) {
 
 }
 
-var AddEdit = function (pv, e, h ,p) {
-    var url = "" + e + "?handler=" + h + "&" + p + "=" + pv;
+var AddEdit = function (pv, e, h ,p,ppv) {
+    var url = "" + e + "?handler=" + h + "&" + p + "=" + pv + "&" + ppv;
     if (pv > 0)
         $('#title').html("تعديل");
     else
@@ -103,6 +103,89 @@ var AddEditForm = function (ppv, pv, e, h, p) {
 }
 /******************************************************/
 
+var LoadDiv = function (actionurl, dest) {
+    var Divdest = document.getElementById(dest);
+    $(Divdest).load(actionurl);
+}
+/******************************************************/
+var FillDropDownList = function (elem, dest, route) {
+    //if (event.keyCode != 13)
+    //    return;
+
+    if (elem == null || elem == "")
+        return;
+
+
+    var DDLDest = document.getElementsByName(dest);
+    var locidvalue = elem;
+    var actionurl = route + locidvalue;
+
+    $(DDLDest).empty();
+    $.get(actionurl).done(function (results) {
+
+        $(DDLDest).append($('<option value="0" class="font-weight-bold"></option>').val(0).html('--Choose--'));
+
+
+        if (results == null)
+            return;
+
+        
+        $.each(results, function (i, result) {
+            $(DDLDest).append($('<option></option>').val(result.id).html(result.name));
+        });
+
+        
+    });
+
+}
+/******************************************************/
+var LoadOrderItems = function (e, baseurl) {
+
+    //var baseurl = @cntlname;
+    var handler = "?handler=OrderItems";
+    var parm = "&id=" + e.value;
+    var url = baseurl + handler + parm;
+
+    LoadDiv(url, 'orderitems');
+}
+var ShowServiceInfo = function (e) {
+    var id = $("input:radio[name=selectedService]:checked").val();
+    var ref = $(e).closest('tr').find('input[name="RefId"]').val();
+    var prod = $(e).closest('tr').find('input[name="ProId"]').val();
+
+    document.getElementsByName("TaskLocationServices.ReferenceId")[0].value = ref;
+    document.getElementsByName("TaskLocationServices.ProductId")[0].value = prod;
+
+
+    //gets table
+    var oTable = document.getElementById('servicesTable');
+
+    //gets rows of table
+    var rowLength = oTable.rows.length;
+
+    //loops through rows    
+    for (i = 0; i < rowLength; i++) {
+
+        //gets cells of current row  
+        var oCells = oTable.rows.item(i).cells;
+
+        //gets amount of cells of current row
+        var cellLength = oCells.length;
+
+        //loops through each cell in current row
+        for (var j = 0; j < cellLength; j++) {
+
+            // get your cell info here
+
+            var cellVal = oCells.item(j).innerHTML;
+            
+        }
+    }
+
+}
+/******************************************************/
+/******************************************************/
+/******************************************************/
 var governments = function (i) {
 
     $.ajax({
@@ -121,6 +204,8 @@ var governments = function (i) {
         }
     })
 }
+
+
 var datalist = function (i, t, u) {
     var $url = u;
     var $targetDD = t;
@@ -145,6 +230,8 @@ var datalist = function (i, t, u) {
         }
     })
 }
+
+
 
 var AddTeamMemberHolder = function (id, e) {
     debugger;

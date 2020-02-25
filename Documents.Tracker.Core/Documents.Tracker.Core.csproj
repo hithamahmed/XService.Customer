@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="CompositeServices\Interface\TodoTasks\ITodoTasksCore.cs" />
     <Compile Remove="DTO\General\ServicesOTO.cs" />
     <Compile Remove="DTO\ServiceDocumentsRequirementsDTO.cs" />
     <Compile Remove="DTO\ServiceIssuedDocumentsDTO.cs" />

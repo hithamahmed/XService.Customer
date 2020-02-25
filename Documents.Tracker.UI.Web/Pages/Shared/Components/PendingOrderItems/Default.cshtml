@@ -1,0 +1,54 @@
+﻿@model ICollection<Documents.Tracker.Core.DTO.Orders.OrderItemOTO>
+
+
+    <div class="kt-portlet__body colo">
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__body">
+                
+                <div class="kt-widget4">
+                    <table id="servicesTable" class="table  table-bordered table-hover table-checkable">
+                        <thead>
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="10%">Id</th>
+                                <th>Product</th>
+                                
+                                <th width="10%" class="notexport"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                @foreach (var item in Model.ToList())
+                                {
+                                    <tr>
+                                        <td>
+                                            <div id="serviceRows">
+                                                <input type="hidden" value="@item.Id" name="RefId" />
+                                                <input type="hidden" value="@item.ProductId" name="ProId" />
+                                                <input onchange="ShowServiceInfo(this)" value="@item.Id" name="selectedService" type="radio" />
+                                            </div>
+                                 
+                                        </td>
+                                        <td>
+                                            @item.Id
+                                        </td>
+                                        <td>
+                                            @item.ProductShortName
+                                        </td>
+                                        <td>
+                                            @item.ProductUnit
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--end::Widget 9-->
+            </div>
+        </div>
+
+    </div>

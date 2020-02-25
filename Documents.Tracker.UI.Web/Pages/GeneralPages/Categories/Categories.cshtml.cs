@@ -1,16 +1,10 @@
-﻿using System;
+﻿using Documents.Tracker.Core;
+using Documents.Tracker.Core.DTO;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Documents.Tracker.Core;
-using Documents.Tracker.Core.DTO;
-using Documents.Tracker.UI.Web.DTO;
-using General.Services.Core;
-using General.Services.Core.DTO;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Documents.Tracker.UI.Web.Pages.GeneralPages.Categories
 {
@@ -74,7 +68,7 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.Categories
         }
         #endregion
 
-   
+
 
 
     }

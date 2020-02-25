@@ -25,7 +25,7 @@ namespace Documents.Tracker.UI.Web.Pages.Orders
         {
             try
             {
-                OrderDetails = await _ordersCore.GetOrderDetailsByOrderId(id);
+                OrderDetails = await _ordersCore.GetSingleOrder(id);
                 return Page();
             }
             catch (Exception)
@@ -34,7 +34,7 @@ namespace Documents.Tracker.UI.Web.Pages.Orders
                 throw;
             }
         }
-        
+
         public async Task<IActionResult> OnPostSetOrderStatus(string orderkey, int statusid)
         {
             try

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Documents.Tracker.Core;
+﻿using Documents.Tracker.Core;
 using Documents.Tracker.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 {
@@ -43,7 +42,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
 
         public async Task<IActionResult> OnGetAddEditConsumerAsync(string RefId)
         {
-            ConsumerOTO consumer  = new ConsumerOTO();
+            ConsumerOTO consumer = new ConsumerOTO();
             if (!string.IsNullOrWhiteSpace(RefId))
             {
                 consumer = await consumersServices.GetSingleConsumerByConusmerId(RefId);
@@ -66,7 +65,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
                 ModelState.AddModelError("ex", ex.Message.ToString());
                 return RedirectToPage();
             }
-         
+
         }
 
         public IActionResult OnPostDisableConsumer(int RefId)
@@ -82,8 +81,8 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
                 ModelState.AddModelError("ex", ex.Message.ToString());
                 return Page();
             }
-            
-          
+
+
         }
     }
 }

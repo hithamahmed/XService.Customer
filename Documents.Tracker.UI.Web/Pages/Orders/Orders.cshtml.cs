@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Documents.Tracker.Core.CompositeServices;
+﻿using Documents.Tracker.Core.CompositeServices;
 using Documents.Tracker.Core.DTO.Orders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Orders.Core.Interface;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Documents.Tracker.UI.Web.Pages.Orders
 {
@@ -32,7 +30,7 @@ namespace Documents.Tracker.UI.Web.Pages.Orders
 
                 throw;
             }
-           
+
         }
     }
 }

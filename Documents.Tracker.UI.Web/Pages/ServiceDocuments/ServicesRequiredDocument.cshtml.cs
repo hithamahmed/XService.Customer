@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Documents.Tracker.Core;
+﻿using Documents.Tracker.Core;
 using Documents.Tracker.Core.DTO;
-using General.Services.Core;
-using General.Services.Core.DTO;
-using General.Services.Core.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Threading.Tasks;
 
 namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 {

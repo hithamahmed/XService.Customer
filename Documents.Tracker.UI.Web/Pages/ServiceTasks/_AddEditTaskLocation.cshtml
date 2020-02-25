@@ -1,0 +1,63 @@
+﻿
+@model  Documents.Tracker.UI.Web.ViewModel.TaskLocationViewModel
+@{
+    var cntlname = ViewContext.RouteData.Values["Page"].ToString();
+}
+
+    <form class="kt-form kt-form--label-right" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" asp-for="TaskLocationService.TaskID " />
+        <input type="hidden" asp-for="TaskLocationService.Id " />
+
+        <div class="kt-portlet__body">
+            <div class="form-group row">
+
+                <div class="col-lg-12">
+                    <label>Task Title:</label>
+                    <input disabled asp-for="TaskLocationService.Tasks.Title" class="form-control">
+                </div>
+
+                <div class="col-lg-12">
+                    <label>Location:</label>
+                    <select required asp-for="TaskLocationService.LocationId" class="form-control" asp-items="@(new SelectList(Model.LocationAreas, "RefId", "Name"))">
+                        <option value="0" class="font-weight-bold">Select Location</option>
+                    </select>
+                </div>
+
+
+                <div class="col-lg-12">
+                    <label>Services:</label>
+                    <select required asp-for="TaskLocationService.ProductId" class="form-control" asp-items="@(new SelectList(Model.OrderProducts, "ProductId", "Product.Name"))">
+                        <option disabled value="0" class="font-weight-bold">Choose Services</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-12">
+                    <label>Note:</label>
+                    <textarea asp-for="TaskLocationService.Notes" class="form-control" rows="5" />
+                </div>
+                @*<div class="col-lg-12">
+                    <label>Status:</label>
+                    <select required asp-for="TaskLocationService.TaskStatusId" class="form-control" asp-items="@Html.GetEnumSelectList<TodoTasks.Commons.TaskEnums.TaskStatus>()">
+                        <option value="0" class="font-weight-bold">Select Location</option>
+                    </select>
+                </div>*@
+            </div>
+
+
+        </div>
+        <div class="kt-portlet__foot">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <button id="btnPost" asp-page-handler="SaveTaskLocation" type="submit" class="btn btn-primary">Save</button>
+                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+ 

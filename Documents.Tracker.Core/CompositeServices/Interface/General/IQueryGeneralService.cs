@@ -8,7 +8,10 @@ namespace Documents.Tracker.Core
     {
         Task<ICollection<CountriesOTO>> GetCountriesList();
         Task<ICollection<GovernmentOTO>> GetGovernmentsByCountry(int countryId);
-        Task<ICollection<LocationAreasOTO>> GetLocationByGovernment(int governmentId);
+        Task<ICollection<LocationAreasOTO>> GetLocationList(int governmentId);
+        Task<ICollection<LocationAreasOTO>> GetLocationList();
+        Task<LocationAreasOTO> GetSingleLocation(int locationId);
+        
 
 
         Task<ICollection<CategoriesOTO>> GetAllCategories();

@@ -1,0 +1,62 @@
+﻿@model ICollection<Documents.Tracker.Core.DTO.TodoTasks.TaskLocationOTO>
+@{
+    var cntlname = ViewContext.RouteData.Values["Page"].ToString();
+}
+<div class="kt-portlet__body colo">
+    <div class="kt-portlet kt-portlet--height-fluid">
+
+        <div class="kt-portlet__body">
+            <!--begin::k-widget4-->
+            <div class="kt-widget4">
+                <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
+                    <thead>
+                        <tr>
+                            <th width="10%">Location</th>
+                            <th width="10%">Order</th>
+                            <th width="10%">Service</th>
+                            <th width="10%">Status</th>
+                            <th width="10%">Status Date</th>
+                            <th width="10%" class="notexport"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.LocationAreas.Name
+                                    </td>
+                                       <td>
+                                        @item.Order.OrderKey
+                                    </td>
+                                    <td>
+                                        @item.Product.ShortName
+                                    </td>
+
+                                    <td>
+                                        @item.TaskStatus.Name
+                                    </td>
+                                    <td>
+                                        @item.TaskStatusDate
+                                    </td>
+                                    <td>
+                                        @*<a href="#" onclick="AddEditForm('&taskid='+@item.TaskID , @item.Id,'@cntlname','AddEditTaskLocation','id' )" class="btn btn-brand btn-elevate btn-icon-sm">
+                                            <i class="la la-plus"></i>
+                                            Edit
+                                        </a>*@
+                                      
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!--end::Widget 9-->
+        </div>
+    </div>
+
+</div>

@@ -2,10 +2,12 @@
 using AutoMapper;
 using Documents.Tracker.Core.DTO;
 using Documents.Tracker.Core.DTO.Orders;
+using Documents.Tracker.Core.DTO.TodoTasks;
 using Documents.Tracking.Data.Entities;
 using General.Services.Core.DTO;
 using General.Services.Core.Entity;
 using Orders.Core;
+using TodoTasks.Commons.DTO;
 
 namespace Documents.Tracker.Core.Config.Mapper
 {
@@ -48,8 +50,10 @@ namespace Documents.Tracker.Core.Config.Mapper
 
 
             CreateMap<OrderDTO, OrderOTO>().ReverseMap();
-            CreateMap<OrderItemDTO, OrderItemOTO>().ReverseMap();
+            CreateMap<OrderProductDTO, OrderItemOTO>().ReverseMap();
 
+            CreateMap<TasksDTO, TaskOTO>();
+            CreateMap<TaskLocationServiceDTO, TaskLocationOTO>().ReverseMap();
         }
 
     }

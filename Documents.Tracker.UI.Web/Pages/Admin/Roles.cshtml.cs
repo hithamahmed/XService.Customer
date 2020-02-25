@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.XIdentity.Core.DTO.Admin;
-using Microsoft.AspNetCore.Mvc;
+﻿using Application.XIdentity.Core.DTO.Admin;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 
 namespace Documents.Tracker.UI.Web.Pages.Admin
 {

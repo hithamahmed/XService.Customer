@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Documents.Tracker.Core;
+﻿using Documents.Tracker.Core;
 using Documents.Tracker.Core.DTO;
 using Documents.Tracker.UI.Web.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 {
@@ -49,7 +49,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
                 }
 
                 var Categories = await generalService.GetAllCategories();
-                product.Categories = Categories.Where(x=>x.ParentCategoryId != null).ToList();
+                product.Categories = Categories.Where(x => x.ParentCategoryId != null).ToList();
 
                 return Partial("_AddEditService", product);
             }
@@ -59,7 +59,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
                 return RedirectToPage();
             }
         }
-        
+
         public IActionResult OnPostSaveService(ProductOTO service)
         {
             try
@@ -115,7 +115,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
                 var allCategories = generalService.GetAllCategories().Result;
                 var categories = allCategories
                     .Where(x => x.ParentCategoryId != null)
-                    .Select(x => new { label = x.Name, value = x.RefId } ).ToList();
+                    .Select(x => new { label = x.Name, value = x.RefId }).ToList();
 
                 if (RefId > 0)
                 {

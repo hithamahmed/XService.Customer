@@ -1,10 +1,6 @@
 ﻿using General.Services.Core.DTO;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Documents.Tracker.UI.Web.DTO
 {
@@ -14,7 +10,7 @@ namespace Documents.Tracker.UI.Web.DTO
         [Required]
         public int ServiceCategoryId { get; set; }
 
-        
+
         public int NewServiceCategoryId { get; set; }
 
         [Required]

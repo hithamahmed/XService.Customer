@@ -4,6 +4,7 @@ namespace Documents.Tracker.Core.DTO.Orders
 {
     public class OrderItemOTO
     {
+        public int Id { get; set; }
 
         [Required]
         //public string OrderKey { get; set; }
@@ -18,7 +19,8 @@ namespace Documents.Tracker.Core.DTO.Orders
         public decimal ProductUnit { get; set; }
         public decimal Discount { get; set; }
         public string ImageUrl { get; set; }
-        [AutoMapper.IgnoreMap]
+        //[AutoMapper.IgnoreMap]
         public ProductOTO Product { get; set; }
+
     }
 }

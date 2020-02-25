@@ -40,5 +40,14 @@ namespace Documents.Tracker.Core.DTO
         public ICollection<ProductDocumentsRequirementsOTO> ProductDocumentsRequirements { get; set; }
         [AutoMapper.IgnoreMap]
         public ICollection<ProductIssuedDocumentsOTO> ProductIssuedDocuments { get; set; }
+
+        public string GetProductName()
+        {
+            return Name;
+        }
+        public string GetProductShortName()
+        {
+            return ShortName;
+        }
     }
 }

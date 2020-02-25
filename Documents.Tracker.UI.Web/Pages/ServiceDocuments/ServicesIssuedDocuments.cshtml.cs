@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Documents.Tracker.Core;
+using Documents.Tracker.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using AutoMapper;
-using Documents.Tracker.Core;
-using Documents.Tracker.Core.DTO;
-using General.Services.Core;
-using General.Services.Core.DTO;
-using General.Services.Core.Interface;
-using Documents.Tracker.UI.Web.DTO;
+using System;
+using System.Threading.Tasks;
 
 namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 {
@@ -18,14 +11,14 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
     {
         private readonly IQueryProductDocuments queryServiceDocuments;
         private readonly ICommandProductDocuments commandProductDocuments;
-       // public IProducts servicesCategory { get; set; }
+        // public IProducts servicesCategory { get; set; }
         //public IMapper mapper { get; set; }
         public ManageServiceIssueDocumentsOTO serviceIssueDocumentsOTO { get; set; }
 
         public ServicesIssuedDocumentsModel(
             IQueryProductDocuments _queryserviceDocuments,
             ICommandProductDocuments _commandProductDocuments)
-            //IProducts _servicesCategory)
+        //IProducts _servicesCategory)
         {
             queryServiceDocuments = _queryserviceDocuments;
             commandProductDocuments = _commandProductDocuments;
@@ -44,11 +37,12 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
             return Page();
         }
 
-        public async Task<IActionResult> OnGetAddEditServiceIssuedDocsAsync(int Serviceid,int RefId)
+        public async Task<IActionResult> OnGetAddEditServiceIssuedDocsAsync(int Serviceid, int RefId)
         {
             try
             {
-                ProductIssuedDocumentsOTO ProductIssuedDocuments = new ProductIssuedDocumentsOTO {
+                ProductIssuedDocumentsOTO ProductIssuedDocuments = new ProductIssuedDocumentsOTO
+                {
                     ProductUKey = Serviceid
                 };
 

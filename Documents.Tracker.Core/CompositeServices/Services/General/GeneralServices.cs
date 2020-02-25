@@ -167,7 +167,7 @@ namespace Documents.Tracker.Core
         {
             try
             {
-                var x = await generalCore.GetAllGovernmentsByCountry(countryId);
+                var x = await generalCore.GetGovernmentsList(countryId);
                 return Mapper.Map<ICollection<GovernmentOTO>>(x);
             }
             catch (Exception)
@@ -177,19 +177,6 @@ namespace Documents.Tracker.Core
             }
         }
 
-        //public async Task<ICollection<ProductOTO>> GetListOfProductsWithCategory()
-        //{
-        //    try
-        //    {
-        //        var x = await servicesCategory.GetAllProductsWithCategory();
-        //        return Mapper.Map<ICollection<ProductOTO>>(x);
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
 
         public async Task<ICollection<ProductOTO>> GetListProductsByCategory(int CategoryId)
         {
@@ -205,11 +192,11 @@ namespace Documents.Tracker.Core
             }
         }
 
-        public async Task<ICollection<LocationAreasOTO>> GetLocationByGovernment(int governmentId)
+        public async Task<ICollection<LocationAreasOTO>> GetLocationList(int governmentId)
         {
             try
             {
-                var x = await generalCore.GetAllAreasByGoverment(governmentId);
+                var x = await generalCore.GetLocationAreasList(governmentId);
                 return Mapper.Map<ICollection<LocationAreasOTO>>(x);
             }
             catch (Exception)
@@ -225,6 +212,34 @@ namespace Documents.Tracker.Core
             {
                 var x = await servicesCategory.GetProductById(productUKey);
                 return Mapper.Map<ProductOTO>(x);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<ICollection<LocationAreasOTO>> GetLocationList()
+        {
+            try
+            {
+                var x = await generalCore.GetLocationAreasList();
+                return Mapper.Map<ICollection<LocationAreasOTO>>(x);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<LocationAreasOTO> GetSingleLocation(int locationId)
+        {
+            try
+            {
+                var x = await generalCore.GetLocationAreaById(locationId);
+                return Mapper.Map<LocationAreasOTO>(x);
             }
             catch (Exception)
             {

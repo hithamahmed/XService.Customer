@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using General.Staff.Core;
+using General.Staff.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using AutoMapper;
-using Documents.Tracker.Core;
-using Documents.Tracker.Core.DTO;
-using General.Services.Core;
-using General.Staff.Core;
-using General.Staff.Core.DTO;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Documents.Tracker.UI.Web.Pages.Staffs
 {
@@ -22,7 +17,7 @@ namespace Documents.Tracker.UI.Web.Pages.Staffs
         public EmployeesModel(IEmployees _employeeRepos)
         {
             employeeRepos = _employeeRepos;
- 
+
             //mapper = _mapper;
         }
 
@@ -30,9 +25,9 @@ namespace Documents.Tracker.UI.Web.Pages.Staffs
         {
             try
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                     EmployeesList = await employeeRepos.GetAllEmployees();
-                
+
                 return Page();
             }
             catch (Exception ex)
@@ -41,7 +36,7 @@ namespace Documents.Tracker.UI.Web.Pages.Staffs
                 return Page();
                 //throw new Exception(ex.Message.ToString());
             }
-        
+
         }
 
         public async Task<IActionResult> OnGetAddEditEmployeeAsync(int RefId)

@@ -32,10 +32,11 @@
                             <div class="kt-portlet__head-actions">
                                 <partial name="_Exportbar" />
                                 &nbsp;
-                                <a href="#" onclick="AddEdit(0,'@cntlname','AddEditTask','RefId')" class="btn btn-brand btn-elevate btn-icon-sm">
+                                @*<a href="#" onclick="AddEdit(0,'@cntlname','AddEditTask','RefId')" class="btn btn-brand btn-elevate btn-icon-sm">
                                     <i class="la la-plus"></i>
                                     New Task
-                                </a>
+                                </a>*@
+                            <a asp-page="AddTasks" asp-route-id="0" class="btn btn-brand btn-elevate btn-icon-sm"> <i class="la la-plus"></i>New Task</a>
                             </div>
                         </div>
                     </div>
@@ -52,8 +53,10 @@
                                         <tr>
                                             <th width="10%">Title</th>
                                             <th width="10%">Due Date</th>
+                                            <th width="10%">Employee</th>
                                             <th width="10%">Type</th>
                                             <th width="10%">Status</th>
+                                            <th width="10%">Closed</th>
                                             <th width="10%" class="notexport"></th>
                                         </tr>
                                     </thead>
@@ -69,15 +72,21 @@
                                                     <td>
                                                         @item.DueDate
                                                     </td>
-                                                    <td>
-                                                        @item.TaskTypeName
+                                                     <td>
+                                                        @item.UserDelegator.Name
                                                     </td>
                                                     <td>
-                                                        @item.TaskStatusName
+                                                        @item.TaskType.Name
+                                                    </td>
+                                                    <td>
+                                                        @item.TaskStatus.Name
+                                                    </td>
+                                                    <td>
+                                                        @item.IsClosed.ToString()
                                                     </td>
                                                     <td>
                                                         <div class="btn-group " role="group">
-                                                            <a  asp-page="AddTasks"  asp-route-id="@item.Id" class="btn btn-sm btn-icon"><i class="btn-icon"></i></a>
+                                                            <a  asp-page="AddTasks"  asp-route-id="@item.Id" class="btn btn-sm btn-icon">Manage</a>
                                                         </div>
                                                     </td>
                                                 </tr>

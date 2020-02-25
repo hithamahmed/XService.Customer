@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Documents.Tracker.Core;
+﻿using Documents.Tracker.Core;
 using Documents.Tracker.Core.DTO;
 using Documents.Tracker.UI.Web.DTO;
-using General.Services.Core;
-using General.Services.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
 {
@@ -23,7 +20,7 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
         public ICollection<CategoriesOTO> Categories { get; set; }
 
         public ServicesModel(
-            IQueryGeneralService _generalService, 
+            IQueryGeneralService _generalService,
             ICommandGeneralService _commandGeneralService)
         {
             generalService = _generalService;
@@ -76,7 +73,7 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
                 category = await generalService.GetCategoryById(RefId);
             }
             category.SubCategories = generalService.GetAllCategories()
-                .Result.Where(x=> x.RefId != RefId ).ToList();
+                .Result.Where(x => x.RefId != RefId).ToList();
             return Partial("_AddEditCategory", category);
         }
         public IActionResult OnPostSaveCategory(CategoriesOTO category)
@@ -98,9 +95,9 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
         }
         public JsonResult OnGetCategory(string categoryname)
         {
-            var allCategories =   generalService.GetAllCategories().Result;
+            var allCategories = generalService.GetAllCategories().Result;
             var categories = allCategories.Where(x => categoryname.Contains(x.Name))
-                .Select(x=> 
+                .Select(x =>
                 new { label = x.Name, value = x.RefId }).ToList();
             return new JsonResult(categories);
         }
@@ -140,7 +137,7 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("ex", ex.Message );
+                ModelState.AddModelError("ex", ex.Message);
                 return RedirectToPage();
             }
         }
@@ -184,7 +181,7 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
                 var categories = allCategories
                     .Select(x =>
                     new { label = x.Name, value = x.RefId }).ToList();
-                
+
                 if (RefId > 0)
                 {
                     var product = await generalService.GetProductById(RefId);
@@ -195,11 +192,11 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
                         ServiceCategoryId = categoryid,
                         NewServiceCategoryId = categoryid,
                     };
-                    category.CategoriesSelectList = 
+                    category.CategoriesSelectList =
                         new SelectList(categories, "value", "label", category.ServiceCategoryId.ToString());
                 }
                 else
-                    category.CategoriesSelectList = 
+                    category.CategoriesSelectList =
                         new SelectList(categories, "value", "label");
 
                 return Partial("_ChangeServiceCategory", category);
@@ -213,6 +210,6 @@ namespace Documents.Tracker.UI.Web.Pages.GeneralPages.ServiceCategories
 
         #endregion
 
-       
+
     }
 }
