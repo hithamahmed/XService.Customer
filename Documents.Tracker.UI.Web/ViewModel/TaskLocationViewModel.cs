@@ -13,7 +13,7 @@ namespace Documents.Tracker.UI.Web.ViewModel
         {
             //TaskLocationService = new HashSet<TaskLocationOTO>();
             //LocationAreas = new HashSet<LocationAreasOTO>();
-            //OrderProducts = new HashSet<OrderItemOTO>();
+            //OrderProducts = new HashSet<OrderProductOTO>();
             //TaskStatuses = new HashSet<TaskStatusDTO>();
         }
         //[Required] public ICollection<TaskLocationOTO> TaskLocationService { get; set; }
@@ -22,7 +22,7 @@ namespace Documents.Tracker.UI.Web.ViewModel
         public int ReferenceId { get; set; }
 
         //public IEnumerable<LocationAreasOTO> LocationAreas { get; set; }
-        //public IEnumerable<OrderItemOTO> OrderProducts { get; set; }
+        //public IEnumerable<OrderProductOTO> OrderProducts { get; set; }
         //public IEnumerable<TaskStatusDTO> TaskStatuses { get; set; }
     }
 }

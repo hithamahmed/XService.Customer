@@ -9,7 +9,7 @@ namespace Documents.Tracker.Core.DTO.Orders
     {
         public OrderOTO()
         {
-            OrderItems = new HashSet<OrderItemOTO>();
+            OrderItems = new HashSet<OrderProductOTO>();
         }
         [MaxLength(200)]
         public string OrderKey { get; set; }
@@ -31,7 +31,7 @@ namespace Documents.Tracker.Core.DTO.Orders
         public OrderStatusDTO OrderStatus { get; set; }
 
         public bool IsDraft { get; set; }
-        public ICollection<OrderItemOTO> OrderItems { get; set; }
+        public ICollection<OrderProductOTO> OrderItems { get; set; }
 
         [AutoMapper.IgnoreMap]
         public ConsumersProfileOTO Consumer { get; set; }

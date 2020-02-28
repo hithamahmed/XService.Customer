@@ -137,7 +137,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
         {
             try
             {
-                return ViewComponent("PendingOrderItems", new { orderid = id });
+                return ViewComponent("PendingOrderProductServices", new { orderid = id });
             }
             catch (Exception)
             {
@@ -146,7 +146,25 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
             }
             
         }
+        public async Task<IActionResult> OnPostSetTaskServiceStatus(int TaskServiceId, int statusid)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToPage();
+                }
+                TaskEnums.TaskStatus taskStatus = (TaskEnums.TaskStatus)statusid;
+                var taskService = await _commandTodoTasks.SetTaskServiceStatus(TaskServiceId, taskStatus);
+                return RedirectToPage(new { id = taskService .TaskID});
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+
+        }
         public JsonResult OnGetOrderProducts(int orderid)
         {
             try

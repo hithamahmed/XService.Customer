@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TodoTasks.Commons;
 using TodoTasks.Commons.DTO;
 
 namespace Documents.Tracker.Core.CompositeServices
@@ -12,5 +13,6 @@ namespace Documents.Tracker.Core.CompositeServices
         Task<int> AddEditTodoTask(TasksDTO tasksDTO);
         Task<int> AddEditTodoTaskLocation(TaskLocationOTO taskLocationOTO);
         Task<TaskLocationOTO> GetSingleTodoTaskLocation(int taskLocationId);
+        Task<TaskLocationOTO> SetTaskServiceStatus(int TaskServiceId, TodoTasks.Commons.TaskEnums.TaskStatus taskStatus);
     }
 }

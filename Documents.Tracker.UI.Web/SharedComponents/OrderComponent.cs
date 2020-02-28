@@ -18,7 +18,7 @@ namespace Documents.Tracker.UI.Web.SharedComponents
         }
     }
 
-    [ViewComponent(Name = "PendingOrderItems")]
+    [ViewComponent(Name = "PendingOrderProductServices")]
     public class PendingOrderItemsComponent : ViewComponent
     {
         private readonly IQueryOrderService _queryOrderService;
@@ -28,8 +28,22 @@ namespace Documents.Tracker.UI.Web.SharedComponents
         }
         public async Task<IViewComponentResult> InvokeAsync(int orderid)
         {
-            var orderItems = await  _queryOrderService.GetOrderItems(orderid);
+            var orderItems = await  _queryOrderService.GetOrderProducts(orderid);
             return View(orderItems);
         }
     }
-}
+    [ViewComponent(Name = "OrderProducts")]
+    public class OrderProductsComponent : ViewComponent
+    {
+        private readonly IQueryOrderService _queryOrderService;
+        public OrderProductsComponent(IQueryOrderService queryOrderService)
+        {
+            _queryOrderService = queryOrderService;
+        }
+        public async Task<IViewComponentResult> InvokeAsync(string OrderKey)
+        {
+            var orderItems = await _queryOrderService.GetOrderProducts(OrderKey);
+            return View( orderItems);
+        }
+    }
+} 

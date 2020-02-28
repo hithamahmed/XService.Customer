@@ -48,12 +48,6 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
                 var orderDetails = Mapper.Map<OrderOTO>(x);
                 if (orderDetails != null)
                 {
-                    //foreach (var item in orderDetails.OrderItems)
-                    //{
-                    //    var product = await _productServices.GetServiceDetailsByServiceId(item.ProductId);
-                    //    item.Product = product;
-                    //}
-
                     var cosnumer = await _queryConsumers.GetSingleConsumerWithAddressByConsumerId(orderDetails.ConsumerId);
                     if (cosnumer != null)
                     {
@@ -77,7 +71,6 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
                 var orderDetails = Mapper.Map<OrderOTO>(x);
                 if (orderDetails != null)
                 {
-
                     var cosnumer = await _queryConsumers.GetSingleConsumerWithAddressByConsumerId(orderDetails.ConsumerId);
                     if (cosnumer != null)
                     {
@@ -109,7 +102,7 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
                         order.Consumer = cosnumer;
                     }
                 }
-                order.OrderItems.Add(Mapper.Map<OrderItemOTO>(orderDetails));
+                order.OrderItems.Add(Mapper.Map<OrderProductOTO>(orderDetails));
 
                 return order;
             }
@@ -119,18 +112,18 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
                 throw;
             }
         }
-        public async Task<ICollection<OrderItemOTO>> GetOrdersByStatus(int orderstausId)
+        public async Task<ICollection<OrderProductOTO>> GetOrdersByStatus(int orderstausId)
         {
             try
             {
-                Expression<Func<OrderItemOTO,bool>> predicate = x=>x.ProductId == orderstausId;
+                Expression<Func<OrderProductOTO,bool>> predicate = x=>x.ProductId == orderstausId;
 
                 var orders= await _orderServices.GetOrders(x=>x.OrderStatusId == orderstausId);
                 List<string> Orderskeys = (from i in orders select i.OrderKey).ToList();
 
                 var orderItems = await _orderServices.GetOrderProducts(x=> Orderskeys.Contains(x.OrderKey));
                 
-                var orderList = Mapper.Map<ICollection<OrderItemOTO>>(orderItems);
+                var orderList = Mapper.Map<ICollection<OrderProductOTO>>(orderItems);
 
                 foreach (var item in orderList.ToList())
                 {
@@ -145,7 +138,6 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
                 throw;
             }
         }
-
         public async Task<OrderOTO> SetOrderStatus(string orderkey, int StatusEnumId)
         {
             try
@@ -160,14 +152,28 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
             }
 
         }
-
-        public async Task<ICollection<OrderItemOTO>> GetOrderItems(int OrderId)
+        public async Task<ICollection<OrderProductOTO>> GetOrderProducts(int OrderId)
         {
             try
             {
                 var orderKey = await _orderServices.GetOrderKeyById(OrderId);
                 var orderlist = await _orderServices.GetOrderProducts(x=>x.OrderKey.Equals(orderKey));
-                return Mapper.Map<ICollection<OrderItemOTO>>(orderlist);
+                return Mapper.Map<ICollection<OrderProductOTO>>(orderlist);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<ICollection<OrderProductOTO>> GetOrderProducts(string OrderKey)
+        {
+            try
+            {
+                var orderlist = await _orderServices.GetOrderProducts(x => x.OrderKey.Equals(OrderKey));
+                return Mapper.Map<ICollection<OrderProductOTO>>(orderlist);
 
             }
             catch (Exception)

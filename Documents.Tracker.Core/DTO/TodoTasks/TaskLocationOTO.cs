@@ -27,7 +27,7 @@ namespace Documents.Tracker.Core.DTO.TodoTasks
         [IgnoreMap] public ProductOTO Product { get; set; }
         [IgnoreMap] public LocationAreasOTO LocationAreas { get; set; }
         [IgnoreMap] public OrderOTO Order { get; set; }
-        [IgnoreMap] public ICollection<OrderItemOTO> OrderItems { get; set; }
+        [IgnoreMap] public ICollection<OrderProductOTO> OrderItems { get; set; }
 
     }
 }

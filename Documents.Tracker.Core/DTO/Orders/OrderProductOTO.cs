@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TodoTasks.Commons.DTO;
 
 namespace Documents.Tracker.Core.DTO.Orders
 {
-    public class OrderItemOTO
+    public class OrderProductOTO
     {
         public int Id { get; set; }
 
         [Required]
-        //public string OrderKey { get; set; }
         public int ProductId { get; set; }
 
         [Required]
@@ -19,8 +19,7 @@ namespace Documents.Tracker.Core.DTO.Orders
         public decimal ProductUnit { get; set; }
         public decimal Discount { get; set; }
         public string ImageUrl { get; set; }
-        //[AutoMapper.IgnoreMap]
         public ProductOTO Product { get; set; }
-
+        //public TaskStatusDTO TaskStatus { get; set; } 
     }
 }

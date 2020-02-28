@@ -15,16 +15,16 @@
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
 
     @*<div class="row">
-        <div class="col">
+            <div class="col">
 
-            <div class="alert alert-light alert-elevate fade show" role="alert">
-                <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
-                <div class="alert-text">
+                <div class="alert alert-light alert-elevate fade show" role="alert">
+                    <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
+                    <div class="alert-text">
 
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
 
     <!--begin::Portlet-->
     <div class="kt-portlet">
@@ -106,7 +106,7 @@
                 </div>
                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
 
-                <div class="kt-form__section kt-form__section--first">
+                <div>
                     @{
                         if (Model.ServiceTask != null && Model.ServiceTask.Id > 0)
                         {
@@ -117,18 +117,12 @@
                             <div class="form-group row">
                                 <label class="col-lg-2 col-form-label">Enter Order Number:</label>
                                 <div class="col-lg-4">
-                                    <input id="orders" required
+                                    <input id="orders"
                                            onblur="LoadOrderItems(this,'@cntlname')"
                                            @*onblur="FillDropDownList(this.value,'TaskLocationServices.ProductId','@cntlname'+'?handler=OrderProducts&orderid=')"*@
-                                            class="form-control">
+                                           class="form-control">
                                 </div>
 
-                                @*<label class="col-lg-2 col-form-label">Choose Service:</label>
-                                <div class="col-lg-4">
-                                    <select asp-for="TaskLocationServices.ProductId" class="form-control">
-                                        <option disabled value="0" class="font-weight-bold">Choose Services</option>
-                                    </select>
-                                </div>*@
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-2 col-form-label">Location:</label>
@@ -145,11 +139,11 @@
                             <div class="form-group row">
                                 @*<label class="col-lg-2 col-form-label">Ref:</label>*@
                                 <div class="col-lg-4">
-                                    <input type="hidden"   asp-for="TaskLocationServices.ReferenceId" required class="form-control">
+                                    <input type="hidden" asp-for="TaskLocationServices.ReferenceId" required class="form-control">
                                 </div>
                                 @*<label class="col-lg-2 col-form-label">Prod:</label>*@
                                 <div class="col-lg-4">
-                                    <input type="hidden"  asp-for="TaskLocationServices.ProductId" required class="form-control">
+                                    <input type="hidden" asp-for="TaskLocationServices.ProductId" required class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -158,32 +152,18 @@
 
                                 </div>
                             </div>
-
-
-                            @*<div class="kt-portlet__foot">
-                    <div class="kt-form__actions">
-                        <div class="row">
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-2">
-                                <button asp-page-handler="SaveTaskLocation" type="submit" class="btn btn-primary">Add</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
+                             
 
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
-                            <blockquote>
-                                <vc:task-services-by-task-id-view task-id="@Model.ServiceTask.Id">
-                                    <p></p>
-                                </vc:task-services-by-task-id-view>
-                            </blockquote>
+
+                            <vc:task-services-by-task-id-view task-id="@Model.ServiceTask.Id" />
 
                         }
                     }
                 </div>
 
             </div>
-           
+
         </form>
 
         <!--end::Form-->

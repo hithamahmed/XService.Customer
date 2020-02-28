@@ -50,7 +50,7 @@ namespace Documents.Tracker.Core.Config.Mapper
 
 
             CreateMap<OrderDTO, OrderOTO>().ReverseMap();
-            CreateMap<OrderProductDTO, OrderItemOTO>().ReverseMap();
+            CreateMap<OrderProductDTO, OrderProductOTO>().ReverseMap();
 
             CreateMap<TasksDTO, TaskOTO>();
             CreateMap<TaskLocationServiceDTO, TaskLocationOTO>().ReverseMap();

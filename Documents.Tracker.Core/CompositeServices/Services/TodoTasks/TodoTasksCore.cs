@@ -8,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using TodoTasks.Commons;
 using TodoTasks.Commons.DTO;
 using TodoTasks.Core.Interface;
 
@@ -212,6 +213,21 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
 
                 throw;
             }
+        }
+
+        public async Task<TaskLocationOTO> SetTaskServiceStatus(int TaskServiceId, TaskEnums.TaskStatus taskStatus)
+        {
+            try
+            {
+                var taskService = await _taskLocationsCore.SetTaskServiceStatus(TaskServiceId, taskStatus);
+                return Mapper.Map<TaskLocationOTO>(taskService);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

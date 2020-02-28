@@ -1,4 +1,4 @@
-﻿@model ICollection<Documents.Tracker.Core.DTO.Orders.OrderItemOTO>
+﻿@model ICollection<Documents.Tracker.Core.DTO.Orders.OrderProductOTO>
 
 
     <div class="kt-portlet__body colo">
@@ -10,9 +10,9 @@
                         <thead>
                             <tr>
                                 <th width="10%">#</th>
-                                <th width="10%">Id</th>
-                                <th>Product</th>
-                                
+                                @*<th width="10%">Id</th>*@
+                                <th>Service</th>
+                                <th>Status</th>
                                 <th width="10%" class="notexport"></th>
                             </tr>
                         </thead>
@@ -26,20 +26,27 @@
                                             <div id="serviceRows">
                                                 <input type="hidden" value="@item.Id" name="RefId" />
                                                 <input type="hidden" value="@item.ProductId" name="ProId" />
-                                                <input onchange="ShowServiceInfo(this)" value="@item.Id" name="selectedService" type="radio" />
+                                                <label class="kt-radio kt-radio--bold kt-radio--success">
+                                                    <input onchange="ShowServiceInfo(this)" value="@item.Id" name="selectedService" type="radio" />
+                                                    <span></span>
+                                                </label>
+                                                
+                                                
                                             </div>
                                  
                                         </td>
-                                        <td>
+                                        @*<td>
                                             @item.Id
-                                        </td>
+                                        </td>*@
                                         <td>
-                                            @item.ProductShortName
+                                            @item.Product.Name
                                         </td>
-                                        <td>
+                                        @*<td>
                                             @item.ProductUnit
+                                        </td>*@
+                                        <td>
+                                            Done
                                         </td>
-
                                     </tr>
                                 }
                             }
