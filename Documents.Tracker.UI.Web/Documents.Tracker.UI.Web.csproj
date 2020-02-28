@@ -11,12 +11,10 @@
 
   <ItemGroup>
     <Compile Remove="DTO\ManageServiceIssueDocumentsOTO.cs" />
-    <Compile Remove="SharedComponents\ConsumersComponent.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Pages\ServiceTasks\_AddEditTaskLocation.cshtml" />
-    <Content Remove="Pages\Shared\Components\Consumers\Default.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,7 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Shared\Components\Consumers\" />
     <Folder Include="Pages\Shared\Components\Tasks\" />
     <Folder Include="wwwroot\assets\plugins\general\ion-rangeslider\img\" />
   </ItemGroup>

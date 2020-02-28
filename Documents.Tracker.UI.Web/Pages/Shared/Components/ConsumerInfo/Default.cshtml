@@ -1,0 +1,34 @@
+﻿@model Documents.Tracker.Core.DTO.ConsumersProfileOTO
+
+
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <span class="kt-portlet__head-icon">
+                <i class="kt-font-brand flaticon2-architecture-and-city"></i>
+            </span>
+            <h3 class="kt-portlet__head-title">
+                Customer
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <!--begin: Datatable -->
+
+        <div class="table-responsive">
+            <div class="kt-infobox">
+                <div class="kt-infobox--info">
+                    <span><strong>Customer Name:</strong> </span>
+                    <span class="kt-invoice__value">@Model.Consumer.FullName</span>
+                </div>
+                <div class="kt-infobox--success">
+                    <span><strong>Phone Number:</strong> </span>
+                    <span class="kt-invoice__value">@Model.Consumer.PhoneNumber</span>
+                </div>
+               
+            </div>
+        </div>
+
+        <!--end: Datatable -->
+    </div>
+</div>
