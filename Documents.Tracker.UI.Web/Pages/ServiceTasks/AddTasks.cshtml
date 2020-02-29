@@ -112,14 +112,14 @@
                         {
 
                             <input type="hidden" asp-for="TaskLocationServices.TaskID" />
-                            @*<input type="hidden" asp-for="TaskLocationServices.TaskStatusId" />*@
+                            <input type="hidden" asp-for="TaskLocationServices.ProductId" required class="form-control">
+                            <input type="hidden" asp-for="TaskLocationServices.ReferenceId" required class="form-control">
 
                             <div class="form-group row">
                                 <label class="col-lg-2 col-form-label">Enter Order Number:</label>
                                 <div class="col-lg-4">
                                     <input id="orders"
                                            onblur="LoadOrderItems(this,'@cntlname')"
-                                           @*onblur="FillDropDownList(this.value,'TaskLocationServices.ProductId','@cntlname'+'?handler=OrderProducts&orderid=')"*@
                                            class="form-control">
                                 </div>
 
@@ -136,25 +136,16 @@
                                     <button asp-page-handler="SaveTaskLocation" type="submit" class="btn btn-primary">Add</button>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                @*<label class="col-lg-2 col-form-label">Ref:</label>*@
-                                <div class="col-lg-4">
-                                    <input type="hidden" asp-for="TaskLocationServices.ReferenceId" required class="form-control">
-                                </div>
-                                @*<label class="col-lg-2 col-form-label">Prod:</label>*@
-                                <div class="col-lg-4">
-                                    <input type="hidden" asp-for="TaskLocationServices.ProductId" required class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row">
+                         
+                            <div class="row">
                                 <label class="col-lg-2 col-form-label">Order Service:</label>
                                 <div id="orderitems" class="col-lg-8">
 
                                 </div>
                             </div>
-                             
 
-                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+
+                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm"></div>
 
                             <vc:task-services-by-task-id-view task-id="@Model.ServiceTask.Id" />
 

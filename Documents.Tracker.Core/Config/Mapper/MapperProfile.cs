@@ -53,7 +53,7 @@ namespace Documents.Tracker.Core.Config.Mapper
             CreateMap<OrderProductDTO, OrderProductOTO>().ReverseMap();
             CreateMap<OrderPaymentDTO, OrderPaymentOTO>().ReverseMap();
 
-            CreateMap<TasksDTO, TaskOTO>();
+            CreateMap<TasksDTO, TaskOTO>().ReverseMap();
             CreateMap<TaskLocationServiceDTO, TaskLocationOTO>().ReverseMap();
         }
 

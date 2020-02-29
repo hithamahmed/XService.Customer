@@ -10,7 +10,7 @@ namespace Documents.Tracker.Core.CompositeServices
 {
     public interface ICommandTodoTasksServices
     {
-        Task<int> AddEditTodoTask(TasksDTO tasksDTO);
+        Task<int> AddEditTodoTask(TaskOTO tasksDTO);
         Task<int> AddEditTodoTaskLocation(TaskLocationOTO taskLocationOTO);
         Task<TaskLocationOTO> GetSingleTodoTaskLocation(int taskLocationId);
         Task<TaskLocationOTO> SetTaskServiceStatus(int TaskServiceId, TodoTasks.Commons.TaskEnums.TaskStatus taskStatus);

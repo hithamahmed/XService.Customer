@@ -40,7 +40,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
         //    }
         //    return Partial("_AddEditTask", serviceTask);
         //}
-        public async Task<IActionResult> OnPostSaveCategory(TasksDTO tasks)
+        public async Task<IActionResult> OnPostSaveCategory(TaskOTO tasks)
         {
             try
             {

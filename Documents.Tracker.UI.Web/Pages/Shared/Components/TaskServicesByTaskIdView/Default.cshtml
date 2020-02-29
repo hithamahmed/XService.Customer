@@ -2,28 +2,23 @@
 @{
     var cntlname = ViewContext.RouteData.Values["Page"].ToString();
 }
-<div class="kt-portlet__body colo">
-    <div class="kt-portlet kt-portlet--height-fluid">
-
-        <div class="kt-portlet__body">
-            <!--begin::k-widget4-->
-            <div class="kt-widget4">
-                <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
-                    <thead>
-                        <tr>
-                            <th width="10%">Location</th>
-                            <th width="10%">Order</th>
-                            <th width="10%">Service</th>
-                            <th width="10%">Status</th>
-                            <th width="10%">Status Date</th>
-                            <th width="10%" class="notexport">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            @foreach (var item in Model)
-                            {
+    <div class="kt-widget4">
+        <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
+            <thead>
+                <tr>
+                    <th width="10%">Location</th>
+                    <th width="10%">Order</th>
+                    <th width="10%">Service</th>
+                    <th width="10%">Status</th>
+                    <th width="10%">Status Date</th>
+                    <th width="10%" class="notexport">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    @foreach (var item in Model)
+                    {
                         <tr>
                             <td>
                                 @item.LocationAreas.Name
@@ -42,17 +37,20 @@
                                 @item.TaskStatusDate
                             </td>
                             <td>
-                                <vc:set-task-service-status task-service-id="@item.Id"/>
+                                <vc:set-task-service-status task-service-id="@item.Id" />
                             </td>
                         </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+@*<div class="kt-portlet__body colo">
+    <div class="kt-portlet kt-portlet--height-fluid">
 
-            <!--end::Widget 9-->
+        <div class="kt-portlet__body">
+ 
         </div>
     </div>
 
-</div>
+</div>*@

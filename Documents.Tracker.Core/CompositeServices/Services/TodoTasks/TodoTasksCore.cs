@@ -62,11 +62,12 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
                 throw;
             }
         }
-        public async Task<int> AddEditTodoTask(TasksDTO tasksDTO)
+        public async Task<int> AddEditTodoTask(TaskOTO tasksDTO)
         {
             try
             {
-                return await _tasksCore.AddTask(tasksDTO);
+                var task = Mapper.Map<TasksDTO>(tasksDTO);
+                return await _tasksCore.AddTask(task);
             }
             catch (Exception)
             {
@@ -104,7 +105,7 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
             }
         }
 
-        public async Task<TasksDTO> GetSingleTodoTask(int taskId)
+        public async Task<TaskOTO> GetSingleTodoTask(int taskId)
         {
             try
             {
@@ -112,7 +113,8 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
                 includes.Add(x => x.TaskStatus);
                 includes.Add(x => x.TaskType);
 
-                return await _tasksCore.GetSingleTask(x=>x.Id == taskId, includes);
+                var task = await _tasksCore.GetSingleTask(x=>x.Id == taskId, includes);
+                return Mapper.Map<TaskOTO>(task);
             }
             catch (Exception)
             {

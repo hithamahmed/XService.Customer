@@ -27,7 +27,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
         private readonly IQueryOrderService _orderservice;
 
         [BindProperty]
-        public TasksDTO ServiceTask { get; set; }
+        public TaskOTO ServiceTask { get; set; }
         [BindProperty]
         public TaskLocationOTO TaskLocationServices { get; set; }
         //[BindProperty]
@@ -57,7 +57,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
 
         public async Task<IActionResult> OnGet(int? id)
         {
-            ServiceTask = new TasksDTO();
+            ServiceTask = new TaskOTO();
             TaskLocationServices = new TaskLocationOTO();
             //TaskServiceModel = new TaskLocationViewModel();
 

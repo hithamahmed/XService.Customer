@@ -15,7 +15,7 @@ namespace Documents.Tracker.Core.DTO.TodoTasks
             TaskStatus = new TaskStatusDTO();
             TaskType = new TaskTypeDTO();
         }
-        public int? Id { get; set; }
+        public int Id { get; set; }
         
         [StringLength(50)]
         public string Title { get; set; }
@@ -34,7 +34,8 @@ namespace Documents.Tracker.Core.DTO.TodoTasks
         public DateTime? ClosedAt { get; set; }
 
         public string AssignedUserID { get; set; }
-
+        public int StatusId { get; set; }
+        public int TaskTypeId { get; set; }
         public TaskStatusDTO TaskStatus { get; set; }
         public TaskTypeDTO TaskType { get; set; }
         [IgnoreMap] public UserDelegatorDTO UserDelegator { get; set; }

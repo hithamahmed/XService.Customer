@@ -48,11 +48,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\ApplicationInfrastructure\Infra.MSSQL\Application.Infrastructure.MSSQL.csproj" />
-    <ProjectReference Include="..\..\..\TodoTasks\TodoTasks.Commons\TodoTasks.Commons.csproj" />
     <ProjectReference Include="..\..\Orders\Orders.Core\Orders.Core.csproj" />
     <ProjectReference Include="..\..\services\General.Employees.Core\General.Staff.Core.csproj" />
     <ProjectReference Include="..\..\services\General.Services.Core\General.Services.Core.csproj" />
     <ProjectReference Include="..\..\TodoTasks\Todo.Tasks.Core\TodoTasks.Core.csproj" />
+    <ProjectReference Include="..\..\TodoTasks\TodoTasks.Commons\TodoTasks.Commons.csproj" />
     <ProjectReference Include="..\Documents.Tracker.Core\Documents.Tracker.Core.csproj" />
   </ItemGroup>
 
