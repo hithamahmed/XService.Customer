@@ -22,6 +22,15 @@ namespace Documents.Tracker.UI.Web.SharedComponents
             return View<ICollection<TaskLocationOTO>>( TaskLocationServices);
         }
     }
+    [ViewComponent(Name = "SetTaskStatus")]
+    public class SetTaskStatusComponent : ViewComponent
+    {
+        public async Task<IViewComponentResult> InvokeAsync(int taskId)
+        {
+            return View<int>(taskId);
+        }
+    }
+
     [ViewComponent(Name = "SetTaskServiceStatus")]
     public class SetTaskServiceStatusComponent : ViewComponent
     {

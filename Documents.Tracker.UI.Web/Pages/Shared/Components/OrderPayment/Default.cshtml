@@ -1,5 +1,4 @@
-﻿@model Documents.Tracker.Core.DTO.ConsumersProfileOTO
-
+﻿@model Documents.Tracker.Core.DTO.Orders.OrderPaymentOTO
 
 <div class="kt-portlet">
     <div class="kt-portlet__head">
@@ -8,7 +7,7 @@
                 <i class="kt-font-brand flaticon2-architecture-and-city"></i>
             </span>
             <h3 class="kt-portlet__head-title">
-                Customer
+                Payment
             </h3>
         </div>
     </div>
@@ -17,18 +16,18 @@
 
         <div class="table table-responsive-sm">
             <div class="row">
-                <label class="col-lg-6"><strong>Customer Name:</strong></label>
+                <label class="col-lg-6"><strong>Paid Date:</strong></label>
                 <div class="col-lg-6">
-                    @Model.Consumer.FullName
+                    @Model.PaidDate
                 </div>
             </div>
             <div class="row">
-                <label class="col-lg-6"><strong>Phone Number:</strong></label>
+                <label class="col-lg-6"><strong>Amount Paid:</strong></label>
                 <div class="col-lg-6">
-                    @Model.Consumer.PhoneNumber
+                    @Model.AmountPaid
                 </div>
             </div>
-
+ 
         </div>
 
         <!--end: Datatable -->

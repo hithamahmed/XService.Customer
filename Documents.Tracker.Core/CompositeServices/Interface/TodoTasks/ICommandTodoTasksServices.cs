@@ -14,5 +14,6 @@ namespace Documents.Tracker.Core.CompositeServices
         Task<int> AddEditTodoTaskLocation(TaskLocationOTO taskLocationOTO);
         Task<TaskLocationOTO> GetSingleTodoTaskLocation(int taskLocationId);
         Task<TaskLocationOTO> SetTaskServiceStatus(int TaskServiceId, TodoTasks.Commons.TaskEnums.TaskStatus taskStatus);
+        Task<TaskOTO> SetTaskStatus(int TaskId, TodoTasks.Commons.TaskEnums.TaskStatus taskStatus);
     }
 }

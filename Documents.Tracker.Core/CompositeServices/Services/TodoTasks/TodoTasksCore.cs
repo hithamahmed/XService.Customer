@@ -229,5 +229,19 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
             }
 
         }
+
+        public async Task<TaskOTO> SetTaskStatus(int TaskId, TaskEnums.TaskStatus taskStatus)
+        {
+            try
+            {
+                var taskService = await _tasksCore.SetTaskStatus(TaskId, taskStatus);
+                return Mapper.Map<TaskOTO>(taskService);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

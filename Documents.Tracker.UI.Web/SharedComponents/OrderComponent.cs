@@ -46,4 +46,32 @@ namespace Documents.Tracker.UI.Web.SharedComponents
             return View( orderItems);
         }
     }
+    [ViewComponent(Name = "OrderHeader")]
+    public class OrderHeaderComponent : ViewComponent
+    {
+        private readonly IQueryOrderService _queryOrderService;
+        public OrderHeaderComponent(IQueryOrderService queryOrderService)
+        {
+            _queryOrderService = queryOrderService;
+        }
+        public async Task<IViewComponentResult> InvokeAsync(string OrderKey)
+        {
+            var order = await _queryOrderService.GetSingleOrder(OrderKey);
+            return View(order);
+        }
+    }
+    [ViewComponent(Name = "OrderPayment")]
+    public class OrderPaymentComponent : ViewComponent
+    {
+        private readonly IQueryOrderService _queryOrderService;
+        public OrderPaymentComponent(IQueryOrderService queryOrderService)
+        {
+            _queryOrderService = queryOrderService;
+        }
+        public async Task<IViewComponentResult> InvokeAsync(string OrderKey)
+        {
+            var order = await _queryOrderService.GetSingleOrderPayment(OrderKey);
+            return View(order);
+        }
+    }
 } 

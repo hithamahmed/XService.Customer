@@ -1,0 +1,51 @@
+﻿@model Documents.Tracker.Core.DTO.Orders.OrderOTO
+
+    <div class="kt-portlet">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <span class="kt-portlet__head-icon">
+                    <i class="kt-font-brand flaticon2-architecture-and-city"></i>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    Order
+                </h3>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            <!--begin: Datatable -->
+
+            <div class="table table-responsive-sm">
+                
+                    <div class="row">
+                        <label class="col-lg-6"><strong>Order Date:</strong></label>
+                        <div class="col-lg-6">
+                            @Model.OrderDate
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-6"><strong>Finished Date:</strong></label>
+                        <div class="col-lg-6">
+                            @{
+                                var finishedDate = Model.FinishedDate < Model.OrderDate ? "Not Yet" : Model.FinishedDate.ToLongDateString();
+                            }
+                            <span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">@finishedDate</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-6"><strong>Items:</strong></label>
+                        <div class="col-lg-6">
+                            <span class="kt-badge kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded">@Model.OrderItems.Count()</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-6"><strong>Status:</strong></label>
+                        <div class="col-lg-6">
+                            <span class="kt-badge kt-badge--primary kt-badge--inline kt-badge--pill kt-badge--rounded">@Model.OrderStatus.Name</span>
+                        </div>
+                    </div>
+              
+            </div>
+
+            <!--end: Datatable -->
+        </div>
+    </div>

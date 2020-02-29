@@ -57,6 +57,7 @@
                                             <th width="10%">Type</th>
                                             <th width="10%">Status</th>
                                             <th width="10%">Closed</th>
+                                            <th width="10%">Action</th>
                                             <th width="10%" class="notexport"></th>
                                         </tr>
                                     </thead>
@@ -88,6 +89,9 @@
                                                         <div class="btn-group " role="group">
                                                             <a  asp-page="AddTasks"  asp-route-id="@item.Id" class="btn btn-sm btn-icon">Manage</a>
                                                         </div>
+                                                    </td>
+                                                    <td>
+                                                        <vc:set-task-status task-id="@item.Id.Value" />
                                                     </td>
                                                 </tr>
                                             }

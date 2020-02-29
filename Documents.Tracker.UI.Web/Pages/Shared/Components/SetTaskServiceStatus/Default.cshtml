@@ -1,5 +1,4 @@
-﻿@*@model Documents.Tracker.UI.Web.SharedComponents.OrderComponent*@
-@model int
+﻿@model int
 
 
 @using TodoTasksCore = global::TodoTasks.Commons.TaskEnums
@@ -9,24 +8,27 @@
     var TaskStatusEnums = Html.GetEnumSelectList<TodoTasksCore.TaskStatus>();
     var taskServiceId = Model;
 }
+  
 
-<button class="btn btn-sm btn-warning dropdown-toggle" id="dropdownMenu2" type="button" data-toggle="dropdown">Set Status</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-    @*<button class="dropdown-item" type="button">Checking</button> <button class="dropdown-item" type="button">Reject</button>*@
 
-    <div class="col-lg-12">
+        <button class="btn btn-sm btn-warning dropdown-toggle" id="dropdownMenu2" type="button" data-toggle="dropdown">Set Status</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            @*<button class="dropdown-item" type="button">Checking</button> <button class="dropdown-item" type="button">Reject</button>*@
 
-        @foreach (var item in TaskStatusEnums.ToList())
-        {
-            <button type="submit" class="dropdown-item"
-                    asp-page="AddTasks" asp-page-handler="SetTaskServiceStatus" asp-route-TaskServiceId="@taskServiceId" asp-route-statusid="@item.Value">
-                @item.Text
-            </button>
-        }
+            <div class="col-lg-12">
 
-    </div>
+                @foreach (var item in TaskStatusEnums.ToList())
+                {
+                    <button type="submit" class="dropdown-item"
+                            asp-page="AddTasks" asp-page-handler="SetTaskServiceStatus" asp-route-TaskServiceId="@taskServiceId" asp-route-statusid="@item.Value">
+                        @item.Text
+                    </button>
+                }
 
-</div>
+            </div>
+
+        </div>
+    
 @*onclick="SetOrderStatus(@cntlname,'SetOrderStatus','Orderkey='+'@okey' + '&statusid='+'@item.Value')"
     <form method="post"><button type="submit" class="dropdown-item" asp-page-handler="SetOrderStatus" asp-route-Orderkey="@okey" asp-route-statusid="@item.Value">@item.Text</button></form>*@
 @*onclick="SetOrderStatus('@cntlname','SetOrderStatus','Orderkey='+'@okey' + '&statusid='+@item.Value)"*@

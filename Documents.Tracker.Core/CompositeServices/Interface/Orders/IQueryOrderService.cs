@@ -13,5 +13,7 @@ namespace Documents.Tracker.Core.CompositeServices
         Task<ICollection<OrderProductOTO>> GetOrdersByStatus(int orderstatusId);
         Task<ICollection<OrderProductOTO>> GetOrderProducts(int OrderId);
         Task<ICollection<OrderProductOTO>> GetOrderProducts(string OrderKey);
+
+        Task<OrderPaymentOTO> GetSingleOrderPayment(string OrderKey);
     }
 }

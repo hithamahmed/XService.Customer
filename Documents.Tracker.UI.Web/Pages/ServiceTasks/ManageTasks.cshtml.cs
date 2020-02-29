@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TodoTasks.Commons;
 using TodoTasks.Commons.DTO;
 
 namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
@@ -12,15 +13,16 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
     public class ManageTasksModel : PageModel
     {
         //private readonly ITasksCore _tasksCore ;
-        private readonly ICommandTodoTasksServices _commandTodoTasksCore;
-        private readonly IQueryTodoTasksServices _queryTodoTasksCore;
+         private readonly IQueryTodoTasksServices _queryTodoTasksCore;
+        private readonly ICommandTodoTasksServices _commandTodoTasks;
+
         public ICollection<TaskOTO> todoTasks { get; set; }
         public ManageTasksModel(
             IQueryTodoTasksServices queryTodoTasksCore,
             ICommandTodoTasksServices todoTasksCore)
         {
             _queryTodoTasksCore = queryTodoTasksCore;
-            _commandTodoTasksCore = todoTasksCore;
+            _commandTodoTasks = todoTasksCore;
         }
 
         public async Task<IActionResult> OnGet()
@@ -45,7 +47,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
                 if (!ModelState.IsValid)
                     return RedirectToPage();
 
-                int i = await _commandTodoTasksCore.AddEditTodoTask(tasks);
+                int i = await _commandTodoTasks.AddEditTodoTask(tasks);
                 //int i = await _tasksCore.AddTask(tasks);
 
                 return RedirectToPage();
@@ -57,6 +59,24 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
             }
 
         }
-     
+        public async Task<IActionResult> OnPostSetTaskStatus(int TaskId, int statusid)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToPage();
+                }
+                TaskEnums.TaskStatus taskStatus = (TaskEnums.TaskStatus)statusid;
+                var task = await _commandTodoTasks.SetTaskStatus(TaskId, taskStatus);
+                return RedirectToPage();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

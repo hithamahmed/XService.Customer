@@ -1,32 +1,27 @@
-﻿@*@model Documents.Tracker.UI.Web.SharedComponents.OrderComponent*@
-@model string
+﻿@model int
 
 
-@using OrdersCore = global::Orders.Core.OrderExt
+@using TodoTasksCore = global::TodoTasks.Commons.TaskEnums
 
 @{
     var cntlname = ViewContext.RouteData.Values["Page"].ToString();
-    var OrderStatusEnums = Html.GetEnumSelectList<OrdersCore.OrderStatusEnums>();
-    var okey = Model.ToString();
+    var TaskStatusEnums = Html.GetEnumSelectList<TodoTasksCore.TaskStatus>();
+    var taskId = Model;
 }
 
 <button class="btn btn-sm btn-warning dropdown-toggle" id="dropdownMenu2" type="button" data-toggle="dropdown">Set Status</button>
 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-    @*<button class="dropdown-item" type="button">Checking</button> <button class="dropdown-item" type="button">Reject</button>*@
 
     <div class="col-lg-12">
-
-        @foreach (var item in OrderStatusEnums.ToList())
-        {
-            <button type="submit" class="dropdown-item"
-                    asp-page="OrderDetails" asp-page-handler="SetOrderStatus" asp-route-Orderkey="@okey" asp-route-statusid="@item.Value">
-                @item.Text
-            </button>
-        }
-
+        <form method="post">
+            @foreach (var item in TaskStatusEnums.ToList())
+            {
+                <button type="submit" class="dropdown-item"
+                        asp-page="ManageTasks" asp-page-handler="SetTaskStatus" asp-route-TaskId="@taskId" asp-route-statusid="@item.Value">
+                    @item.Text
+                </button>
+            }
+        </form>
     </div>
 
 </div>
-@*onclick="SetOrderStatus(@cntlname,'SetOrderStatus','Orderkey='+'@okey' + '&statusid='+'@item.Value')"
-    <form method="post"><button type="submit" class="dropdown-item" asp-page-handler="SetOrderStatus" asp-route-Orderkey="@okey" asp-route-statusid="@item.Value">@item.Text</button></form>*@
-@*onclick="SetOrderStatus('@cntlname','SetOrderStatus','Orderkey='+'@okey' + '&statusid='+@item.Value)"*@

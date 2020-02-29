@@ -182,5 +182,19 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
                 throw;
             }
         }
+
+        public async Task<OrderPaymentOTO> GetSingleOrderPayment(string OrderKey)
+        {
+            try
+            {
+                var orderPayment = await _orderServices.GetSingleOrderPayment(OrderKey);
+                return Mapper.Map<OrderPaymentOTO>(orderPayment);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
