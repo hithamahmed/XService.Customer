@@ -1,6 +1,8 @@
 ﻿using Application.XIdentity.Core.DTO;
 using AutoMapper;
+using Delegators.Commons.DTO;
 using Documents.Tracker.Core.DTO;
+using Documents.Tracker.Core.DTO.Employees;
 using Documents.Tracker.Core.DTO.Orders;
 using Documents.Tracker.Core.DTO.TodoTasks;
 using Documents.Tracking.Data.Entities;
@@ -55,6 +57,8 @@ namespace Documents.Tracker.Core.Config.Mapper
 
             CreateMap<TasksDTO, TaskOTO>().ReverseMap();
             CreateMap<TaskLocationServiceDTO, TaskLocationOTO>().ReverseMap();
+
+            CreateMap<UserDelegatorDTO, EmployeeDelegatorOTO>().ReverseMap();
         }
 
     }

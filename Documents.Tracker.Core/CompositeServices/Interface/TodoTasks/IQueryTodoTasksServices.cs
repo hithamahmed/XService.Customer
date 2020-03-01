@@ -10,6 +10,7 @@ namespace Documents.Tracker.Core.CompositeServices
     public interface  IQueryTodoTasksServices
     {
         Task<ICollection<TaskOTO>> GetTodoTasksList();
+        Task<ICollection<TaskOTO>> GetTodoTasksList(int delegatorId);
         Task<TaskOTO> GetSingleTodoTask(int taskId);
         Task<ICollection<TaskTypeDTO>> GetTodoTaskTypes();
         Task<ICollection<TaskStatusDTO>> GetTodoTastStatus();

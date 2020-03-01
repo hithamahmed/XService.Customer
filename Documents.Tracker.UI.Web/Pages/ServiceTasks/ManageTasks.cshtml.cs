@@ -31,6 +31,11 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
             return Page();
         }
 
+        public async Task<IActionResult> OnGetTasksByDelegator(int DelegatorId)
+        {
+            todoTasks = await _queryTodoTasksCore.GetTodoTasksList(DelegatorId);
+            return Page();
+        }
         //public async Task<IActionResult> OnGetAddEditTaskAsync(int RefId)
         //{
         //    TasksDTO serviceTask = new TasksDTO();

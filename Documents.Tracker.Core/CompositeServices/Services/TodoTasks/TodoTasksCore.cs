@@ -179,9 +179,9 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
                 {
                     var userid = 0;
                     if (int.TryParse(item.AssignedUserID, out userid))
-                        item.UserDelegator = await _userDelegatorCore.GetUsersDelegatorById(userid);
+                        item.UserDelegator = await _userDelegatorCore.GetUsersDelegator(userid);
                     else
-                        item.UserDelegator = await _userDelegatorCore.GetUsersDelegatorById(item.AssignedUserID);
+                        item.UserDelegator = await _userDelegatorCore.GetUsersDelegator(item.AssignedUserID);
                 }
                 return tasksList;
             }
@@ -238,6 +238,29 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
             {
                 var taskService = await _tasksCore.SetTaskStatus(TaskId, taskStatus);
                 return Mapper.Map<TaskOTO>(taskService);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<ICollection<TaskOTO>> GetTodoTasksList(int delegatorId)
+        {
+            try
+            {
+                var tasks = await _tasksCore.GetTasks(x=>x.AssignedUserID == delegatorId.ToString());
+                var tasksList = Mapper.Map<ICollection<TaskOTO>>(tasks);
+                foreach (var item in tasksList)
+                {
+                    var userid = 0;
+                    if (int.TryParse(item.AssignedUserID, out userid))
+                        item.UserDelegator = await _userDelegatorCore.GetUsersDelegator(userid);
+                    else
+                        item.UserDelegator = await _userDelegatorCore.GetUsersDelegator(item.AssignedUserID);
+                }
+                return tasksList;
             }
             catch (Exception)
             {

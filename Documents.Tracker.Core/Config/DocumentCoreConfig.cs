@@ -64,6 +64,7 @@ namespace Documents.Tracker.Core.Config
             services.AddTransient<IQueryTodoTasksServices, TodoTasksCore>();
             services.AddTransient<ICommandTodoTasksServices, TodoTasksCore>();
 
+            services.AddTransient<IEmployeeDelegatorService, EmployeeDelegatorService>();
             //services.AddTransient<IValidationsTodoTasksServices, TodoTasksValidationsCore>();
             return services;
         }
