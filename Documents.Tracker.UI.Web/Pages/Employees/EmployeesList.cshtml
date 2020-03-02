@@ -53,6 +53,7 @@
                                     <th width="20%">Employee Name</th>
                                     <th width="20%">Mobile Number</th>
                                     <th>Status</th>
+                                    <th>Is Delegator</th>
                                     <th width="10%" class="notexport"></th>
                                 </tr>
                             </thead>
@@ -61,35 +62,44 @@
                                 {
                                     @foreach (var item in Model.Emplyees)
                                     {
-                                        <tr>
-                                            <td>
-                                                @item.FullName
-                                            </td>
-                                             <td>
-                                                @item.MobileNumber
-                                            </td>
-                                            <td>
-                                                @{if (item.IsBlocked)
-                                                    {
-                                                        <span class="kt-badge kt-badge--inline kt-badge--danger">Blocked</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span class="kt-badge kt-badge--inline kt-badge--success">Active</span>
-                                                    }
-                                                }
+                                <tr>
+                                    <td>
+                                        @item.FullName
+                                    </td>
+                                    <td>
+                                        @item.MobileNumber
+                                    </td>
+                                    <td>
+                                        @{if (item.IsBlocked)
+                                            {
+                                                <span class="kt-badge kt-badge--inline kt-badge--danger">Blocked</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="kt-badge kt-badge--inline kt-badge--success">Active</span>
+                                            }
+                                        }
 
-                                            </td>
-                                            @*<td>
-                                                <a asp-page="/Employees/ManageEmployee" asp-page-handler="TasksByDelegator" asp-route-EmployeeId="@item.Id">Tasks</a>
-                                            </td>*@
-                                            <td>
-                                                <div class="btn-group " role="group">
-                                                        <button type="button" onclick="AddEdit(@item.Id,'@cntlname','AddEditEmployee','Id')" class="btn btn-sm btn-warning ">edit</button>
-                                                    </div>
-                                            </td>
+                                    </td>
+                                    <td>
+                                        @{if (item.IsDelegator)
+                                            {
+                                                <span class="kt-badge kt-badge--inline kt-badge--primary">Yes</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="kt-badge kt-badge--inline kt-badge--dark">No</span>
+                                            }
+                                        }
 
-                                        </tr>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group " role="group">
+                                            <button type="button" onclick="AddEdit(@item.Id,'@cntlname','AddEditEmployee','Id')" class="btn btn-sm btn-warning ">edit</button>
+                                        </div>
+                                    </td>
+
+                                </tr>
                                     }
                                 }
                             </tbody>

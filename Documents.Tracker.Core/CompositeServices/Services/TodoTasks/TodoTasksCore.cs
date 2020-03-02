@@ -179,9 +179,9 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
                 {
                     var userid = 0;
                     if (int.TryParse(item.AssignedUserID, out userid))
-                        item.UserDelegator = await _userDelegatorCore.GetUsersDelegator(userid);
+                        item.UserDelegator = await _userDelegatorCore.GetUserDelegator(userid);
                     else
-                        item.UserDelegator = await _userDelegatorCore.GetUsersDelegator(item.AssignedUserID);
+                        item.UserDelegator = await _userDelegatorCore.GetUserDelegator(item.AssignedUserID);
                 }
                 return tasksList;
             }
@@ -256,9 +256,9 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
                 {
                     var userid = 0;
                     if (int.TryParse(item.AssignedUserID, out userid))
-                        item.UserDelegator = await _userDelegatorCore.GetUsersDelegator(userid);
+                        item.UserDelegator = await _userDelegatorCore.GetUserDelegator(userid);
                     else
-                        item.UserDelegator = await _userDelegatorCore.GetUsersDelegator(item.AssignedUserID);
+                        item.UserDelegator = await _userDelegatorCore.GetUserDelegator(item.AssignedUserID);
                 }
                 return tasksList;
             }

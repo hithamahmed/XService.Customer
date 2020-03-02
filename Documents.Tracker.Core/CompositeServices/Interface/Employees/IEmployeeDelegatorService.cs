@@ -10,6 +10,7 @@ namespace Documents.Tracker.Core.CompositeServices
     {
         Task<ICollection<EmployeeDelegatorOTO>> GetEmployeeDelegatorsList();
         Task<EmployeeDelegatorOTO> GetEmployeeDelegator(int UserDelegatorId);
+        Task<EmployeeDelegatorOTO> GetEmployeeDelegatorByEmployee(int EmployeeId);
         Task<int> AddEmployeeDelegator(EmployeeDelegatorOTO userDelegator);
     }
 }

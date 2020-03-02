@@ -13,9 +13,12 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Employees
     internal class EmployeeService : MapperCore,IEmployeeService
     {
         private readonly IEmployeeCore _employeeCore;
-        public EmployeeService(IEmployeeCore employeeCore)
+        public readonly IEmployeeDelegatorService _employeeDelegatorService;
+        public EmployeeService(IEmployeeCore employeeCore
+            , IEmployeeDelegatorService employeeDelegatorService)
         {
             _employeeCore = employeeCore;
+            _employeeDelegatorService = employeeDelegatorService;
         }
         public async Task<int> AddEditEmployee(EmployeeOTO Employee)
         {
@@ -52,8 +55,28 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Employees
             try
             {
                 var employeelist = await _employeeCore.GetEmployees();
-                return Mapper.Map<ICollection<EmployeeOTO>>(employeelist);
+                
+                var employees = Mapper.Map<ICollection<EmployeeOTO>>(employeelist);
+                foreach (var emp in employees)
+                {
+                   var delgator = await _employeeDelegatorService.GetEmployeeDelegatorByEmployee(emp.Id);
+                    emp.IsDelegator = delgator != null && delgator?.EmployeeId == emp.Id;
+                }
+                return employees;
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
+
+        public async Task<bool> IsDelegatorEmployee(int employeeId)
+        {
+            try
+            {
+                var delegator = await _employeeDelegatorService.GetEmployeeDelegatorByEmployee(employeeId);
+                return delegator.Id > 0;
             }
             catch (Exception)
             {

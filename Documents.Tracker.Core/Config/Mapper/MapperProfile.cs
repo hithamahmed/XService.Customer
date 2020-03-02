@@ -59,9 +59,14 @@ namespace Documents.Tracker.Core.Config.Mapper
             CreateMap<TasksDTO, TaskOTO>().ReverseMap();
             CreateMap<TaskLocationServiceDTO, TaskLocationOTO>().ReverseMap();
 
-            CreateMap<UserDelegatorDTO, EmployeeDelegatorOTO>().ReverseMap();
+            CreateMap<UserDelegatorDTO, EmployeeDelegatorOTO>()
+                .ForMember(x=>x.EmployeeId,s=>s.MapFrom(x=>x.ReferenceId))
+                .ReverseMap()
+                .ForMember(x => x.ReferenceId, s => s.MapFrom(x => x.EmployeeId));
 
-            CreateMap<EmployeeDTO,EmployeeOTO>().ReverseMap();
+            CreateMap<EmployeeDTO,EmployeeOTO>()
+                .ForMember(x=>x.IsDelegator,s=>s.Ignore())
+                .ReverseMap();
 
         }
 

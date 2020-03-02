@@ -35,7 +35,21 @@ namespace Documents.Tracker.Core.CompositeServices
         {
             try
             {
-                var user = await _userDelegatorCore.GetUsersDelegator(UserDelegatorId);
+                var user = await _userDelegatorCore.GetUserDelegator(UserDelegatorId);
+                return Mapper.Map<EmployeeDelegatorOTO>(user);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<EmployeeDelegatorOTO> GetEmployeeDelegatorByEmployee(int EmployeeId)
+        {
+            try
+            {
+                var user = await _userDelegatorCore.GetUserDelegatorByEmployeeId(EmployeeId);
                 return Mapper.Map<EmployeeDelegatorOTO>(user);
             }
             catch (Exception)

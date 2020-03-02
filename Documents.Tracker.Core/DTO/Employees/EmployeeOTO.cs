@@ -12,6 +12,8 @@ namespace Documents.Tracker.Core.DTO.Employees
         public string FullName { get; set; }
         public bool IsBlocked { get; set; }
         public string MobileNumber { get; set; }
+        public bool IsDelegator { get; set; }
+
 
     }
 }

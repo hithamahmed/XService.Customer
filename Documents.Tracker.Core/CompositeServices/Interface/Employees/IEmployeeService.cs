@@ -11,5 +11,6 @@ namespace Documents.Tracker.Core.CompositeServices.Interface.Employees
         Task<ICollection<EmployeeOTO>> GetEmployeesList();
         Task<EmployeeOTO> GetEmployee(int EmployeeId);
         Task<int> AddEditEmployee(EmployeeOTO Employee);
+        public Task<bool> IsDelegatorEmployee(int employeeId);
     }
 }
