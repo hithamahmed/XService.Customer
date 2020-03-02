@@ -40,13 +40,14 @@ namespace Documents.Tracker.UI.Web.Pages.Delegators
                 throw;
             }
         }
-        public IActionResult OnPostSaveDelegator(EmployeeDelegatorOTO employee)
+        public async Task<IActionResult> OnPostSaveDelegator(EmployeeDelegatorOTO employee)
         {
             if (!ModelState.IsValid)
                 return RedirectToPage();
 
-            int i = _employeeDelegatorService.AddEmployeeDelegator(employee).Result;
+            var results = await _employeeDelegatorService.AddEmployeeDelegator(employee);
             return RedirectToPage();
         }
+    
     }
 }

@@ -37,6 +37,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\ApplicationCore\ApplicationCore.csproj" />
     <ProjectReference Include="..\..\..\Delegators\Delegators.Core\Delegators.Core.csproj" />
+    <ProjectReference Include="..\..\..\Employees\General.Employee.Core\General.Employees.Core.csproj" />
     <ProjectReference Include="..\..\..\files\ManageFiles.Core\ManageFiles.Core.csproj" />
     <ProjectReference Include="..\..\..\files\ManageFiles.Models\ManageFiles.Commons.csproj" />
     <ProjectReference Include="..\..\Orders\Orders.Core\Orders.Core.csproj" />

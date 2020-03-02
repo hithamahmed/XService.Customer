@@ -6,6 +6,7 @@ using Documents.Tracker.Core.DTO.Employees;
 using Documents.Tracker.Core.DTO.Orders;
 using Documents.Tracker.Core.DTO.TodoTasks;
 using Documents.Tracking.Data.Entities;
+using General.Employees.Commons;
 using General.Services.Core.DTO;
 using General.Services.Core.Entity;
 using Orders.Core;
@@ -59,6 +60,9 @@ namespace Documents.Tracker.Core.Config.Mapper
             CreateMap<TaskLocationServiceDTO, TaskLocationOTO>().ReverseMap();
 
             CreateMap<UserDelegatorDTO, EmployeeDelegatorOTO>().ReverseMap();
+
+            CreateMap<EmployeeDTO,EmployeeOTO>().ReverseMap();
+
         }
 
     }

@@ -3,12 +3,15 @@ using Application.Notifications.Core.Config;
 using Application.XIdentity.Core.Setup;
 using Delegators.Core.Setup;
 using Documents.Tracker.Core.CompositeServices;
+using Documents.Tracker.Core.CompositeServices.Interface.Employees;
 using Documents.Tracker.Core.CompositeServices.Services.Documents;
+using Documents.Tracker.Core.CompositeServices.Services.Employees;
 using Documents.Tracker.Core.CompositeServices.Services.Orders;
 using Documents.Tracker.Core.CompositeServices.Services.TodoTasks;
 using Documents.Tracker.Core.Repositories;
 using Documents.Tracker.Data.Setup;
 using General.App.Consumers.Core.Config;
+using General.Employees.Core.Setup;
 using General.Services.Core.Setup;
 using ManageFiles.Core.Setup;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +38,7 @@ namespace Documents.Tracker.Core.Config
             services.AddManageFilesServices(connectionstring);
             services.AddTodoTasksCore(connectionstring);
             services.AddDelegatorsCore(connectionstring);
-
+            services.AddEmployeeCore(connectionstring);
  
             services.AddTransient<IServiceRequiredDocumentsCore, ServiceRequiredDocumentsCore>();
             services.AddTransient<IServiceIssuedDocumentsCore, ServiceIssuedDocumentsCore>();
@@ -65,6 +68,8 @@ namespace Documents.Tracker.Core.Config
             services.AddTransient<ICommandTodoTasksServices, TodoTasksCore>();
 
             services.AddTransient<IEmployeeDelegatorService, EmployeeDelegatorService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
+
             //services.AddTransient<IValidationsTodoTasksServices, TodoTasksValidationsCore>();
             return services;
         }
