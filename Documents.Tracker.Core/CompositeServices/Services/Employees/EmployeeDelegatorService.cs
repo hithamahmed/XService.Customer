@@ -2,6 +2,7 @@
 using Delegators.Core.Interface;
 using Documents.Tracker.Core.Config.Mapper;
 using Documents.Tracker.Core.DTO.Employees;
+using General.Employees.Core.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,8 +13,12 @@ namespace Documents.Tracker.Core.CompositeServices
     internal class EmployeeDelegatorService : MapperCore, IEmployeeDelegatorService
     {
         private readonly IUserDelegatorCore _userDelegatorCore;
-        public EmployeeDelegatorService(IUserDelegatorCore userDelegatorCore)
+        //private readonly IEmployeeService _employeeService;
+        private readonly IEmployeeCore _employeeCore;
+        public EmployeeDelegatorService(IEmployeeCore employeeCore,
+            IUserDelegatorCore userDelegatorCore)
         {
+            _employeeCore = employeeCore;
             _userDelegatorCore = userDelegatorCore;
         }
 
@@ -31,12 +36,39 @@ namespace Documents.Tracker.Core.CompositeServices
             }
         }
 
+        public async Task<EmployeeDelegatorOTO> EnableDisableEmployeeDelegator(int UserDelegatorId)
+        {
+            try
+            {
+                try
+                {
+                    var user = await _userDelegatorCore.EnableDisableDelegator(UserDelegatorId);
+                    return Mapper.Map<EmployeeDelegatorOTO>(user);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<EmployeeDelegatorOTO> GetEmployeeDelegator(int UserDelegatorId)
         {
             try
             {
                 var user = await _userDelegatorCore.GetUserDelegator(UserDelegatorId);
-                return Mapper.Map<EmployeeDelegatorOTO>(user);
+                var delegator = Mapper.Map<EmployeeDelegatorOTO>(user);
+                var employee = await _employeeCore.GetSingleEmployee(delegator.EmployeeId);
+                if (employee != null)
+                    delegator.Employee = Mapper.Map<EmployeeOTO>(employee); ;
+
+                return delegator;
             }
             catch (Exception)
             {
@@ -64,7 +96,15 @@ namespace Documents.Tracker.Core.CompositeServices
             try
             {
                 var users = await _userDelegatorCore.GetUsersDelegators();
-                return Mapper.Map<ICollection<EmployeeDelegatorOTO>>(users);
+                var delegators = Mapper.Map<ICollection<EmployeeDelegatorOTO>>(users);
+                foreach (var item in delegators)
+                {
+                    var employee = await _employeeCore.GetSingleEmployee(item.EmployeeId);
+                    //item.Name = employee == null ? "" :  employee.FirstName;
+                    if (employee != null)
+                        item.Employee = Mapper.Map<EmployeeOTO>(employee);
+                }
+                return delegators;
             }
             catch (Exception)
             {

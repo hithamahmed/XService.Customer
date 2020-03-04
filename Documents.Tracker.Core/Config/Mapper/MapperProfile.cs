@@ -61,6 +61,7 @@ namespace Documents.Tracker.Core.Config.Mapper
 
             CreateMap<UserDelegatorDTO, EmployeeDelegatorOTO>()
                 .ForMember(x=>x.EmployeeId,s=>s.MapFrom(x=>x.ReferenceId))
+                .ForMember(x => x.Employee, s => s.Ignore())
                 .ReverseMap()
                 .ForMember(x => x.ReferenceId, s => s.MapFrom(x => x.EmployeeId));
 

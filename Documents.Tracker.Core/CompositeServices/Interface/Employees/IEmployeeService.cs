@@ -1,10 +1,11 @@
 ﻿using Documents.Tracker.Core.DTO.Employees;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Documents.Tracker.Core.CompositeServices.Interface.Employees
+namespace Documents.Tracker.Core.CompositeServices
 {
     public interface IEmployeeService
     {

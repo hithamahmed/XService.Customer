@@ -12,5 +12,6 @@ namespace Documents.Tracker.Core.CompositeServices
         Task<EmployeeDelegatorOTO> GetEmployeeDelegator(int UserDelegatorId);
         Task<EmployeeDelegatorOTO> GetEmployeeDelegatorByEmployee(int EmployeeId);
         Task<int> AddEmployeeDelegator(EmployeeDelegatorOTO userDelegator);
+        Task<EmployeeDelegatorOTO> EnableDisableEmployeeDelegator(int UserDelegatorId);
     }
 }

@@ -148,6 +148,7 @@ var LoadOrderItems = function (e, baseurl) {
 
     LoadDiv(url, 'orderitems');
 }
+/******************************************************/
 var ShowServiceInfo = function (e) {
     var id = $("input:radio[name=selectedService]:checked").val();
     var ref = $(e).closest('tr').find('input[name="RefId"]').val();
@@ -184,6 +185,16 @@ var ShowServiceInfo = function (e) {
 
 }
 /******************************************************/
+var SubmitAction = function (pv, e, h, p){
+    var url = "" + e + "?handler=" + h + "&" + p + "=" + pv ;
+    fetch(`${url}`, {
+        method: 'Post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).catch(error => console.error('Unable to update item.', error));
+}
 /******************************************************/
 /******************************************************/
 var governments = function (i) {

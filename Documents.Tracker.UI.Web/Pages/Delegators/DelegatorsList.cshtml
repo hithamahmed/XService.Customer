@@ -45,42 +45,80 @@
 
                 <div class="kt-portlet__body">
                     <!--begin: Datatable -->
+                    <form method="post">
 
-                    <div class="table-responsive">
-                        <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
-                            <thead>
-                                <tr>
-                                    <th width="20%">Employee Name</th>
-                                    <th>Tasks</th>
-                                    <th width="10%" class="notexport"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model.UserDelegators != null)
-                                {
-                                    @foreach (var item in Model.UserDelegators)
+                        <div class="table-responsive">
+                            <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">Employee/Mobile No</th>
+                                        <th width="30%">Blocked</th>
+                                        <th>Tasks</th>
+                                        <th width="10%" class="notexport"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.UserDelegators != null)
                                     {
-                                        <tr>
-                                            <td>
-                                                @item.Name
-                                            </td>
-                                            <td>
-                                                <a asp-page="/ServiceTasks/ManageTasks" asp-page-handler="TasksByDelegator" asp-route-DelegatorId="@item.Id" >Tasks</a>  
-                                            </td>
-                                            <td>
-                                                @*<div class="btn-group " role="group">
-                                                    <button type="button" onclick="AddEdit(@item.Id,'@cntlname','AddEditEmployee','RefId')" class="btn btn-sm btn-warning ">edit</button>
-                                                </div>*@
-                                            </td>
 
-                                        </tr>
+                                        @foreach (var item in Model.UserDelegators)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @*<div class="kt-list-timeline__item">
+                                                        <span class="kt-list-timeline__badge"></span>
+                                                        <span class="kt-list-timeline__text">@item.Employee.FullName</span>
+                                                        <span class="kt-list-timeline__text">@item.Employee.MobileNumber</span>
+                                                    </div>*@
+                                                    <a asp-page="/Employees/EmployeesList" asp-route-employeeId="@item.EmployeeId" class="kt-notification-v2__item">
+                                                        <div class="kt-notification-v2__itek-wrapper">
+                                                            <div class="kt-notification-v2__item-title">
+                                                                @item.Employee.FullName
+                                                            </div>
+                                                            <div class="kt-notification-v2__item-desc">
+                                                                @item.Employee.MobileNumber
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    
+                                                </td>
+                                                <td>
+
+                                                    @{if (item.IsBlocked)
+                                                        {
+                                                            <span class="kt-badge kt-badge--inline kt-badge--danger">Yes @@ @item.BlockedDate.Value.ToLongDateString()) </span>
+                                                            <div class="btn-group " role="group">
+                                                                <input type="submit" value="Enable" asp-page-handler="ChangeBlock" asp-route-delegatorId="@item.Id" class="btn btn-sm btn-outline-hover-danger "/>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="kt-badge kt-badge--inline kt-badge--dark">No</span>
+                                                            <div class="btn-group " role="group">
+
+                                                                <input type="submit" value="Block" asp-page-handler="ChangeBlock" asp-route-delegatorId="@item.Id" class="btn btn-sm btn-outline-hover-success " />
+
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                </td>
+                                                <td>
+                                                    <a asp-page="/ServiceTasks/ManageTasks" asp-page-handler="TasksByDelegator" asp-route-DelegatorId="@item.Id" class="btn btn-sm btn-default btn-bold btn-upper " >Tasks</a>
+                                                </td>
+                                                <td>
+                                                </td>
+
+                                            </tr>
+                                        }
+
                                     }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>
 
-                    <!--end: Datatable -->
+                        <!--end: Datatable -->
+                    </form>
                 </div>
             </div>
         </div>

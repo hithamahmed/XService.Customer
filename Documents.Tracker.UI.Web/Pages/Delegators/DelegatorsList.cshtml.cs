@@ -12,10 +12,14 @@ namespace Documents.Tracker.UI.Web.Pages.Delegators
     public class DelegatorsListModel : PageModel
     {
         private readonly IEmployeeDelegatorService _employeeDelegatorService;
-        public ICollection<EmployeeDelegatorOTO> UserDelegators;
-        public DelegatorsListModel(IEmployeeDelegatorService employeeDelegatorService) 
+        private readonly IEmployeeService _employeeService;
+        public ICollection<EmployeeDelegatorOTO> UserDelegators { get; set; }
+        public ICollection<EmployeeOTO> Employees { get; set; }
+        public DelegatorsListModel(IEmployeeService employeeService,
+            IEmployeeDelegatorService employeeDelegatorService) 
         {
             _employeeDelegatorService = employeeDelegatorService;
+            _employeeService = employeeService;
         }
         public async Task<IActionResult> OnGet()
         {
@@ -27,12 +31,13 @@ namespace Documents.Tracker.UI.Web.Pages.Delegators
         {
             try
             {
-                EmployeeDelegatorOTO employee = new EmployeeDelegatorOTO();
+                EmployeeDelegatorOTO delegator = new EmployeeDelegatorOTO();
                 if (id > 0)
                 {
-                    employee = await _employeeDelegatorService.GetEmployeeDelegator(id);
+                    delegator = await _employeeDelegatorService.GetEmployeeDelegator(id);
                 }
-                return Partial("_AddEditDelegator", employee);
+                Employees = await _employeeService.GetEmployeesList();
+                return Partial("_AddEditDelegator", delegator);
             }
             catch (Exception)
             {
@@ -48,6 +53,14 @@ namespace Documents.Tracker.UI.Web.Pages.Delegators
             var results = await _employeeDelegatorService.AddEmployeeDelegator(employee);
             return RedirectToPage();
         }
-    
+        public async Task<IActionResult> OnPostChangeBlock(int delegatorId)
+        {
+            if (!ModelState.IsValid)
+                return RedirectToPage();
+
+            var results = await _employeeDelegatorService.EnableDisableEmployeeDelegator(delegatorId);
+
+            return RedirectToPage();
+        }
     }
 }

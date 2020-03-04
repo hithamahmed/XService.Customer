@@ -1,10 +1,11 @@
-﻿using Documents.Tracker.Core.CompositeServices.Interface.Employees;
+﻿using Delegators.Core.Interface;
 using Documents.Tracker.Core.Config.Mapper;
 using Documents.Tracker.Core.DTO.Employees;
 using General.Employees.Commons;
 using General.Employees.Core.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,12 +14,13 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Employees
     internal class EmployeeService : MapperCore,IEmployeeService
     {
         private readonly IEmployeeCore _employeeCore;
-        public readonly IEmployeeDelegatorService _employeeDelegatorService;
+        //public readonly IEmployeeDelegatorService _employeeDelegatorService;
+        private readonly IUserDelegatorCore _userDelegatorCore;
         public EmployeeService(IEmployeeCore employeeCore
-            , IEmployeeDelegatorService employeeDelegatorService)
+            , IUserDelegatorCore userDelegatorCore)
         {
             _employeeCore = employeeCore;
-            _employeeDelegatorService = employeeDelegatorService;
+            _userDelegatorCore = userDelegatorCore;
         }
         public async Task<int> AddEditEmployee(EmployeeOTO Employee)
         {
@@ -59,8 +61,8 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Employees
                 var employees = Mapper.Map<ICollection<EmployeeOTO>>(employeelist);
                 foreach (var emp in employees)
                 {
-                   var delgator = await _employeeDelegatorService.GetEmployeeDelegatorByEmployee(emp.Id);
-                    emp.IsDelegator = delgator != null && delgator?.EmployeeId == emp.Id;
+                   var delgator = await _userDelegatorCore.GetUserDelegatorByEmployeeId(emp.Id);
+                    emp.IsDelegator = delgator != null && delgator?.ReferenceId == emp.Id && !delgator.IsBlocked;
                 }
                 return employees;
             }
@@ -75,8 +77,8 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Employees
         {
             try
             {
-                var delegator = await _employeeDelegatorService.GetEmployeeDelegatorByEmployee(employeeId);
-                return delegator.Id > 0;
+                var delegator = await _userDelegatorCore.GetUserDelegatorByEmployeeId(employeeId);
+                return delegator.ReferenceId > 0;
             }
             catch (Exception)
             {
