@@ -4,11 +4,49 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
-
+ 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-
+ 
+  <ItemGroup>
+    <Compile Remove="wwwroot\assets\media\bg\**" />
+    <Compile Remove="wwwroot\assets\media\blog\**" />
+    <Compile Remove="wwwroot\assets\media\client-logos\**" />
+    <Compile Remove="wwwroot\assets\media\company-logos\**" />
+    <Compile Remove="wwwroot\assets\media\demos\**" />
+    <Compile Remove="wwwroot\assets\media\envato\**" />
+    <Compile Remove="wwwroot\assets\media\illustrations\**" />
+    <Compile Remove="wwwroot\assets\media\products\**" />
+    <Compile Remove="wwwroot\assets\media\project-logos\**" />
+    <Content Remove="wwwroot\assets\media\bg\**" />
+    <Content Remove="wwwroot\assets\media\blog\**" />
+    <Content Remove="wwwroot\assets\media\client-logos\**" />
+    <Content Remove="wwwroot\assets\media\company-logos\**" />
+    <Content Remove="wwwroot\assets\media\demos\**" />
+    <Content Remove="wwwroot\assets\media\envato\**" />
+    <Content Remove="wwwroot\assets\media\illustrations\**" />
+    <Content Remove="wwwroot\assets\media\products\**" />
+    <Content Remove="wwwroot\assets\media\project-logos\**" />
+    <EmbeddedResource Remove="wwwroot\assets\media\bg\**" />
+    <EmbeddedResource Remove="wwwroot\assets\media\blog\**" />
+    <EmbeddedResource Remove="wwwroot\assets\media\client-logos\**" />
+    <EmbeddedResource Remove="wwwroot\assets\media\company-logos\**" />
+    <EmbeddedResource Remove="wwwroot\assets\media\demos\**" />
+    <EmbeddedResource Remove="wwwroot\assets\media\envato\**" />
+    <EmbeddedResource Remove="wwwroot\assets\media\illustrations\**" />
+    <EmbeddedResource Remove="wwwroot\assets\media\products\**" />
+    <EmbeddedResource Remove="wwwroot\assets\media\project-logos\**" />
+    <None Remove="wwwroot\assets\media\bg\**" />
+    <None Remove="wwwroot\assets\media\blog\**" />
+    <None Remove="wwwroot\assets\media\client-logos\**" />
+    <None Remove="wwwroot\assets\media\company-logos\**" />
+    <None Remove="wwwroot\assets\media\demos\**" />
+    <None Remove="wwwroot\assets\media\envato\**" />
+    <None Remove="wwwroot\assets\media\illustrations\**" />
+    <None Remove="wwwroot\assets\media\products\**" />
+    <None Remove="wwwroot\assets\media\project-logos\**" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Remove="DTO\ManageServiceIssueDocumentsOTO.cs" />
   </ItemGroup>
@@ -18,6 +56,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
+    <PackageReference Include="BundlerMinifier.Core" Version="3.2.435" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
@@ -36,6 +76,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\Shared\Components\Tasks\" />
+    <Folder Include="wwwroot\assets\media\users\" />
     <Folder Include="wwwroot\assets\plugins\general\ion-rangeslider\img\" />
   </ItemGroup>
 

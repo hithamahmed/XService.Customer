@@ -12,7 +12,6 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Globalization;
 
-
 namespace Documents.Tracker.UI.Web
 {
     public class Startup
@@ -69,6 +68,7 @@ namespace Documents.Tracker.UI.Web
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddRazorPages();
+            services.AddResponseCompression();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,17 +84,21 @@ namespace Documents.Tracker.UI.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
+
             var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
-
+            
+            app.UseResponseCompression();
             app.UseHttpsRedirection();
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
                 {
-                    const int durationInSeconds = 60 * 60 * 24;
+                    const int durationInSeconds = 60 * 60 * 24 * 30;
                     ctx.Context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.CacheControl] =
                         "public,max-age=" + durationInSeconds;
+                   
                 }
             });
             //app.UseMiddleware<StackifyMiddleware.RequestTracerMiddleware>();
@@ -109,6 +113,7 @@ namespace Documents.Tracker.UI.Web
             {
                 endpoints.MapRazorPages();
             });
+            
         }
     }
 }

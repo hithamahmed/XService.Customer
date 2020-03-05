@@ -1,0 +1,68 @@
+[
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [ "wwwroot/css/site.css" ]
+  },
+
+  {
+    "outputFileName": "wwwroot/assets/css/style.bundle.min.css",
+    "inputFiles": [ "wwwroot/assets/css/style.bundle.css" ]
+  },
+
+
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [ "wwwroot/js/site.js" ],
+    
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "inputFiles": [ "wwwroot/assets/plugins/custom/datatables.net/js/jquery.dataTables.js" ],
+    "outputFileName": "wwwroot/assets/plugins/custom/datatables.net/js/jquery.dataTables.min.js",
+    "minify": {
+      "enabled": true
+    },
+    "sourceMap": false
+  },
+
+  {
+    "inputFiles": [ "wwwroot/assets/plugins/general/jquery/dist/jquery.js" ],
+    "outputFileName": "wwwroot/assets/plugins/general/jquery/dist/jquery.min.js",
+    "minify": {
+      "enabled": true
+    },
+    "sourceMap": false
+  },
+
+  {
+    "inputFiles": [ "wwwroot/assets/plugins/general/summernote/dist/summernote.js" ],
+    "outputFileName": "wwwroot/assets/plugins/general/summernote/dist/summernote.min.js",
+    "minify": {
+      "enabled": true
+    },
+    "sourceMap": false
+  }
+
+
+  //{
+  //  "outputFileName": "wwwroot/css/assets.min.css",
+  //  "inputFiles": [ "wwwroot/assets/**/!(*.min).css" ]
+  //},
+
+  //{
+  //  "outputFileName": "wwwroot/js/assets.min.js",
+  //  "inputFiles": [ "wwwroot/assets/**/!(*.min).js" ],
+
+  //  "minify": {
+  //    "enabled": true,
+  //    "renameLocals": true
+  //  },
+  //  "sourceMap": false
+  //}
+
+
+]

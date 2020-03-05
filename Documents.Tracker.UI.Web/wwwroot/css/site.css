@@ -1,5 +1,14 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+@font-face {
+    font-family: 'Droid Arabic Kufi Regular';
+    src: url('/fonts/DroidKufi-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Droid Arabic Kufi Regular';
+    src: url('/fonts/DroidKufi-Regular.ttf');
+}
 
 a.navbar-brand {
   white-space: normal;

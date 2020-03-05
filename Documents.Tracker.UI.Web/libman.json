@@ -16,6 +16,10 @@
         "dist/jquery.slim.min.js",
         "dist/jquery.slim.min.map"
       ]
+    },
+    {
+      "library": "gulp@3.8.5",
+      "destination": "wwwroot/lib/gulp/"
     }
   ]
 }
