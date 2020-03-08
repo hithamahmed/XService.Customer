@@ -76,6 +76,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\Shared\Components\Tasks\" />
+    <Folder Include="ViewModel\" />
     <Folder Include="wwwroot\assets\media\users\" />
     <Folder Include="wwwroot\assets\plugins\general\ion-rangeslider\img\" />
   </ItemGroup>

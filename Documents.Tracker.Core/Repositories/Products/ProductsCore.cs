@@ -33,7 +33,7 @@ namespace Documents.Tracker.Core.Repositories
                 if (product != null)
                 {
                     var issuedDocs = await _issuedDocumentsCore.GetIssuedDocumentsByServiceId(id);
-                    var requiredDocs = await _requiredDocumentsCore.GetRequiredDocumentsByServiceId(id);
+                    var requiredDocs = await _requiredDocumentsCore.GetRequiredDocuments(id);
                     product.ProductDocumentsRequirements = requiredDocs;
                     product.ProductIssuedDocuments = issuedDocs;
                 }

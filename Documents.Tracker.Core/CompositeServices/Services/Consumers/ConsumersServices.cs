@@ -1,26 +1,33 @@
 ﻿using Application.XIdentity.Core.DTO;
 using Documents.Tracker.Core.Config.Mapper;
 using Documents.Tracker.Core.DTO;
+using Documents.Tracker.Core.DTO.Consumers;
 using General.App.Consumers.Core;
+using ManageFiles.Core.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Documents.Tracker.Core
 {
     internal class ConsumersServices : MapperCore, IQueryConsumersServices, ICommandConsumerServices
     {
-        //private readonly IConsumersProfileCore consumersProfileCore;
         private readonly IConsumersCore consumersProfileCore;
+        private readonly IServiceRequiredDocumentsCore _serviceRequiredDocumentsCore;
+
+        private readonly IManageFilesCore _manageFilesCore;
         //private readonly IConsumerAddress consumersAddressCore;
 
         public ConsumersServices(
-            //IConsumerAddress _consumersAddressCore,
+            IServiceRequiredDocumentsCore serviceRequiredDocumentsCore,
+            IManageFilesCore manageFilesCore,
             IConsumersCore _consumersProfileCore
             )
         {
+            _serviceRequiredDocumentsCore = serviceRequiredDocumentsCore;
+            _manageFilesCore = manageFilesCore;
             consumersProfileCore = _consumersProfileCore;
-            //consumersAddressCore = _consumersAddressCore;
         }
 
 
@@ -137,19 +144,6 @@ namespace Documents.Tracker.Core
             }
         }
 
-        //public async Task<int> AddOrEditConsumerByConsumer(ConsumerOTO conusmer)
-        //{
-        //    try
-        //    {
-        //        var x = Mapper.Map<ConsumerDTO>(conusmer);
-        //        return await consumersProfileCore.AddEditConsumer(x);
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
 
         public async Task<int> EditConsumerProfile(ConsumerOTO conusmer)
         {
@@ -157,6 +151,37 @@ namespace Documents.Tracker.Core
             {
                 var x = Mapper.Map<ConsumerDTO>(conusmer);
                 return await consumersProfileCore.EditConsumerProfile(x);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<ICollection<ConsumerProductDocumentFileOTO>> GetConsumerProductAttachmentFiles(string consumerId, int ProductId)
+        {
+            try
+            {
+                var consumerFiles = await _manageFilesCore.GetAttachmentsFiles(consumerId);
+                var productRequiredDocs = await _serviceRequiredDocumentsCore.GetRequiredDocuments(ProductId);
+                List<ConsumerProductDocumentFileOTO> consumerProductDocumentFiles = new List<ConsumerProductDocumentFileOTO>();
+
+                foreach (var doc in productRequiredDocs)
+                {
+                    var consumerFile = consumerFiles
+                        .Where(x => x.ReferenceTypeId == doc.RefId)
+                        .Select(x => x).FirstOrDefault();
+                    var consumerProductFile = Mapper.Map<ConsumerAttachmentFileOTO>(consumerFile);
+                    consumerProductDocumentFiles.Add(new ConsumerProductDocumentFileOTO
+                    {
+                        ConsumerFiles = consumerProductFile,
+                        ProductDocuments = doc
+                    });
+                }
+
+                return consumerProductDocumentFiles;
+
             }
             catch (Exception)
             {

@@ -1,0 +1,60 @@
+﻿@model ICollection<Documents.Tracker.Core.DTO.Consumers.ConsumerProductDocumentFileOTO>
+
+<table id="servicesTable" class="table  table-bordered table-striped">
+    <thead>
+        <tr>
+            <th width="10%">#</th>
+            <th width="30%">File</th>
+            <th width="10%">Required</th>
+            <th width="10%">Avaliabe</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model.ToList())
+            {
+                <tr>
+                    <td>
+                        @{
+                            int index = Convert.ToInt32(@Model.ToList().IndexOf(item));
+                            index++;
+                        }
+                        @index.ToString()
+                    </td>
+                    <td>
+                        @item.ProductDocuments.Name
+                    </td>
+                    <td>
+                        @{if (item.ProductDocuments.IsRequired)
+                            {
+                                <span class="kt-badge kt-badge--inline kt-badge--success">Yes</span>
+                            }
+                            else
+                            {
+                                <span class="kt-badge kt-badge--inline kt-badge--dark">No</span>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+                            if (item.ConsumerFiles != null)
+                            {
+                                <div class="form-group-xs">
+                                    <span class="col-2 kt-badge kt-badge--inline kt-badge--success">Yes</span>
+                                    <span class="col-6">@item.ConsumerFiles.FileName</span>
+                                </div>
+                              
+                            }
+                            else
+                            {
+                                <span class="kt-badge kt-badge--inline kt-badge--dark">No</span>
+                            }
+                        }
+                    </td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>

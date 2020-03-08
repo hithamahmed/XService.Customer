@@ -5,7 +5,6 @@ using Documents.Tracker.Core.CompositeServices;
 using Documents.Tracker.Core.DTO;
 using Documents.Tracker.Core.DTO.Orders;
 using Documents.Tracker.Core.DTO.TodoTasks;
-using Documents.Tracker.UI.Web.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -30,9 +29,6 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
         public TaskOTO ServiceTask { get; set; }
         [BindProperty]
         public TaskLocationOTO TaskLocationServices { get; set; }
-        //[BindProperty]
-        //public TaskLocationViewModel TaskServiceModel { get; set; }
-
         [BindProperty]
         public ICollection<TaskLocationOTO> OrderServicesList { get; set; }
 
@@ -59,7 +55,6 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
         {
             ServiceTask = new TaskOTO();
             TaskLocationServices = new TaskLocationOTO();
-            //TaskServiceModel = new TaskLocationViewModel();
 
             if (id.HasValue && id.Value > 0)
             {
@@ -93,23 +88,6 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
             }
 
         }
-
-
-        //public async Task<IActionResult> OnGetAddEditTaskLocationAsync(int taskid, int id)
-        //{
-        //    TaskLocation = new TaskLocationViewModel();
-        //    TaskLocation.TaskLocationService.TaskID = taskid;
-
-        //    if (id > 0)
-        //    {
-        //        TaskLocation.TaskLocationService = await _queryTodoTasks.GetSingleTodoTaskLocation(id);
-        //    }
-        //    TaskLocation.LocationAreas = await _generalService.GetLocationList(1);
-        //    TaskLocation.OrderProducts = await _orderservice.GetOrdersByStatus((int)TaskEnums.TaskStatus.Submited);
-        //    //TaskLocation.TaskStatuses = await _tasksCore.GetTodoTastStatus();
-
-        //    return Partial("_AddEditTaskLocation", TaskLocation);
-        //}
 
         public async Task<IActionResult> OnPostSaveTaskLocation()
         {

@@ -48,7 +48,7 @@ namespace Documents.Tracker.Core.Config
             services.AddTransient<IQueryConsumersServices, ConsumersServices>();
             services.AddTransient<ICommandConsumerServices, ConsumersServices>();
 
-            services.AddTransient<IQueryProductDocuments, ProductsServices>();
+            services.AddTransient<IQueryProductDocumentServices, ProductsServices>();
             services.AddTransient<ICommandProductDocuments, ProductsServices>();
             services.AddTransient<IQueryProductServices, ProductsServices>();
 

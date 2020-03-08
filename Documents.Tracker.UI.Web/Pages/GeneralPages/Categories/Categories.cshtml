@@ -111,68 +111,7 @@
                 </div>
 
 
-                @*<div class="kt-portlet__body">
- 
-                    <div class="table-responsive">
-                        <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
-                            <thead>
-                                <tr>
-                                    <th width="10%">Category</th>
-                                    <th width="10%" class="notexport"></th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model.Categories != null)
-                                {
-                                    @foreach (var item in Model.Categories)
-                                    {
-
-                                        <tr>
-                                            @if (item.ParentCategoryId == null)
-                                            {
-                                                <td>
-                                                    @item.Name
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group " role="group">
-                                                        <button type="button" onclick="AddEdit(@item.RefId,'@cntlname','AddEditCategory','RefId')" class="btn btn-sm  btn-icon"><i class="flaticon-edit"></i></button>
-                                                        <form method="post"><button type="submit" asp-page-handler="DisableCategory" asp-route-RefId="@item.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete"></i></button></form>
-                                                    </div>
-                                                </td>
-
-                                            }
-
-                                        </tr>
-
-                                        @if (item.SubCategories != null)
-                                        {
-
-                                            @foreach (var subitem in item.SubCategories)
-                                            {
-                                                <tr>
-                                                    <td>@item.Name</td>
-                                                    <td>
-                                                        @subitem.Name
-                                                    </td>
-                                                    <td>
-                                                        <div class="btn-group " role="group">
-                                                            <button type="button" onclick="AddEdit(@subitem.RefId,'@cntlname','AddEditCategory','RefId')" class="btn btn-sm  btn-icon"><i class="flaticon-edit"></i></button>
-                                                            <form method="post"><button type="submit" asp-page-handler="DisableCategory" asp-route-RefId="@subitem.RefId" onclick="confirm('Are you sure you want to delete?');" class="btn btn-sm btn-icon"><i class="flaticon-delete"></i></button></form>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                            }
-                                        }
-
-                                    }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-
-                 </div>*@
+               
                 <!--end::Form-->
             </div>
         </div>

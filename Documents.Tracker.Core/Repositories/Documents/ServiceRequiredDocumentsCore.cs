@@ -79,7 +79,7 @@ namespace Documents.Tracker.Core
             }
         }
 
-        public async Task<ICollection<ProductDocumentsRequirementsOTO>> GetRequiredDocumentsByServiceId(int productId)
+        public async Task<ICollection<ProductDocumentsRequirementsOTO>> GetRequiredDocuments(int productId)
         {
             try
             {

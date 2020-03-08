@@ -9,27 +9,21 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 {
     public class ServicesIssuedDocumentsModel : PageModel
     {
-        private readonly IQueryProductDocuments queryServiceDocuments;
+        private readonly IQueryProductDocumentServices queryServiceDocuments;
         private readonly ICommandProductDocuments commandProductDocuments;
-        // public IProducts servicesCategory { get; set; }
-        //public IMapper mapper { get; set; }
         public ManageServiceIssueDocumentsOTO serviceIssueDocumentsOTO { get; set; }
 
         public ServicesIssuedDocumentsModel(
-            IQueryProductDocuments _queryserviceDocuments,
+            IQueryProductDocumentServices _queryserviceDocuments,
             ICommandProductDocuments _commandProductDocuments)
-        //IProducts _servicesCategory)
         {
             queryServiceDocuments = _queryserviceDocuments;
             commandProductDocuments = _commandProductDocuments;
-            //servicesCategory = _servicesCategory;
-            //mapper = _mapper;
         }
 
         public async Task<IActionResult> OnGet(int serviceRefId)
         {
-            //var servicecategory = await queryServiceDocuments.GetProductByUKey(serviceRefId);
-            var issueddocs = await queryServiceDocuments.GetIssuedDocumentsByServiceId(serviceRefId);
+            var issueddocs = await queryServiceDocuments.GetIssuedDocuments(serviceRefId);
             serviceIssueDocumentsOTO = new ManageServiceIssueDocumentsOTO();
             serviceIssueDocumentsOTO.serviceRefId = serviceRefId;
             serviceIssueDocumentsOTO.serviceIssueDocumentsDTO = issueddocs;
@@ -48,7 +42,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 
                 if (RefId > 0)
                 {
-                    ProductIssuedDocuments = await queryServiceDocuments.GetServiceIssuedDocument(RefId);
+                    ProductIssuedDocuments = await queryServiceDocuments.GetSingleProductIssuedDocument(RefId);
                 }
                 return Partial("_AddEditIssuedDocs", ProductIssuedDocuments);
             }

@@ -7,22 +7,19 @@ using System.Threading.Tasks;
 namespace Documents.Tracker.Core
 {
     internal class ProductsServices : MapperCore,
-        IQueryProductDocuments,
+        IQueryProductDocumentServices,
         ICommandProductDocuments,
         IQueryProductServices
 
     {
         private readonly IServiceIssuedDocumentsCore serviceIssuedDocuments;
         private readonly IServiceRequiredDocumentsCore serviceRequiredDocuments;
-        //private readonly IQueryGeneralService queryGeneralService;
         private readonly IProductsCore products;
         public ProductsServices(
-            IProductsCore _products,
-            //IQueryGeneralService _queryGeneralService,
-            IServiceIssuedDocumentsCore _serviceIssuedDocuments
+            IProductsCore _products
+            ,IServiceIssuedDocumentsCore _serviceIssuedDocuments
             , IServiceRequiredDocumentsCore _serviceRequiredDocuments)
         {
-            //queryGeneralService = _queryGeneralService;
             serviceIssuedDocuments = _serviceIssuedDocuments;
             serviceRequiredDocuments = _serviceRequiredDocuments;
             products = _products;
@@ -77,7 +74,7 @@ namespace Documents.Tracker.Core
             }
         }
 
-        public async Task<ICollection<ProductIssuedDocumentsOTO>> GetIssuedDocumentsByServiceId(int productUKey)
+        public async Task<ICollection<ProductIssuedDocumentsOTO>> GetIssuedDocuments(int productUKey)
         {
             try
             {
@@ -95,11 +92,11 @@ namespace Documents.Tracker.Core
 
 
 
-        public async Task<ICollection<ProductDocumentsRequirementsOTO>> GetRequiredDocumentsByServiceId(int productUKey)
+        public async Task<ICollection<ProductDocumentsRequirementsOTO>> GetRequiredDocuments(int productId)
         {
             try
             {
-                return await serviceRequiredDocuments.GetRequiredDocumentsByServiceId(productUKey);
+                return await serviceRequiredDocuments.GetRequiredDocuments(productId);
             }
             catch (Exception)
             {
@@ -109,7 +106,7 @@ namespace Documents.Tracker.Core
 
 
 
-        public async Task<ProductIssuedDocumentsOTO> GetServiceIssuedDocument(int IssuedDocId)
+        public async Task<ProductIssuedDocumentsOTO> GetSingleProductIssuedDocument(int IssuedDocId)
         {
             try
             {
@@ -121,7 +118,7 @@ namespace Documents.Tracker.Core
             }
         }
 
-        public async Task<ProductDocumentsRequirementsOTO> GetServiceRequiredDocument(int requiredDocId)
+        public async Task<ProductDocumentsRequirementsOTO> GetSingleProductRequiredDocument(int requiredDocId)
         {
             try
             {
@@ -133,7 +130,7 @@ namespace Documents.Tracker.Core
             }
         }
 
-        public async Task<ProductOTO> GetServiceDetailsByServiceId(int serviceid)
+        public async Task<ProductOTO> GetProduct(int serviceid)
         {
             try
             {

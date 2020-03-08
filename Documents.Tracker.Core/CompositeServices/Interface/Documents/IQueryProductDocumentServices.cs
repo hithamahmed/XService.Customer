@@ -4,33 +4,33 @@ using System.Threading.Tasks;
 
 namespace Documents.Tracker.Core
 {
-    public interface IQueryProductDocuments
+    public interface IQueryProductDocumentServices
     {
         /// <summary>
         /// Get single Issued documents
         /// </summary>
         /// <param name="IssuedDocId"></param>
         /// <returns></returns>
-        public Task<ProductIssuedDocumentsOTO> GetServiceIssuedDocument(int IssuedDocId);
+        public Task<ProductIssuedDocumentsOTO> GetSingleProductIssuedDocument(int IssuedDocId);
         /// <summary>
         /// Get all Issued documents by service id
         /// </summary>
         /// <param name="serviceId"></param>
         /// <returns></returns>
-        Task<ICollection<ProductIssuedDocumentsOTO>> GetIssuedDocumentsByServiceId(int productUKey);
+        Task<ICollection<ProductIssuedDocumentsOTO>> GetIssuedDocuments(int productId);
 
         /// <summary>
         /// Get single required documents
         /// </summary>
         /// <param name="requiredDocsId"></param>
         /// <returns></returns>
-        public Task<ProductDocumentsRequirementsOTO> GetServiceRequiredDocument(int requiredDocId);
+        public Task<ProductDocumentsRequirementsOTO> GetSingleProductRequiredDocument(int requiredDocId);
         /// <summary>
         /// Get all required documents by service id
         /// </summary>
         /// <param name="serviceId"></param>
         /// <returns></returns>
-        Task<ICollection<ProductDocumentsRequirementsOTO>> GetRequiredDocumentsByServiceId(int productUKey);
+        Task<ICollection<ProductDocumentsRequirementsOTO>> GetRequiredDocuments(int productId);
 
     }
 }

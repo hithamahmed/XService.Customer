@@ -2,18 +2,18 @@
 
 namespace Documents.Tracker.Core.DTO
 {
-    public class ProductDocumentsRequirementsOTO : CoreBaseOTO
+    public class ProductDocumentsRequirementsOTO //: CoreBaseOTO
     {
 
-
+        public int RefId { get; set; }
         [Required]
         public int ProductUKey { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [StringLength(50)]
         public string Name { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(50)]
         public string Description { get; set; }
 
         public bool IsRequired { get; set; }

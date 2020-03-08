@@ -6,7 +6,7 @@ namespace Documents.Tracker.Core
 {
     public interface IQueryProductServices
     {
-        Task<ProductOTO> GetServiceDetailsByServiceId(int serviceid);
+        Task<ProductOTO> GetProduct(int productId);
         Task<ICollection<ProductOTO>> GetListOfProductsWithCategory();
     }
 }

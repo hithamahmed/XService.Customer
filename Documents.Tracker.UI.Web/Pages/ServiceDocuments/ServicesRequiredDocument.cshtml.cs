@@ -9,16 +9,13 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 {
     public class ServicesRequiredDocumentsModel : PageModel
     {
-        //private IServiceRequiredDocumentsCore serviceDocuments { get; set; }
-        private readonly IQueryProductDocuments serviceDocuments;
+        private readonly IQueryProductDocumentServices serviceDocuments;
         private readonly ICommandProductDocuments commandProductDocuments;
-        //public IProducts servicesCategory { get; set; }
         public ManageServiceRequiredDocumentsOTO serviceRequiredDocuments { get; set; }
 
-        //public ManageServiceOTO manageServiceDTO { get; set; }
 
         public ServicesRequiredDocumentsModel(
-                        IQueryProductDocuments _serviceIssuedDocuments,
+                        IQueryProductDocumentServices _serviceIssuedDocuments,
                         ICommandProductDocuments _commandProductDocuments)
         {
             serviceDocuments = _serviceIssuedDocuments;
@@ -27,8 +24,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 
         public async Task<IActionResult> OnGet(int serviceRefId)
         {
-            //var servicecategory = await servicesCategory.GetProductByUKey(serviceRefId);
-            var requiredDocs = await serviceDocuments.GetRequiredDocumentsByServiceId(serviceRefId);
+            var requiredDocs = await serviceDocuments.GetRequiredDocuments(serviceRefId);
 
             serviceRequiredDocuments = new ManageServiceRequiredDocumentsOTO();
             serviceRequiredDocuments.serviceRefId = serviceRefId;
@@ -47,7 +43,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceDocuments
 
                 if (RefId > 0)
                 {
-                    documentsRequirements = await serviceDocuments.GetServiceRequiredDocument(RefId);
+                    documentsRequirements = await serviceDocuments.GetSingleProductRequiredDocument(RefId);
                 }
                 return Partial("_AddEditRequiredDocs", documentsRequirements);
             }

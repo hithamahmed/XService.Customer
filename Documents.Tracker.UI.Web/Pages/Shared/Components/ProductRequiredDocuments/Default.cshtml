@@ -1,0 +1,47 @@
+﻿@model ICollection<Documents.Tracker.Core.DTO.ProductDocumentsRequirementsOTO>
+
+    <table id="servicesTable" class="table  table-bordered table-striped">
+        <thead>
+            <tr>
+                <th width="10%">#</th>
+                <th width="30%">File</th>
+                <th width="10%">Required</th>
+                <th width="10%">Avaliabe</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model.ToList())
+                {
+                    <tr>
+                        <td>
+                            @{
+                                int index = Convert.ToInt32(@Model.ToList().IndexOf(item));
+                                index++;
+                            }
+                            @index.ToString()
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @{if (item.IsRequired)
+                                {
+                                    <span class="kt-badge kt-badge--inline kt-badge--success">Yes</span>
+                                }
+                                else
+                                {
+                                    <span class="kt-badge kt-badge--inline kt-badge--dark">No</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            
+                        </td>
+                    
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>

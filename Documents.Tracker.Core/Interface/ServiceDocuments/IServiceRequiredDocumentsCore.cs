@@ -31,6 +31,6 @@ namespace Documents.Tracker.Core
         /// </summary>
         /// <param name="serviceId"></param>
         /// <returns></returns>
-        public Task<ICollection<ProductDocumentsRequirementsOTO>> GetRequiredDocumentsByServiceId(int productId);
+        public Task<ICollection<ProductDocumentsRequirementsOTO>> GetRequiredDocuments(int productId);
     }
 }

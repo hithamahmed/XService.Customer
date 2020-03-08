@@ -11,16 +11,12 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Documents
     internal class DocumentsFileServices : IDocumentFilesService
     {
         private readonly IManageFilesCore filesRepository;
-        private IHandleFilesCore handleFiles { get; set; }
         private readonly IFilesCore filesCore;
         public DocumentsFileServices(IManageFilesCore _filesRepository
-            , IFilesCore _filesCore
-            //, IHandleFilesCore _handleFiles
-            )
+            , IFilesCore _filesCore)
         {
             filesCore = _filesCore;
             filesRepository = _filesRepository;
-            //handleFiles = _handleFiles;
         }
         public async Task<bool> UploadDocumentFile(ServiceDocumentFilesOTO requiredDocumentFiles)
         {
@@ -41,12 +37,11 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Documents
                     {
                         if (requiredDocumentFiles.DocumentFile.Length > 0)
                         {
-                            //handleFiles.UploadFile(requiredDocumentFiles.DocumentFile);
                             string securedFileName = await filesCore.UploadFile(requiredDocumentFiles.ConsumerKey, requiredDocumentFiles.DocumentFile);
                             if (!string.IsNullOrEmpty(securedFileName))
                             {
                                 attachmentFiles.Id = attachedId;
-                                attachmentFiles.SecureFileName = securedFileName;
+                                attachmentFiles.SecureName = securedFileName;
                                 await filesRepository.UpdateDocumentFile(attachmentFiles);
                             }
 

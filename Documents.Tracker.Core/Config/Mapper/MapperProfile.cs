@@ -9,6 +9,7 @@ using Documents.Tracking.Data.Entities;
 using General.Employees.Commons;
 using General.Services.Core.DTO;
 using General.Services.Core.Entity;
+using ManageFiles.Models.DTO;
 using Orders.Core;
 using TodoTasks.Commons.DTO;
 
@@ -68,6 +69,11 @@ namespace Documents.Tracker.Core.Config.Mapper
             CreateMap<EmployeeDTO,EmployeeOTO>()
                 .ForMember(x=>x.IsDelegator,s=>s.Ignore())
                 .ReverseMap();
+
+            CreateMap<AttachmentFilesDTO, ConsumerAttachmentFileOTO>()
+                .ForMember(x=>x.DocumentTypeId,s=>s.MapFrom(x=>x.ReferenceTypeId))
+                .ForMember(x => x.ConsumerId, s => s.MapFrom(x => x.ReferenceId))
+               .ReverseMap();
 
         }
 

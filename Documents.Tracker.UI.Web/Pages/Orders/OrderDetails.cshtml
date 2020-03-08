@@ -68,6 +68,7 @@
                                     @*<th width="10%">Identity Id</th>*@
                                     <th width="10%">Price</th>
                                     <th width="10%">QTY</th>
+                                    <th>Required Docs</th>
                                     @*<th width="10%" class="notexport"></th>*@
                                 </tr>
                             </thead>
@@ -90,6 +91,12 @@
                                             <td>
                                                 @item.ProductUnit
                                             </td>
+                                            <td>
+                                                <div class="table table-borderless">
+                                                    @*<vc:product-required-documents product-id="@item.ProductId" />*@
+                                                    <vc:consumer-documents product-id="@item.ProductId" conusmer-id="@Model.OrderDetails.ConsumerId"/>
+                                                </div>
+                                            </td>
                                             @*<td>
                                                     <div class="btn-group " role="group">
                                                         <button type="button" onclick="AddEdit('@item.OrderKey','@cntlname','AddEditConsumer','RefId')" class="btn btn-sm btn-warning ">edit</button>
@@ -103,7 +110,7 @@
                             </tbody>
                         </table>
                     </div>
-
+                    
                     <!--end: Datatable -->
                 </div>
             </div>
