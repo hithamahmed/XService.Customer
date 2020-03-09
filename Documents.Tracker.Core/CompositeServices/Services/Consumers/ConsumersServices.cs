@@ -15,7 +15,6 @@ namespace Documents.Tracker.Core
     {
         private readonly IConsumersCore consumersProfileCore;
         private readonly IServiceRequiredDocumentsCore _serviceRequiredDocumentsCore;
-
         private readonly IManageFilesCore _manageFilesCore;
         //private readonly IConsumerAddress consumersAddressCore;
 
@@ -25,6 +24,7 @@ namespace Documents.Tracker.Core
             IConsumersCore _consumersProfileCore
             )
         {
+            
             _serviceRequiredDocumentsCore = serviceRequiredDocumentsCore;
             _manageFilesCore = manageFilesCore;
             consumersProfileCore = _consumersProfileCore;
@@ -173,11 +173,14 @@ namespace Documents.Tracker.Core
                         .Where(x => x.ReferenceTypeId == doc.RefId)
                         .Select(x => x).FirstOrDefault();
                     var consumerProductFile = Mapper.Map<ConsumerAttachmentFileOTO>(consumerFile);
+                    var filepathUri = await _manageFilesCore.GetFileUri(consumerId, doc.RefId);
+
                     consumerProductDocumentFiles.Add(new ConsumerProductDocumentFileOTO
                     {
                         ConsumerFiles = consumerProductFile,
-                        ProductDocuments = doc
-                    });
+                        ProductDocuments = doc,
+                        FilePathUrl = filepathUri == null ? "" : filepathUri
+                    }); ;
                 }
 
                 return consumerProductDocumentFiles;

@@ -14,7 +14,7 @@ namespace Documents.Tracker.Core.DTO.Consumers
         }
         public ProductDocumentsRequirementsOTO  ProductDocuments { get; set; }
         public ConsumerAttachmentFileOTO ConsumerFiles { get; set; }
-
+        public string FilePathUrl { get; set; }
        
     }
 }

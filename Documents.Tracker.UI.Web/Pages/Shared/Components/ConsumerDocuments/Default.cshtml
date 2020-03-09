@@ -1,5 +1,17 @@
-﻿@model ICollection<Documents.Tracker.Core.DTO.Consumers.ConsumerProductDocumentFileOTO>
+﻿@using Microsoft.AspNetCore.Http.Extensions;
+@model ICollection<Documents.Tracker.Core.DTO.Consumers.ConsumerProductDocumentFileOTO>
+@{
+    var request = ViewContext.HttpContext.Request;
+    var displayUrl = UriHelper.GetDisplayUrl(request);
+    var urlBuilder =
+    new UriBuilder(displayUrl)
+    { 
+        Query = null,
+        Fragment = null
+    };
+    string url = urlBuilder.ToString();
 
+}
 <table id="servicesTable" class="table  table-bordered table-striped">
     <thead>
         <tr>
@@ -7,6 +19,7 @@
             <th width="30%">File</th>
             <th width="10%">Required</th>
             <th width="10%">Avaliabe</th>
+            <th width="10%"></th>
         </tr>
     </thead>
     <tbody>
@@ -42,14 +55,23 @@
                             {
                                 <div class="form-group-xs">
                                     <span class="col-2 kt-badge kt-badge--inline kt-badge--success">Yes</span>
-                                    <span class="col-6">@item.ConsumerFiles.FileName</span>
                                 </div>
-                              
                             }
                             else
                             {
                                 <span class="kt-badge kt-badge--inline kt-badge--dark">No</span>
                             }
+                        }
+                    </td>
+                    <td>
+                        @if (item.ConsumerFiles != null)
+                        {
+                            //string baseUrl = string.Format("{0}://{1}/{2}", request.Scheme, request.Host, item.FilePathUrl);
+                            //var fileuri = new Uri(baseUrl, UriKind.Absolute);
+                            <form method="post">
+                                <button asp-page="/FileManager/ManageFiles" asp-page-handler="Download" asp-route-pathUri="@item.FilePathUrl"
+                                   class="btn btn-sm btn-light btn-icon "><i class="kt-nav__link-icon la la-download"></i></button>
+                            </form>
                         }
                     </td>
 
