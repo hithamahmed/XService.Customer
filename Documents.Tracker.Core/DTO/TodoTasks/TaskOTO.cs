@@ -6,6 +6,8 @@ using System.Text;
 using TodoTasks.Commons;
 using TodoTasks.Commons.DTO;
 using AutoMapper;
+using Documents.Tracker.Core.DTO.Employees;
+
 namespace Documents.Tracker.Core.DTO.TodoTasks
 {
     public class TaskOTO
@@ -38,8 +40,8 @@ namespace Documents.Tracker.Core.DTO.TodoTasks
         public int TaskTypeId { get; set; }
         public TaskStatusDTO TaskStatus { get; set; }
         public TaskTypeDTO TaskType { get; set; }
-        [IgnoreMap] public UserDelegatorDTO UserDelegator { get; set; }
-
+        //[IgnoreMap] public UserDelegatorDTO UserDelegator { get; set; }
+        [IgnoreMap] public EmployeeDelegatorOTO UserDelegator { get; set; }
         public bool IsClosed { get; set; }
         public bool IsRejected { get; set; }
         //public bool GetIsClosed()

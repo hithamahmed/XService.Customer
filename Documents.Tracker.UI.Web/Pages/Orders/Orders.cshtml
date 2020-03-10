@@ -67,7 +67,7 @@
                                     {
                                         <tr>
                                             <td>
-                                                <a asp-page="/Orders/OrderDetails" asp-route-id="@item.OrderKey" >@item.OrderKey</a>  
+                                                <a asp-page="/Orders/OrderDetails" asp-route-id="@item.OrderKey" >@item.OrderKey.Split('-')[0].ToString()</a>  
                                             </td>
                                             @*
                                                 <td>@item.IdentityId</td>
@@ -79,10 +79,10 @@
                                                 @item.OrderStatus.Name
                                             </td>
                                             <td>
-                                                <form method="post" class="col-sm-6">
+                                                @*<form method="post" class="col-sm-6">
                                                     <vc:set-order-status id="@item.OrderKey">
                                                     </vc:set-order-status>
-                                                </form>
+                                                </form>*@
                                             </td>
                                         </tr>
                                     }
@@ -141,4 +141,8 @@
             })
         });
     </script>
+<script>
+
+
+</script>
 }

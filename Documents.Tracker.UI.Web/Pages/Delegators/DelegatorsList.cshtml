@@ -88,7 +88,7 @@
                                                         {
                                                             <span class="kt-badge kt-badge--inline kt-badge--danger">Yes @@ @item.BlockedDate.Value.ToLongDateString()) </span>
                                                             <div class="btn-group " role="group">
-                                                                <input type="submit" value="Enable" asp-page-handler="ChangeBlock" asp-route-delegatorId="@item.Id" class="btn btn-sm btn-outline-hover-danger "/>
+                                                                <input type="submit" value="Enable" asp-page-handler="ChangeBlock" asp-route-delegatorId="@item.EmployeeId" class="btn btn-sm btn-outline-hover-danger "/>
                                                             </div>
                                                         }
                                                         else
@@ -96,7 +96,7 @@
                                                             <span class="kt-badge kt-badge--inline kt-badge--dark">No</span>
                                                             <div class="btn-group " role="group">
 
-                                                                <input type="submit" value="Block" asp-page-handler="ChangeBlock" asp-route-delegatorId="@item.Id" class="btn btn-sm btn-outline-hover-success " />
+                                                                <input type="submit" value="Block" asp-page-handler="ChangeBlock" asp-route-delegatorId="@item.EmployeeId" class="btn btn-sm btn-outline-hover-success " />
 
                                                             </div>
                                                         }
@@ -104,7 +104,7 @@
 
                                                 </td>
                                                 <td>
-                                                    <a asp-page="/ServiceTasks/ManageTasks" asp-page-handler="TasksByDelegator" asp-route-DelegatorId="@item.Id" class="btn btn-sm btn-default btn-bold btn-upper " >Tasks</a>
+                                                    <a asp-page="/ServiceTasks/ManageTasks" asp-page-handler="TasksByDelegator" asp-route-DelegatorId="@item.EmployeeId" class="btn btn-sm btn-default btn-bold btn-upper " >Tasks</a>
                                                 </td>
                                                 <td>
                                                 </td>

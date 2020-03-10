@@ -11,7 +11,6 @@ namespace Documents.Tracker.Core.CompositeServices
         Task<OrderOTO> GetSingleOrder(string OrderKey);
         Task<OrderOTO> GetSingleOrder(int OrderId);
         Task<OrderOTO> GetOrderbyOrderDetailId(int OrderDetailId);
-        Task<ICollection<OrderProductOTO>> GetOrdersByStatus(int orderstatusId);
         Task<ICollection<OrderProductOTO>> GetOrderProducts(int OrderId);
         Task<ICollection<OrderProductOTO>> GetOrderProducts(string OrderKey);
         

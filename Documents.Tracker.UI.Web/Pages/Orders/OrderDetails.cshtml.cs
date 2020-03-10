@@ -25,8 +25,15 @@ namespace Documents.Tracker.UI.Web.Pages.Orders
         {
             try
             {
-                OrderDetails = await _ordersCore.GetSingleOrder(id);
-                return Page();
+                Guid guid = Guid.NewGuid();
+                if (!Guid.TryParse(id, out guid))
+                    return RedirectToPage("Orders");
+
+                OrderDetails = await _ordersCore.GetSingleOrder(guid.ToString());
+                if(OrderDetails!=null)
+                    return Page();
+
+                return RedirectToPage("Orders");
             }
             catch (Exception)
             {

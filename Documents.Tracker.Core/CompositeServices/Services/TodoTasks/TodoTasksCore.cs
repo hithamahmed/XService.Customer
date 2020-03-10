@@ -1,7 +1,9 @@
 ﻿using Delegators.Core.Interface;
 using Documents.Tracker.Core.CompositeServices;
 using Documents.Tracker.Core.Config.Mapper;
+using Documents.Tracker.Core.DTO.Employees;
 using Documents.Tracker.Core.DTO.TodoTasks;
+using General.Employees.Core.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +25,10 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
         private readonly IQueryGeneralService _generalService;
         //private readonly IValidationsTodoTasksServices _validationsTodoTasks;
         private readonly IQueryOrderService _queryOrderService;
-     
+        private readonly IEmployeeCore _employeeCore;
+
         public TodoTasksCore(
+            IEmployeeCore employeeCore,
             IQueryOrderService queryOrderService,
             //IValidationsTodoTasksServices validationsTodoTasks,
             IQueryGeneralService generalService,
@@ -33,6 +37,7 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
             ITasksCore tasksCore,
             IUserDelegatorCore userDelegatorCore)
         {
+            _employeeCore = employeeCore;
             _generalService = generalService;
             _taskLocationsCore = taskLocationsCore;
             _tasksCore = tasksCore;
@@ -114,7 +119,15 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
                 includes.Add(x => x.TaskType);
 
                 var task = await _tasksCore.GetSingleTask(x=>x.Id == taskId, includes);
-                return Mapper.Map<TaskOTO>(task);
+
+                var user = await _userDelegatorCore.GetUserDelegator(Convert.ToInt32(task.AssignedUserID));
+                var delegator = Mapper.Map<EmployeeDelegatorOTO>(user);
+                var employee = await _employeeCore.GetSingleEmployee(delegator.EmployeeId);
+                delegator.Employee = Mapper.Map<EmployeeOTO>(employee);
+
+                var todotask = Mapper.Map<TaskOTO>(task);
+                todotask.UserDelegator = delegator;
+                return todotask;
             }
             catch (Exception)
             {
@@ -179,9 +192,22 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
                 {
                     var userid = 0;
                     if (int.TryParse(item.AssignedUserID, out userid))
-                        item.UserDelegator = await _userDelegatorCore.GetUserDelegator(userid);
-                    //else
-                    //    item.UserDelegator = await _userDelegatorCore.GetUserDelegator(item.AssignedUserID);
+                    {
+                        var user = await _userDelegatorCore.GetUserDelegator(userid);
+                        var delegator = Mapper.Map<EmployeeDelegatorOTO>(user);
+                        var employee = await _employeeCore.GetSingleEmployee(delegator.EmployeeId);
+                        if (employee != null)
+                        {
+                            delegator.Employee = Mapper.Map<EmployeeOTO>(employee);
+                            item.UserDelegator = delegator;
+                        }
+                        //var employee = await _employeeCore.GetSingleEmployee(userid);
+                        //item.UserDelegator = Mapper.Map<EmployeeDelegatorOTO>(employee);
+                    }
+                        
+                        //item.UserDelegator = await _userDelegatorCore.GetUserDelegator(userid);
+                        //else
+                        //    item.UserDelegator = await _userDelegatorCore.GetUserDelegator(item.AssignedUserID);
                 }
                 return tasksList;
             }
@@ -256,7 +282,19 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
                 {
                     var userid = 0;
                     if (int.TryParse(item.AssignedUserID, out userid))
-                        item.UserDelegator = await _userDelegatorCore.GetUserDelegator(userid);
+                    {
+                        var user = await _userDelegatorCore.GetUserDelegator(userid);
+                        var delegator = Mapper.Map<EmployeeDelegatorOTO>(user);
+                        var employee = await _employeeCore.GetSingleEmployee(delegator.EmployeeId);
+                        if (employee != null)
+                        {
+                            delegator.Employee = Mapper.Map<EmployeeOTO>(employee);
+                            item.UserDelegator = delegator;
+                        };
+                        //var employee = await _employeeCore.GetSingleEmployee(userid);
+                        //item.UserDelegator = Mapper.Map<EmployeeDelegatorOTO>(employee);
+                    }
+                        //item.UserDelegator = await _userDelegatorCore.GetUserDelegator(userid);
                     //else
                     //    item.UserDelegator = await _userDelegatorCore.GetUserDelegator(item.AssignedUserID);
                 }

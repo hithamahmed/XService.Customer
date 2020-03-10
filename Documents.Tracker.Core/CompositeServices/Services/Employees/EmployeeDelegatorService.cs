@@ -5,6 +5,7 @@ using Documents.Tracker.Core.DTO.Employees;
 using General.Employees.Core.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -81,8 +82,21 @@ namespace Documents.Tracker.Core.CompositeServices
         {
             try
             {
-                var user = await _userDelegatorCore.GetUserDelegatorByEmployeeId(EmployeeId);
-                return Mapper.Map<EmployeeDelegatorOTO>(user);
+                var delegator = await _userDelegatorCore.GetUserDelegatorByEmployeeId(EmployeeId);
+                var employee = await _employeeCore.GetSingleEmployee(EmployeeId);
+                var delegatorEmployee = Mapper.Map<EmployeeDelegatorOTO>(delegator);
+                delegatorEmployee.Employee = Mapper.Map<EmployeeOTO>(employee);
+                //    new EmployeeDelegatorOTO
+                //{
+                //    Employee = Mapper.Map<EmployeeOTO>(employee),
+                //    StartDate = delegator.StartDate,
+                //    EndDate = delegator.EndDate,
+                //    EmployeeId = delegator.Id,
+                //    BlockedDate = delegator.BlockedDate,
+                //    IsBlocked = delegator.IsBlocked
+                //};
+
+                return delegatorEmployee;// Mapper.Map<EmployeeDelegatorOTO>(delegator);
             }
             catch (Exception)
             {
@@ -97,14 +111,33 @@ namespace Documents.Tracker.Core.CompositeServices
             {
                 var users = await _userDelegatorCore.GetUsersDelegators();
                 var delegators = Mapper.Map<ICollection<EmployeeDelegatorOTO>>(users);
-                foreach (var item in delegators)
-                {
-                    var employee = await _employeeCore.GetSingleEmployee(item.EmployeeId);
-                    //item.Name = employee == null ? "" :  employee.FirstName;
-                    if (employee != null)
-                        item.Employee = Mapper.Map<EmployeeOTO>(employee);
-                }
-                return delegators;
+
+                var employeesList = await _employeeCore.GetEmployees();
+                var employees  = Mapper.Map<ICollection<EmployeeOTO>>(employeesList);
+
+                var employeeDelegator =
+                    (from delg in delegators.ToList()
+                     from emp in employees.ToList()
+                     where delg.EmployeeId == emp.Id
+                     select new EmployeeDelegatorOTO
+                     {
+                         Id = delg.Id,
+                         Employee = emp,
+                         StartDate = delg.StartDate,
+                         EndDate = delg.EndDate,
+                         EmployeeId = emp.Id,
+                         BlockedDate = delg.BlockedDate,
+                         IsBlocked = delg.IsBlocked
+                     });
+
+                //foreach (var item in delegators)
+                //{
+                //    var employee = await _employeeCore.GetSingleEmployee(item.EmployeeId);
+                //    //item.Name = employee == null ? "" :  employee.FirstName;
+                //    if (employee != null)
+                //        item.Employee = Mapper.Map<EmployeeOTO>(employee);
+                //}
+                return employeeDelegator.ToList();
             }
             catch (Exception)
             {

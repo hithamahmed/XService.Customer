@@ -53,7 +53,7 @@
                                         <tr>
                                             <th width="10%">Title</th>
                                             <th width="10%">Due Date</th>
-                                            <th width="10%">Employee</th>
+                                            <th width="10%">Delegator Employee</th>
                                             <th width="10%">Type</th>
                                             <th width="10%">Status</th>
                                             <th width="10%">Closed</th>
@@ -74,7 +74,7 @@
                                                         @item.DueDate
                                                     </td>
                                                      <td>
-                                                        @item.UserDelegator.Name
+                                                        @item.UserDelegator.Employee.FullName
                                                     </td>
                                                     <td>
                                                         @item.TaskType.Name
@@ -125,7 +125,7 @@
                 //scroller: true,
                 fixedHeader: true
                 , order: [[0, 'asc']],
-                rowGroup: { dataSrc: 0 },
+                rowGroup: { dataSrc: 1 },
                 dom: 'Bfrtip',
                 buttons: [
                     {

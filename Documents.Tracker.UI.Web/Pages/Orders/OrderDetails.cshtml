@@ -50,8 +50,12 @@
                     <div class="kt-portlet__head-toolbar">
                         <div class="kt-portlet__head-wrapper">
                             <div class="kt-portlet__head-actions">
-                                <partial name="_Exportbar" />
-                                &nbsp;
+                                @*<partial name="_Exportbar" />*@
+                                <form method="post">
+                                    <vc:set-order-status id="@Model.OrderDetails.OrderKey" />
+                                    &nbsp;
+                                </form>
+                                   
                             </div>
                         </div>
                     </div>

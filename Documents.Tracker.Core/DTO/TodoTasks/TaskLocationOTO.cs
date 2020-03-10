@@ -22,7 +22,7 @@ namespace Documents.Tracker.Core.DTO.TodoTasks
 
         //public bool IsClosed { get; set; }
         public int TaskStatusId { get; set; }
-        public TasksDTO Tasks { get; set; }
+        public TaskOTO Tasks { get; set; }
         public TaskStatusDTO TaskStatus { get; set; }
         [IgnoreMap] public ProductOTO Product { get; set; }
         [IgnoreMap] public LocationAreasOTO LocationAreas { get; set; }

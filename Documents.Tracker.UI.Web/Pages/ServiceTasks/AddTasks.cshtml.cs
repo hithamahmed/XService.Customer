@@ -3,6 +3,7 @@ using Delegators.Core.Interface;
 using Documents.Tracker.Core;
 using Documents.Tracker.Core.CompositeServices;
 using Documents.Tracker.Core.DTO;
+using Documents.Tracker.Core.DTO.Employees;
 using Documents.Tracker.Core.DTO.Orders;
 using Documents.Tracker.Core.DTO.TodoTasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +22,10 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
         private readonly IQueryTodoTasksServices _queryTodoTasks;
         private readonly ICommandTodoTasksServices _commandTodoTasks;
 
-        private readonly IUserDelegatorCore _userDelegatorCore;
         private readonly IQueryGeneralService _generalService;
         private readonly IQueryOrderService _orderservice;
+
+        private readonly IEmployeeDelegatorService _employeeDelegatorService;
 
         [BindProperty]
         public TaskOTO ServiceTask { get; set; }
@@ -34,19 +36,20 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
 
         public ICollection<LocationAreasOTO> Locations { get; set; }
         public ICollection<UserDelegatorDTO> UserDelegatorsDTO { get; set; }
+        public ICollection<EmployeeDelegatorOTO> UserDelegators { get; set; }
         public ICollection<TaskTypeDTO> taskTypes { get; set; }
 
 
         public AddTasksModel(
+            IEmployeeDelegatorService employeeDelegatorService,
             ICommandTodoTasksServices commandTodoTasks,
             IQueryOrderService orderservice,
             IQueryGeneralService generalService,
-            IUserDelegatorCore userDelegatorCore,
             IQueryTodoTasksServices queryTodoTasks)
         {
+            _employeeDelegatorService = employeeDelegatorService;
             _orderservice = orderservice;
             _generalService = generalService;
-            _userDelegatorCore = userDelegatorCore;
             _queryTodoTasks = queryTodoTasks;
             _commandTodoTasks = commandTodoTasks;
         }
@@ -61,7 +64,7 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
                 ServiceTask = await _queryTodoTasks.GetSingleTodoTask(id.Value);
                 TaskLocationServices.TaskID = ServiceTask.Id;
             }
-            UserDelegatorsDTO = await _userDelegatorCore.GetUsersDelegators();
+            UserDelegators = await _employeeDelegatorService.GetEmployeeDelegatorsList();
             Locations = await _generalService.GetLocationList(1);
             taskTypes = await _queryTodoTasks.GetTodoTaskTypes();
 

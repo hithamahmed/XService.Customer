@@ -1,4 +1,6 @@
-﻿@model ICollection<Documents.Tracker.Core.DTO.TodoTasks.TaskLocationOTO>
+﻿@using OrdersCore = global::Orders.Core.OrderExt
+
+@model ICollection<Documents.Tracker.Core.DTO.TodoTasks.TaskLocationOTO>
 @{
     var cntlname = ViewContext.RouteData.Values["Page"].ToString();
 }
@@ -24,20 +26,41 @@
                                 @item.LocationAreas.Name
                             </td>
                             <td>
-                                <a target="_blank" asp-page="/Orders/OrderDetails" asp-route-id="@item.Order.OrderKey">@item.Order.OrderKey</a>
+                                <a target="_blank" asp-page="/Orders/OrderDetails" asp-route-id="@item.Order.OrderKey">@item.Order.OrderKey.Replace("-","")</a>
                             </td>
                             <td>
                                 @item.Product.ShortName
                             </td>
 
                             <td>
-                                @item.TaskStatus.Name
+                                @{
+                                    switch ((OrdersCore.OrderStatusEnums)item.TaskStatusId)
+                                    {
+
+                                        case OrdersCore.OrderStatusEnums.Cancelled:
+                                            <span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">@item.TaskStatus.Name</span>
+                                            break;
+                                        case OrdersCore.OrderStatusEnums.Completed:
+                                            <span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">@item.TaskStatus.Name</span>
+                                            break;
+                                        default:
+                                            <span class="kt-badge kt-badge--primary kt-badge--inline kt-badge--pill kt-badge--rounded">@item.TaskStatus.Name</span>
+                                            break;
+                                    }
+                                }
+
                             </td>
                             <td>
                                 @item.TaskStatusDate
                             </td>
                             <td>
-                                <vc:set-task-service-status task-service-id="@item.Id" />
+                                @{
+                                    if (item.Tasks.IsClosed == false)
+                                    {
+                                        <vc:set-task-service-status task-service-id="@item.Id" />
+                                    }
+                                }
+
                             </td>
                         </tr>
                     }
