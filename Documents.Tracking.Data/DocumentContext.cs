@@ -13,7 +13,7 @@ namespace Documents.Tracker.Data
     public class DocumentContext : DbContext
     {
 
-        public DbSet<DocRequirements> DocRequirements { get; set; }
+        public DbSet<DocumentRequirements> DocRequirements { get; set; }
         public DbSet<DocIssued> DocIssued { get; set; }
         //public DbSet<ConsumerServices> ConsumerServices { get; set; }
         //public DbSet<Category> Categories { get; set; }

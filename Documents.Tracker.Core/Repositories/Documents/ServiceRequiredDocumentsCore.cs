@@ -26,7 +26,7 @@ namespace Documents.Tracker.Core
             try
             {
 
-                var documentsRequirements = Mapper.Map<DocRequirements>(serviceDocumentsRequirements);
+                var documentsRequirements = Mapper.Map<DocumentRequirements>(serviceDocumentsRequirements);
                 if (serviceDocumentsRequirements.RefId == 0)
                 {
                     await _db.DocRequirements.AddAsync(documentsRequirements);

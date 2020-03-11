@@ -20,7 +20,7 @@ namespace Documents.Tracker.Core.Config.Mapper
         public MapperProfile()
         {
 
-            CreateMap<DocRequirements, ProductDocumentsRequirementsOTO>()
+            CreateMap<DocumentRequirements, ProductDocumentsRequirementsOTO>()
                 .ForMember(x => x.RefId, o => o.MapFrom(s => s.Id))
                 .ReverseMap()
                 .ForMember(x => x.Id, o => o.MapFrom(s => s.RefId));

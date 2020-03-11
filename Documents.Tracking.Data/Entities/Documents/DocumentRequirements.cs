@@ -6,7 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Documents.Tracking.Data.Entities
 {
-    public class DocRequirements : EntityBase
+    [Table(name: "DocRequirements")]
+    public class DocumentRequirements : EntityBase
     {
         [ForeignKey("ProductUKey")]
         //[NotMapped]

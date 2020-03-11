@@ -32,6 +32,8 @@
     <Compile Remove="EntityBase.cs" />
     <Compile Remove="Migrations\20191205133156_documents.cs" />
     <Compile Remove="Migrations\20191205133156_documents.Designer.cs" />
+    <Compile Remove="Migrations\20200311130417_check-changes.cs" />
+    <Compile Remove="Migrations\20200311130417_check-changes.Designer.cs" />
     <Compile Remove="ServiceRequiredDocuments.cs" />
   </ItemGroup>
 
