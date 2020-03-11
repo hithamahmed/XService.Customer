@@ -1,5 +1,6 @@
 ﻿using Documents.Tracker.Core.DTO.Files;
 using ManageFiles.Commons.DTO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Documents.Tracker.Core
@@ -8,5 +9,7 @@ namespace Documents.Tracker.Core
     {
         Task<bool> UploadDocumentFile(ServiceDocumentFilesOTO requiredDocumentFiles);
         Task AddEditDocumentFileType(AttachmentFileTypeDTO attachmentFilesType);
+        Task<AttachmentFileTypeDTO> GetSingleFileType(int FileTypeid);
+        Task<ICollection<AttachmentFileTypeDTO>> GetDocumentFileType();
     }
 }

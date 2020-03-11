@@ -9,7 +9,7 @@ using Documents.Tracking.Data.Entities;
 using General.Employees.Commons;
 using General.Services.Core.DTO;
 using General.Services.Core.Entity;
-using ManageFiles.Models.DTO;
+using ManageFiles.Commons.DTO;
 using Orders.Core;
 using TodoTasks.Commons.DTO;
 

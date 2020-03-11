@@ -1,9 +1,4 @@
-﻿using ManageFiles.Models.DTO;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Documents.Tracker.Core.DTO.Consumers
+﻿namespace Documents.Tracker.Core.DTO.Consumers
 {
     public class ConsumerProductDocumentFileOTO
     {
@@ -12,9 +7,9 @@ namespace Documents.Tracker.Core.DTO.Consumers
             ProductDocuments = new ProductDocumentsRequirementsOTO();
             ConsumerFiles = new ConsumerAttachmentFileOTO();
         }
-        public ProductDocumentsRequirementsOTO  ProductDocuments { get; set; }
+        public ProductDocumentsRequirementsOTO ProductDocuments { get; set; }
         public ConsumerAttachmentFileOTO ConsumerFiles { get; set; }
         public string FilePathUrl { get; set; }
-       
+
     }
 }

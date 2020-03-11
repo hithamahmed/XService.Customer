@@ -1,9 +1,9 @@
 ﻿using Documents.Tracker.Core.DTO.Files;
+using ManageFiles.Commons;
 using ManageFiles.Commons.DTO;
-using ManageFiles.Commons.Interface;
 using ManageFiles.Core.Interface;
-using ManageFiles.Models.DTO;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Documents.Tracker.Core.CompositeServices.Services.Documents
@@ -62,10 +62,37 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Documents
         {
             try
             {
-                await filesRepository.AddEditAttachmentFileType(attachmentFilesType);
+                   await filesRepository.AddEditAttachmentFileType(attachmentFilesType);
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        public async Task<AttachmentFileTypeDTO> GetSingleFileType(int FileTypeid)
+        {
+            try
+            {
+                return await filesRepository.GetSingleAttachmentsFileType(FileTypeid);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<ICollection<AttachmentFileTypeDTO>> GetDocumentFileType()
+        {
+            try
+            {
+                return  await filesRepository.GetAttachmentsFileType();
+
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

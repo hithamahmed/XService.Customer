@@ -75,6 +75,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\AttachmentFiles\" />
     <Folder Include="Pages\Shared\Components\Tasks\" />
     <Folder Include="ViewModel\" />
     <Folder Include="wwwroot\assets\media\users\" />

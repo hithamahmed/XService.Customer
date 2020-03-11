@@ -1,8 +1,91 @@
 ﻿@page
 @model Documents.Tracker.UI.Web.Pages.GeneralPages.DocumentTypes.DocumentTypesModel
+
 @{
-    ViewData["Title"] = "DocumentTypes";
+    ViewData["Title"] = "ServicesDocuments";
+    var cntlname = ViewContext.RouteData.Values["Page"].ToString();
 }
 
-<h1>DocumentTypes</h1>
+<!-- begin:: Content Head -->
+<div class="kt-subheader  kt-grid__item" id="kt_subheader">
+    <div class="kt-container  kt-container--fluid ">
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </div>
+</div>
+<!-- end:: Content Head -->
+
+
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <span class="kt-portlet__head-icon">
+                            <i class="kt-font-brand flaticon2-architecture-and-city"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-title">
+                            Attachment File Types
+                        </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="kt-portlet__head-wrapper">
+                            <div class="kt-portlet__head-actions">
+                                <partial name="_Exportbar" />
+                                &nbsp;
+
+                                <a href="#" onclick="AddEdit(0,'@cntlname','AddEditFileType','Id')" class="btn btn-brand btn-elevate btn-icon-sm">
+                                    <i class="la la-plus"></i>
+                                    New File Type
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kt-portlet__body">
+                    <!--begin: Datatable -->
+                    <form method="post">
+
+                        <div class="table-responsive">
+                            <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">Name</th>
+                                        <th width="10%" class="notexport"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.AttachmentFileTypes != null)
+                                    {
+
+                                        @foreach (var item in Model.AttachmentFileTypes)
+                                        {
+                                            <tr>
+
+                                                <td>@item.Name</td>
+                                                <td>
+                                                    <a href="#" onclick="AddEdit(@item.Id,'@cntlname','AddEditFileType','Id')" class="btn btn-brand btn-elevate btn-icon-sm">
+                                                        <i class="la la-plus"></i>
+                                                        Edit
+                                                    </a>
+                                                </td>
+
+                                            </tr>
+                                        }
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--end: Datatable -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
