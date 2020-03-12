@@ -2,6 +2,7 @@
 using Documents.Tracker.Core.DTO;
 using Documents.Tracker.Data;
 using Documents.Tracking.Data.Entities;
+using ManageFiles.Core.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,11 @@ namespace Documents.Tracker.Core
     internal class ServiceRequiredDocumentsCore : MapperCore, IServiceRequiredDocumentsCore
     {
         //private readonly IMapper _mapper;
-
         private readonly DocumentContext _db;
-        public ServiceRequiredDocumentsCore(DocumentContext db)//, IMapper mapper)
+        private readonly IManageFilesCore _manageFilesCore;
+        public ServiceRequiredDocumentsCore(IManageFilesCore manageFilesCore, DocumentContext db)//, IMapper mapper)
         {
+            _manageFilesCore = manageFilesCore;
             _db = db;
             //_mapper = mapper;
         }
@@ -84,7 +86,14 @@ namespace Documents.Tracker.Core
             try
             {
                 var RequirementsDocs = await _db.DocRequirements.Where(x => x.ProductUKey == productId).ToListAsync();
-                return Mapper.Map<ICollection<ProductDocumentsRequirementsOTO>>(RequirementsDocs);
+                var docs = Mapper.Map<ICollection<ProductDocumentsRequirementsOTO>>(RequirementsDocs);
+                foreach (var item in docs.ToList())
+                {
+                    var docType = await _manageFilesCore.GetSingleAttachmentsFileType(item.AttachmentFilesTypeId);
+                    item.Name = docType.Name;
+                    item.Description = docType.Name;
+                }
+                return docs;
             }
             catch (Exception)
             {

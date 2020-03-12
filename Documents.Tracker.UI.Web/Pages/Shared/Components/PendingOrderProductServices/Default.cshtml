@@ -1,14 +1,14 @@
-﻿@model ICollection<Documents.Tracker.Core.DTO.Orders.OrderProductOTO>
+﻿@*@model ICollection<Documents.Tracker.Core.DTO.Orders.OrderProductOTO>*@
+@model ICollection<Documents.Tracker.UI.Web.SharedComponents.PendingOrderItemsComponent.PendingOrderProductServices>
 
 <div class="kt-widget4">
     <table id="servicesTable" class="table  table-bordered table-hover table-responsive-sm">
         <thead>
             <tr>
-                <th width="10%">#</th>
+                <th width="5%">#</th>
                 @*<th width="10%">Id</th>*@
                 <th>Service</th>
-                <th>Status</th>
-               
+                <th width="5%">Closed</th>
             </tr>
         </thead>
         <tbody>
@@ -19,27 +19,39 @@
                     <tr>
                         <td>
                             <div id="serviceRows">
-                                <input type="hidden" value="@item.Id" name="RefId" />
-                                <input type="hidden" value="@item.ProductId" name="ProId" />
-                                <label class="kt-radio kt-radio--bold kt-radio--success">
-                                    <input onchange="ShowServiceInfo(this)" value="@item.Id" name="selectedService" type="radio" />
-                                    <span></span>
-                                </label>
-
+                                @{
+                                    if (!item.IsClosed)
+                                    {
+                                        <input type="hidden" value="@item.Id" name="RefId" />
+                                        <input type="hidden" value="@item.ProductId" name="ProId" />
+                                        <label class="kt-radio kt-radio--bold kt-radio--success">
+                                            <input onchange="ShowServiceInfo(this)" value="@item.Id" name="selectedService" type="radio" />
+                                            <span></span>
+                                        </label>
+                                    }
+                                }
 
                             </div>
 
                         </td>
-                        @*<td>
-                                @item.Id
-                            </td>*@
                         <td>
-                            @item.Product.Name
+                            @item.Name
                         </td>
-                        @*<td>
-                                @item.ProductUnit
-                            </td>*@
                         <td>
+                            @{
+                                if (item.IsClosed)
+                                {
+                                    <span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">
+                                        Yes
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="kt-badge kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded">
+                                        No
+                                    </span>
+                                }
+                            }
                         </td>
                     </tr>
                 }
@@ -47,14 +59,3 @@
         </tbody>
     </table>
 </div>
-@*<div class="kt-portlet__body colo">
-        <div class="kt-portlet kt-portlet--height-fluid">
-            <div class="kt-portlet__body">
-
-
-
-
-            </div>
-        </div>
-
-    </div>*@

@@ -50,6 +50,7 @@
 
   <ItemGroup>
     <Folder Include="Entities\DocumentsFiles\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

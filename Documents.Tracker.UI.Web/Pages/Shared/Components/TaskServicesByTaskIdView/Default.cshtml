@@ -1,79 +1,72 @@
-﻿@using OrdersCore = global::Orders.Core.OrderExt
+﻿@*@using OrdersCore = global::Orders.Core.OrderExt*@
+@using TasksCore = global::TodoTasks.Commons.TaskEnums
 
 @model ICollection<Documents.Tracker.Core.DTO.TodoTasks.TaskLocationOTO>
 @{
     var cntlname = ViewContext.RouteData.Values["Page"].ToString();
 }
-    <div class="kt-widget4">
-        <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
-            <thead>
-                <tr>
-                    <th width="10%">Location</th>
-                    <th width="10%">Order</th>
-                    <th width="10%">Service</th>
-                    <th width="10%">Status</th>
-                    <th width="10%">Status Date</th>
-                    <th width="10%" class="notexport">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null)
+<div class="kt-widget4">
+    <table class="table  table-bordered table-hover table-checkable" id="kt_table_1">
+        <thead>
+            <tr>
+                <th width="10%">Location</th>
+                <th width="10%">Order</th>
+                <th width="10%">Service</th>
+                <th width="10%">Status</th>
+                <th width="10%">Status Date</th>
+                <th width="10%" class="notexport">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
                 {
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @item.LocationAreas.Name
-                            </td>
-                            <td>
-                                <a target="_blank" asp-page="/Orders/OrderDetails" asp-route-id="@item.Order.OrderKey">@item.Order.OrderKey.Replace("-","")</a>
-                            </td>
-                            <td>
-                                @item.Product.ShortName
-                            </td>
+                    <tr>
+                        <td>
+                            @item.LocationAreas.Name
+                        </td>
+                        <td>
+                            <a target="_blank" asp-page="/Orders/OrderDetails" asp-route-id="@item.Order.OrderKey">@item.Order.OrderKey.Replace("-", "")</a>
+                        </td>
+                        <td>
+                            @item.Product.ShortName
+                        </td>
 
-                            <td>
-                                @{
-                                    switch ((OrdersCore.OrderStatusEnums)item.TaskStatusId)
-                                    {
+                        <td>
+                            @{
+                                switch ((TasksCore.TaskStatus)item.TaskStatusId)
+                                {
 
-                                        case OrdersCore.OrderStatusEnums.Cancelled:
-                                            <span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">@item.TaskStatus.Name</span>
-                                            break;
-                                        case OrdersCore.OrderStatusEnums.Completed:
-                                            <span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">@item.TaskStatus.Name</span>
-                                            break;
-                                        default:
-                                            <span class="kt-badge kt-badge--primary kt-badge--inline kt-badge--pill kt-badge--rounded">@item.TaskStatus.Name</span>
-                                            break;
-                                    }
+                                    case TasksCore.TaskStatus.Cancelled:
+                                    case TasksCore.TaskStatus.Rejected:
+                                        <span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">@item.TaskStatus.Name</span>
+                                        break;
+                                    case TasksCore.TaskStatus.Completed:
+                                        <span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">@item.TaskStatus.Name</span>
+                                        break;
+                                    default:
+                                        <span class="kt-badge kt-badge--primary kt-badge--inline kt-badge--pill kt-badge--rounded">@item.TaskStatus.Name</span>
+                                        break;
                                 }
+                            }
 
-                            </td>
-                            <td>
-                                @item.TaskStatusDate
-                            </td>
-                            <td>
-                                @{
-                                    if (item.Tasks.IsClosed == false)
-                                    {
-                                        <vc:set-task-service-status task-service-id="@item.Id" />
-                                    }
+                        </td>
+                        <td>
+                            @item.TaskStatusDate
+                        </td>
+                        <td>
+                            @{
+                                if (item.Tasks.IsClosed == false)
+                                {
+                                    <vc:set-task-service-status task-service-id="@item.Id" />
                                 }
+                            }
 
-                            </td>
-                        </tr>
-                    }
+                        </td>
+                    </tr>
                 }
-            </tbody>
-        </table>
-    </div>
-@*<div class="kt-portlet__body colo">
-    <div class="kt-portlet kt-portlet--height-fluid">
-
-        <div class="kt-portlet__body">
- 
-        </div>
-    </div>
-
-</div>*@
+            }
+        </tbody>
+    </table>
+</div>

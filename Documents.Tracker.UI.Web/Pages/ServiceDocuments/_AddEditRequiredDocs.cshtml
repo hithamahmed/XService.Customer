@@ -1,6 +1,15 @@
-﻿
-@model  Documents.Tracker.Core.DTO.ProductDocumentsRequirementsOTO
+﻿@model  Documents.Tracker.Core.DTO.ProductDocumentsRequirementsOTO
+@using ManageFiles.Commons.DTO;
+@inject ManageFiles.Core.Interface.IManageFilesCore AttachmentTypesCore;
+@{ 
 
+    var AttachmentFileTypes =
+        await AttachmentTypesCore.GetAttachmentsFileType();
+
+    IEnumerable<AttachmentFileTypeDTO> fileTypes =
+        AttachmentFileTypes.ToList().AsEnumerable();
+
+}
     <form class="kt-form kt-form--label-right" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -9,7 +18,7 @@
 
         <div class="kt-portlet__body">
             <div class="form-group row">
-                <div class="col-lg-12">
+                @*<div class="col-lg-12">
                     <label>Document name:</label>
                     <input asp-for="Name" required class="form-control" placeholder="ex: Civil Copy, Passport Copy">
                 </div>
@@ -17,15 +26,19 @@
                 <div class="col-lg-12">
                     <label>Document Description:</label>
                     <input asp-for="Description"  class="form-control" placeholder="ex: Civil Copy, Passport Copy">
-                </div>
-
+                </div>*@
                 <div class="col-lg-12">
-                    <label class="kt-checkbox kt-checkbox--tick kt-checkbox--danger">
-                        <input type="checkbox" asp-for="IsRequired"> Required Document
-                        <span></span>
-                    </label>
+                    <select required asp-for="AttachmentFilesTypeId" class="form-control" asp-items="@(new SelectList(fileTypes, "Id", "Name"))">
+                        <option value="0" class="font-weight-bold">Choose File</option>
+                    </select>
                 </div>
-            </div>
+                    <div class="col-lg-12">
+                        <label class="kt-checkbox kt-checkbox--tick kt-checkbox--danger">
+                            <input type="checkbox" asp-for="IsRequired"> Required Document
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
         </div>
         <div class="kt-portlet__foot">
             <div class="kt-form__actions">

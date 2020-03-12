@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Documents.Tracker.Core.CompositeServices;
+using TodoTasks.Core.Interface;
+using System.Collections.Generic;
+
 namespace Documents.Tracker.UI.Web.SharedComponents
 {
 
@@ -22,14 +25,39 @@ namespace Documents.Tracker.UI.Web.SharedComponents
     public class PendingOrderItemsComponent : ViewComponent
     {
         private readonly IQueryOrderService _queryOrderService;
-        public PendingOrderItemsComponent(IQueryOrderService queryOrderService)
+        private readonly ITaskLocationsCore _taskLocationsCore;
+        public PendingOrderItemsComponent(ITaskLocationsCore taskLocationsCore,
+            IQueryOrderService queryOrderService)
         {
+            _taskLocationsCore = taskLocationsCore;
             _queryOrderService = queryOrderService;
         }
         public async Task<IViewComponentResult> InvokeAsync(int orderid)
         {
-            var orderItems = await  _queryOrderService.GetOrderProducts(orderid);
-            return View(orderItems);
+            var orderItems = await _queryOrderService.GetOrderProducts(orderid);
+            List<PendingOrderProductServices> PendingorderItems = new List<PendingOrderProductServices>();
+
+            foreach (var item in orderItems)
+            {
+                var taskLocation = await _taskLocationsCore
+                    .GetSingleTaskLocationByExp(x =>
+                    x.IsClosed &&
+                    x.ProductId == item.ProductId);
+
+                PendingorderItems.Add(new PendingOrderProductServices
+                {
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    Name = item.Product.Name,
+                    IsClosed = taskLocation != null && taskLocation.Id > 0 ? true : false });
+            }
+            return View(PendingorderItems);
+        }
+        public class PendingOrderProductServices{
+            public int Id { get; set; }
+            public int ProductId { get; set; }
+            public string Name { get; set; }
+            public bool IsClosed { get; set; }
         }
     }
     [ViewComponent(Name = "OrderProducts")]
