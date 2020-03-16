@@ -15,5 +15,6 @@ namespace Documents.Tracker.Core
         Task<ConsumersProfileOTO> GetSingleConsumerWithAddressByConsumerId(string consumerId);
 
         Task<ICollection<ConsumerProductDocumentFileOTO>> GetConsumerProductAttachmentFiles(string consumerId,int ProductId);
+        Task<ICollection<ConsumerAttachmentFileOTO>> GetConsumerAttachmentFiles(string consumerId);
     }
 }

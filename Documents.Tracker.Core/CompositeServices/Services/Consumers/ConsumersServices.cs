@@ -192,5 +192,40 @@ namespace Documents.Tracker.Core
                 throw;
             }
         }
+
+        public async Task<ICollection<ConsumerAttachmentFileOTO>> GetConsumerAttachmentFiles(string consumerId)
+        {
+            try
+            {
+                var consumerFiles = await _manageFilesCore.GetAttachmentsFiles(consumerId);
+                var consumerProductFile = Mapper.Map<ICollection<ConsumerAttachmentFileOTO>>(consumerFiles);
+                //var productRequiredDocs = await _serviceRequiredDocumentsCore.GetRequiredDocuments(ProductId);
+                //List<ConsumerProductDocumentFileOTO> consumerProductDocumentFiles = new List<ConsumerProductDocumentFileOTO>();
+
+                //foreach (var doc in productRequiredDocs)
+                //{
+                //    var consumerFile = consumerFiles
+                //        .Where(x => x.ReferenceTypeId == doc.RefId)
+                //        .Select(x => x).FirstOrDefault();
+                //    var consumerProductFile = Mapper.Map<ConsumerAttachmentFileOTO>(consumerFile);
+                //    var filepathUri = await _manageFilesCore.GetFileUri(consumerId, doc.RefId);
+
+                //    consumerProductDocumentFiles.Add(new ConsumerProductDocumentFileOTO
+                //    {
+                //        ConsumerFiles = consumerProductFile,
+                //        ProductDocuments = doc,
+                //        FilePathUrl = filepathUri == null ? "" : filepathUri
+                //    }); ;
+                //}
+
+                return consumerProductFile;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

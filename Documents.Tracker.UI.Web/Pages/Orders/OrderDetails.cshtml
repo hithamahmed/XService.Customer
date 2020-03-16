@@ -9,10 +9,10 @@
 <div asp-validation-summary="All" class="text-danger"></div>
 <div class="kt-subheader  kt-grid__item" id="kt_subheader">
     <div class="kt-container  kt-container--fluid ">
-        <form method="post" class="col-sm-6">
+        @*<form method="post" class="col-sm-6">
             <vc:set-order-status id="@Model.OrderDetails.OrderKey">
             </vc:set-order-status>
-        </form>
+        </form>*@
             @*@await Component.InvokeAsync("OrderStatus" , new { id = @Model.OrderDetails.OrderKey })*@
 
     </div>
@@ -51,10 +51,10 @@
                         <div class="kt-portlet__head-wrapper">
                             <div class="kt-portlet__head-actions">
                                 @*<partial name="_Exportbar" />*@
-                                <form method="post">
+                                @*<form method="post">
                                     <vc:set-order-status id="@Model.OrderDetails.OrderKey" />
                                     &nbsp;
-                                </form>
+                                </form>*@
                                    
                             </div>
                         </div>

@@ -30,7 +30,8 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Documents
                         FileName = requiredDocumentFiles.DocumentFile.FileName,
                         IsValid = true,
                         ReferenceId = requiredDocumentFiles.ConsumerKey,
-                        ReferenceTypeId = requiredDocumentFiles.DocumentId
+                        ReferenceTypeId = requiredDocumentFiles.DocumentId,
+                        ExpiryDate = requiredDocumentFiles.ExpiryDate.Date
                     };
                     var attachedId = await filesRepository.AddEditDocumentFile(attachmentFiles);
                     if (attachedId > 0 && attachmentFiles.Id == 0)

@@ -15,35 +15,42 @@
             <!--begin: Datatable -->
 
             <div class="table table-responsive-sm">
-                
-                    <div class="row">
-                        <label class="col-lg-6"><strong>Order Date:</strong></label>
-                        <div class="col-lg-6">
-                            @Model.OrderDate
-                        </div>
+
+                <div class="row">
+                    <label class="col-lg-6"><strong>Order Date:</strong></label>
+                    <div class="col-lg-6">
+                        @Model.OrderDate
                     </div>
-                    <div class="row">
-                        <label class="col-lg-6"><strong>Finished Date:</strong></label>
-                        <div class="col-lg-6">
-                            @{
-                                var finishedDate = Model.FinishedDate < Model.OrderDate ? "Not Yet" : Model.FinishedDate.ToLongDateString();
-                            }
-                            <span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">@finishedDate</span>
-                        </div>
+                </div>
+                <div class="row">
+                    <label class="col-lg-6"><strong>Finished Date:</strong></label>
+                    <div class="col-lg-6">
+                        @{
+                            var finishedDate = Model.FinishedDate < Model.OrderDate ? "Not Yet" : Model.FinishedDate.ToLongDateString();
+                        }
+                        <span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">@finishedDate</span>
                     </div>
-                    <div class="row">
-                        <label class="col-lg-6"><strong>Items:</strong></label>
-                        <div class="col-lg-6">
-                            <span class="kt-badge kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded">@Model.OrderItems.Count()</span>
-                        </div>
+                </div>
+                <div class="row">
+                    <label class="col-lg-6"><strong>Items:</strong></label>
+                    <div class="col-lg-6">
+                        <span class="kt-badge kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded">@Model.OrderItems.Count()</span>
                     </div>
-                    <div class="row">
-                        <label class="col-lg-6"><strong>Status:</strong></label>
-                        <div class="col-lg-6">
-                            <span class="kt-badge kt-badge--primary kt-badge--inline kt-badge--pill kt-badge--rounded">@Model.OrderStatus.Name</span>
-                        </div>
+                </div>
+                <div class="row">
+                    <label class="col-lg-6"><strong>Status:</strong></label>
+                    <div class="col-lg-6">
+                        <span class="kt-badge kt-badge--primary kt-badge--inline kt-badge--pill kt-badge--rounded">@Model.OrderStatus.Name</span>
                     </div>
-              
+                </div>
+                <div class="row">
+                    <label class="col-lg-6"><strong></strong></label>
+                    <form method="post" class="col-sm-6">
+                        <vc:set-order-status id="@Model.OrderKey">
+                        </vc:set-order-status>
+                    </form>
+                </div>
+               
             </div>
 
             <!--end: Datatable -->
