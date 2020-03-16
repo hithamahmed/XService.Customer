@@ -170,7 +170,7 @@ namespace Documents.Tracker.Core
                 foreach (var doc in productRequiredDocs)
                 {
                     var consumerFile = consumerFiles
-                        .Where(x => x.ReferenceTypeId == doc.RefId)
+                        .Where(x => x.ReferenceTypeId == doc.AttachmentFilesTypeId)
                         .Select(x => x).FirstOrDefault();
                     var consumerProductFile = Mapper.Map<ConsumerAttachmentFileOTO>(consumerFile);
                     var filepathUri = await _manageFilesCore.GetFileUri(consumerId, doc.RefId);

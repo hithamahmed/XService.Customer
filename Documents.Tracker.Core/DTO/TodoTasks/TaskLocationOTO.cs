@@ -20,7 +20,7 @@ namespace Documents.Tracker.Core.DTO.TodoTasks
         [StringLength(250)] 
         public string Notes { get; set; }
 
-        //public bool IsClosed { get; set; }
+        public bool IsClosed { get; set; }
         public int TaskStatusId { get; set; }
         public TaskOTO Tasks { get; set; }
         public TaskStatusDTO TaskStatus { get; set; }

@@ -28,8 +28,14 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
         {
             try
             {
-                var x = await _orderServices.GetAllOrders();
-                return Mapper.Map<ICollection<OrderOTO>>(x);
+                var ordersList = await _orderServices.GetAllOrders();
+                var orders = Mapper.Map<ICollection<OrderOTO>>(ordersList);
+                foreach (var item in orders)
+                {
+                    var consumerPofile = await _queryConsumers.GetSingleConsumerWithAddressByConsumerId(item.ConsumerId);
+                    item.Consumer = consumerPofile;
+                }
+                return orders;
 
             }
             catch (Exception)
@@ -45,17 +51,17 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
             try
             {
                 var x = await _orderServices.GetOrderDetailsWithProduct(OrderKey);
-                var orderDetails = Mapper.Map<OrderOTO>(x);
-                if (orderDetails != null)
+                var order = Mapper.Map<OrderOTO>(x);
+                if (order != null)
                 {
-                    var cosnumer = await _queryConsumers.GetSingleConsumerWithAddressByConsumerId(orderDetails.ConsumerId);
+                    var cosnumer = await _queryConsumers.GetSingleConsumerWithAddressByConsumerId(order.ConsumerId);
                     if (cosnumer != null)
                     {
-                        orderDetails.Consumer = cosnumer;
+                        order.Consumer = cosnumer;
                     }
                 }
 
-                return Mapper.Map<OrderOTO>(orderDetails);
+                return Mapper.Map<OrderOTO>(order);
             }
             catch (Exception)
             {
@@ -68,17 +74,17 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Orders
             try
             {
                 var x = await _orderServices.GetOrderDetailsWithProduct(OrderId);
-                var orderDetails = Mapper.Map<OrderOTO>(x);
-                if (orderDetails != null)
+                var order = Mapper.Map<OrderOTO>(x);
+                if (order != null)
                 {
-                    var cosnumer = await _queryConsumers.GetSingleConsumerWithAddressByConsumerId(orderDetails.ConsumerId);
+                    var cosnumer = await _queryConsumers.GetSingleConsumerWithAddressByConsumerId(order.ConsumerId);
                     if (cosnumer != null)
                     {
-                        orderDetails.Consumer = cosnumer;
+                        order.Consumer = cosnumer;
                     }
                 }
 
-                return Mapper.Map<OrderOTO>(orderDetails);
+                return Mapper.Map<OrderOTO>(order);
             }
             catch (Exception)
             {

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Documents.Tracker.Core.CompositeServices;
 using TodoTasks.Core.Interface;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Documents.Tracker.UI.Web.SharedComponents
 {
@@ -26,30 +27,42 @@ namespace Documents.Tracker.UI.Web.SharedComponents
     {
         private readonly IQueryOrderService _queryOrderService;
         private readonly ITaskLocationsCore _taskLocationsCore;
-        public PendingOrderItemsComponent(ITaskLocationsCore taskLocationsCore,
+        private readonly IQueryTodoTasksServices _queryTodoTasksServices;
+        public PendingOrderItemsComponent(
+            IQueryTodoTasksServices queryTodoTasksServices,
+            ITaskLocationsCore taskLocationsCore,
             IQueryOrderService queryOrderService)
         {
+            _queryTodoTasksServices = queryTodoTasksServices;
             _taskLocationsCore = taskLocationsCore;
             _queryOrderService = queryOrderService;
         }
-        public async Task<IViewComponentResult> InvokeAsync(int orderid)
+        public async Task<IViewComponentResult> InvokeAsync(string orderKey)
         {
-            var orderItems = await _queryOrderService.GetOrderProducts(orderid);
+            var orderItems = await _queryOrderService.GetOrderProducts(orderKey);
             List<PendingOrderProductServices> PendingorderItems = new List<PendingOrderProductServices>();
 
             foreach (var item in orderItems)
             {
-                var taskLocation = await _taskLocationsCore
-                    .GetSingleTaskLocationByExp(x =>
-                    x.IsClosed &&
-                    x.ProductId == item.ProductId);
+                int _closedIds = 0;
+                //var taskLocation = await _taskLocationsCore
+                //    .GetSingleTaskLocationByExp(x =>
+                //    x.IsClosed &&
+                //    x.ProductId == item.ProductId);
+
+                var _taskLocation = await _queryTodoTasksServices
+                    .GetTodoTaskLocations(item.ProductId, item.Id);
+
+                if (_taskLocation != null && _taskLocation.Count() > 0)
+                    _closedIds = _taskLocation.Where(x => x.IsClosed).Count();
 
                 PendingorderItems.Add(new PendingOrderProductServices
                 {
                     Id = item.Id,
                     ProductId = item.ProductId,
                     Name = item.Product.Name,
-                    IsClosed = taskLocation != null && taskLocation.Id > 0 ? true : false });
+                    IsClosed = _closedIds > 0
+                });
             }
             return View(PendingorderItems);
         }

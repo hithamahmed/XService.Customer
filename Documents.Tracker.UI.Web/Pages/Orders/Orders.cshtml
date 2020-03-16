@@ -57,13 +57,14 @@
                                     @*<th width="10%">Identity Id</th>*@
                                     <th width="10%">Start Date</th>
                                     <th width="10%">Status</th>
+                                    <th width="10%">Consumer</th>
                                     <th width="10%" class="notexport"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if (Model.orders != null)
                                 {
-                                    @foreach (var item in Model.orders)
+                                    @foreach (var item in Model.orders.OrderByDescending(x=>x.OrderDate).ToList())
                                     {
                                         <tr>
                                             <td>
@@ -77,6 +78,25 @@
                                             </td>
                                             <td>
                                                 @item.OrderStatus.Name
+                                            </td>
+                                            <td>
+                                                @item.Consumer?.Consumer?.FullName
+                                                @*<span class="kt-nav__link-badge">
+            <span class="kt-badge kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded"> @item.Consumer?.Consumer?.FullName</span>
+        </span>
+        <div>
+            <ul class="kt-nav">
+                <li class="kt-nav__item kt-nav__item--active">
+                    <a class="kt-nav__link">
+                        <i class="kt-nav__link-icon flaticon2-rocket-2"></i>
+                        <span class="kt-nav__link-text">@item.Consumer?.Consumer?.FullName</span>
+                        <span class="kt-nav__link-badge">
+                            <span class="kt-badge kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded"> @item.Consumer?.Consumer?.PhoneNumber</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>*@
                                             </td>
                                             <td>
                                                 @*<form method="post" class="col-sm-6">

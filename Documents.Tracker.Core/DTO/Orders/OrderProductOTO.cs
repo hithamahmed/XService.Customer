@@ -6,6 +6,7 @@ namespace Documents.Tracker.Core.DTO.Orders
     public class OrderProductOTO
     {
         public int Id { get; set; }
+        public string OrderKey { get; set; }
 
         [Required]
         public int ProductId { get; set; }

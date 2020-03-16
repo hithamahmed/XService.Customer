@@ -147,7 +147,10 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
                 taskLocationOTO.Product = await _productsCore.GetProductDetailsByProductId(taskLocation.ProductId);
 
                 taskLocationOTO.LocationAreas = await _generalService.GetSingleLocation(taskLocation.LocationId);
-                
+
+                var order = await _queryOrderService.GetOrderbyOrderDetailId(taskLocation.ReferenceId);
+                taskLocationOTO.Order = order;
+
                 return taskLocationOTO;
             }
             catch (Exception)
@@ -161,11 +164,12 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
         {
             try
             {
-                var TaskLocations =  await _taskLocationsCore.GetTaskLocationsByTaskID(taskId);
+                var TaskLocations =  await _taskLocationsCore.GetTaskLocations(taskId);
                 var taskLocationLists = Mapper.Map<ICollection<TaskLocationOTO>>(TaskLocations);
                 foreach (var item in taskLocationLists)
                 {
                     item.LocationAreas = await _generalService.GetSingleLocation(item.LocationId);
+
                     var order = await _queryOrderService.GetOrderbyOrderDetailId(item.ReferenceId);
                     item.Order = order;
 
@@ -299,6 +303,55 @@ namespace Documents.Tracker.Core.CompositeServices.Services.TodoTasks
                     //    item.UserDelegator = await _userDelegatorCore.GetUserDelegator(item.AssignedUserID);
                 }
                 return tasksList;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<ICollection<TaskLocationOTO>> GetTodoTaskLocations(int productId,int orderItemId)
+        {
+            try
+            {
+                //var taskLocation = await _taskLocationsCore
+                //    .GetSingleTaskLocationByExp(x => x.ProductId == productId && x.ReferenceId == orderItemId);
+
+                //List<Expression<Func<TaskLocationServiceDTO, object>>> includes = 
+                //    new List<Expression<Func<TaskLocationServiceDTO, object>>>();
+
+                //includes.Add(x => x.TaskStatus);
+
+                var tasks = await _taskLocationsCore.GetTaskLocations(x => 
+                x.ProductId == productId && x.ReferenceId == orderItemId);
+
+                var taskLocationLists = Mapper.Map<ICollection<TaskLocationOTO>>(tasks);
+
+                foreach (var item in taskLocationLists)
+                {
+                    item.LocationAreas = await _generalService.GetSingleLocation(item.LocationId);
+
+                    var order = await _queryOrderService.GetOrderbyOrderDetailId(item.ReferenceId);
+                    item.Order = order;
+
+                    var serviceproduct = await _productsCore.GetProductDetailsByProductId(item.ProductId);
+                    item.Product = serviceproduct;
+
+                }
+                return taskLocationLists;
+
+                //var taskservices =  Mapper.Map<TaskLocationOTO>(taskLocation);
+                //if (taskservices != null)
+                //{
+                //    taskservices.LocationAreas = await _generalService.GetSingleLocation(taskservices.LocationId);
+                //    var order = await _queryOrderService.GetOrderbyOrderDetailId(taskservices.ReferenceId);
+                //    taskservices.Order = order;
+
+                //    var serviceproduct = await _productsCore.GetProductDetailsByProductId(taskservices.ProductId);
+                //    taskservices.Product = serviceproduct;
+                //}
+                //return taskservices;
             }
             catch (Exception)
             {

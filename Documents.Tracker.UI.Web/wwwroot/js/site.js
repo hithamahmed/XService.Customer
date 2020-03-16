@@ -143,7 +143,7 @@ var LoadOrderItems = function (e, baseurl) {
 
     //var baseurl = @cntlname;
     var handler = "?handler=OrderItems";
-    var parm = "&id=" + e.value;
+    var parm = "&orderkey=" + e.value;
     var url = baseurl + handler + parm;
 
     LoadDiv(url, 'orderitems');

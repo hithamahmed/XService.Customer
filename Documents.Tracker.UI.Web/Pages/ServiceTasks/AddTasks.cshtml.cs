@@ -114,11 +114,15 @@ namespace Documents.Tracker.UI.Web.Pages.ServiceTasks
 
         }
 
-        public IActionResult OnGetOrderItems(int id)
+        public IActionResult OnGetOrderItems(string orderKey)
         {
             try
             {
-                return ViewComponent("PendingOrderProductServices", new { orderid = id });
+                //Guid _orderKey;
+                //if (Guid.TryParse(orderKey, out _orderKey))
+                //    return ViewComponent("PendingOrderProductServices", new { orderKey = "" });
+                
+                return ViewComponent("PendingOrderProductServices", new { orderKey = orderKey });
             }
             catch (Exception)
             {
