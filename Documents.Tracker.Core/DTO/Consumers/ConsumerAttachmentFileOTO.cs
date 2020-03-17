@@ -12,6 +12,7 @@ namespace Documents.Tracker.Core.DTO
         public string FileDescription { get; set; }
         public int DocumentTypeId { get; set; }
         public bool IsValid { get; set; }
+        public bool IsDeleted { get; set; }
         public DateTime ExpiryDate { get; set; }
         public string ConsumerId { get; set; }
         public string SecureName { get; set; }
