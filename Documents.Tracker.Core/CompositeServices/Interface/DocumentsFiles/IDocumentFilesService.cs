@@ -11,5 +11,12 @@ namespace Documents.Tracker.Core
         Task AddEditDocumentFileType(AttachmentFileTypeDTO attachmentFilesType);
         Task<AttachmentFileTypeDTO> GetSingleFileType(int FileTypeid);
         Task<ICollection<AttachmentFileTypeDTO>> GetDocumentFileType();
+        /// <summary>
+        /// Mark the row as deleted in database
+        /// Not Physical Deleting
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        Task<bool> SoftDeleteAttachemtFileData(int Id);
     }
 }

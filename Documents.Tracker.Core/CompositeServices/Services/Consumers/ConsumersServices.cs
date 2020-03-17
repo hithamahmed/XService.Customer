@@ -227,5 +227,18 @@ namespace Documents.Tracker.Core
                 throw;
             }
         }
+
+        public async Task<bool> SoftDeleteConsumerDocumentFile(int Id)
+        {
+            try
+            {
+                return await _manageFilesCore.DeleteAttachmentFile(Id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

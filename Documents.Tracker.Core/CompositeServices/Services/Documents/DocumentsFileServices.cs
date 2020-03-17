@@ -97,5 +97,18 @@ namespace Documents.Tracker.Core.CompositeServices.Services.Documents
                 throw;
             }
         }
+
+        public async Task<bool> SoftDeleteAttachemtFileData(int Id)
+        {
+            try
+            {
+                return await filesRepository.DeleteAttachmentFile(Id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

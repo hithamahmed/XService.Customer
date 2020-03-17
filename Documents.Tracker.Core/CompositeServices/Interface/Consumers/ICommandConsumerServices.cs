@@ -11,5 +11,8 @@ namespace Documents.Tracker.Core
 
         public Task<int> AddOrEditConsumerAddressByConsumer(ConsumerAddressOTO Consumer);
         public Task<int> SetDefaultConsumerAddressByAddressId(int ConsumersAddressId);
+
+        Task<bool> SoftDeleteConsumerDocumentFile(int Id);
+
     }
 }
