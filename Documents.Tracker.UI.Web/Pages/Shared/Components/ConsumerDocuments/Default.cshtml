@@ -19,7 +19,7 @@
             <th width="30%">File</th>
             <th width="10%">Required</th>
             <th width="10%">Avaliabe</th>
-            <th width="10%"></th>
+            <th></th>
             <th width="10%">Expiry Date</th>
             <th width="10%"></th>
         </tr>
@@ -70,10 +70,16 @@
                         {
                             //string baseUrl = string.Format("{0}://{1}/{2}", request.Scheme, request.Host, item.FilePathUrl);
                             //var fileuri = new Uri(baseUrl, UriKind.Absolute);
-                            <form method="post">
-                                <button asp-page="/FileManager/ManageFiles" asp-page-handler="Download" asp-route-pathUri="@item.FilePathUrl"
-                                   class="btn btn-sm btn-light btn-icon "><i class="kt-nav__link-icon la la-download"></i></button>
-                            </form>
+                        <form method="post">
+                            <button asp-page="/FileManager/ManageFiles" asp-page-handler="View" asp-route-pathUri="@item.FilePathUrl"
+                                    class="btn btn-sm btn-light btn-icon ">
+                                <i class="kt-nav__link-icon la la-cc-discover"></i>
+                            </button>
+                            <button asp-page="/FileManager/ManageFiles" asp-page-handler="Download" asp-route-pathUri="@item.FilePathUrl"
+                                    class="btn btn-sm btn-light btn-icon ">
+                                <i class="kt-nav__link-icon la la-download"></i>
+                            </button>
+                        </form>
                         }
                     </td>
                     <td>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
@@ -68,7 +69,10 @@ namespace Documents.Tracker.UI.Web
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddRazorPages();
-            services.AddResponseCompression();
+            services.AddResponseCompression(option=> {
+                option.EnableForHttps = true;
+                option.MimeTypes = new[] { "text/plain", "text/html", "application/json" };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,9 +102,31 @@ namespace Documents.Tracker.UI.Web
                     const int durationInSeconds = 60 * 60 * 24 * 30;
                     ctx.Context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.CacheControl] =
                         "public,max-age=" + durationInSeconds;
-                   
+
+                    //if (ctx.File.Name.EndsWith(".js.gz"))
+                    //{
+                    //    ctx.Context.Response.Headers["Content-Type"] = "text/javascript";
+                    //    ctx.Context.Response.Headers["Content-Encoding"] = "gzip";
+                    //}
                 }
             });
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+                context.Response.Headers.Add("X-Frame-Options", "DENY"); // [DENY] [ALLOW-FROM https://domain.com] or [SAMEORIGIN]
+                context.Response.Headers.Add("X-Xss-Protection", "1; mode=block");
+
+
+
+                await next();
+            });
+            //app.UseFileServer(new FileServerOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(@"\docs"),
+            //    RequestPath = new PathString("/docs"),
+            //    EnableDirectoryBrowsing = false
+            //});
             //app.UseMiddleware<StackifyMiddleware.RequestTracerMiddleware>();
 
             app.UseCookiePolicy();

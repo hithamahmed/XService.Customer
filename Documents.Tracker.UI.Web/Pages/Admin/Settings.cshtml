@@ -1,0 +1,25 @@
+﻿@page
+@model Documents.Tracker.UI.Web.Pages.Admin.SettingsModel
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<h1>Settings</h1>
+<form method="post">
+    @foreach (var item in Model.fileProviderSettinges)
+    {
+    <ul>
+        <li>@item.Id</li>
+        <li>@item.FileServerProvider</li>
+        <li>@item.FolderServerPathBase</li>
+        <li>@item.IsDefaultProvider</li>
+        @if (!item.IsDefaultProvider)
+        {
+            <li><button type="submit" class="btn btn-sm btn-warning" asp-route-Id="@item.Id">Set As Default</button></li>
+        }
+    </ul>
+
+    }
+
+</form>
+  

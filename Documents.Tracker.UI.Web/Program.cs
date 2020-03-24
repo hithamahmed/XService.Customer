@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace Documents.Tracker.UI.Web
 {
@@ -12,9 +13,8 @@ namespace Documents.Tracker.UI.Web
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+            //.UseContentRoot(Directory.GetCurrentDirectory())
+            .ConfigureWebHostDefaults(webBuilder => 
+            { webBuilder.UseStartup<Startup>();} );
     }
 }

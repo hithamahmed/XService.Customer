@@ -2,6 +2,7 @@
 using AutoMapper;
 using Delegators.Commons.DTO;
 using Documents.Tracker.Core.DTO;
+using Documents.Tracker.Core.DTO.DocumentsFiles;
 using Documents.Tracker.Core.DTO.Employees;
 using Documents.Tracker.Core.DTO.Orders;
 using Documents.Tracker.Core.DTO.TodoTasks;
@@ -65,19 +66,21 @@ namespace Documents.Tracker.Core.Config.Mapper
             CreateMap<TaskLocationServiceDTO, TaskLocationOTO>().ReverseMap();
 
             CreateMap<UserDelegatorDTO, EmployeeDelegatorOTO>()
-                .ForMember(x=>x.EmployeeId,s=>s.MapFrom(x=>x.ReferenceId))
+                .ForMember(x => x.EmployeeId, s => s.MapFrom(x => x.ReferenceId))
                 .ForMember(x => x.Employee, s => s.Ignore())
                 .ReverseMap()
                 .ForMember(x => x.ReferenceId, s => s.MapFrom(x => x.EmployeeId));
 
-            CreateMap<EmployeeDTO,EmployeeOTO>()
-                .ForMember(x=>x.IsDelegator,s=>s.Ignore())
+            CreateMap<EmployeeDTO, EmployeeOTO>()
+                .ForMember(x => x.IsDelegator, s => s.Ignore())
                 .ReverseMap();
 
             CreateMap<AttachmentFilesDTO, ConsumerAttachmentFileOTO>()
-                .ForMember(x=>x.DocumentTypeId,s=>s.MapFrom(x=>x.ReferenceTypeId))
+                .ForMember(x => x.DocumentTypeId, s => s.MapFrom(x => x.ReferenceTypeId))
                 .ForMember(x => x.ConsumerId, s => s.MapFrom(x => x.ReferenceId))
                .ReverseMap();
+
+            CreateMap<AttachmentFilesSettingesDTO, FileProviderSettingesOTO>().ReverseMap();
 
         }
 

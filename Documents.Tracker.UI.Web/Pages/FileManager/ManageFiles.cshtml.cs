@@ -17,17 +17,41 @@ namespace Documents.Tracker.UI.Web.Pages.FileManager
         {
             _webHostEnvironment = webHostEnvironment;
         }
-        public void OnGet()
-        {
+        //public void OnGet()
+        //{
 
+        //}
+        public async Task<IActionResult> OnPostView(string pathUri)
+        {
+            string path = "";
+            try
+            {
+                var root = _webHostEnvironment.ContentRootPath;
+                path = Path.Combine(
+                               root,
+                               pathUri);
+
+                if (System.IO.File.Exists(path))
+                {
+                    return await Task.FromResult(PhysicalFile(path, "image/jpg"));
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+                Console.WriteLine(path);
+            }
+            return new NoContentResult();
         }
         public async Task<IActionResult> OnPostDownload(string pathUri)
         {
+            string path = "";
             try
             {
-                var root = _webHostEnvironment.WebRootPath;
-                string path = Path.Combine(
-                               _webHostEnvironment.ContentRootPath,
+                var root = _webHostEnvironment.ContentRootPath;
+
+                path = Path.Combine(
+                               root,
                                pathUri);
 
                 if (System.IO.File.Exists(path))
@@ -41,8 +65,10 @@ namespace Documents.Tracker.UI.Web.Pages.FileManager
             catch (Exception ex)
             {
                 ModelState.AddModelError("error", ex.Message);
+                Console.WriteLine(path);
             }
-            return RedirectToAction(nameof(Index));
+            return new NoContentResult();
+            //return RedirectToAction(nameof(Index));
         }
 
 

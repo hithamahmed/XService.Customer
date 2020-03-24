@@ -52,7 +52,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
         {
             ConsumerAddressOTO consumerAddress = new ConsumerAddressOTO
             {
-                ConsumerId = ConsumerRefId
+                ConsumerId = ConsumerRefId.ToString()
             };
             if (RefId > 0)
             {
@@ -62,7 +62,7 @@ namespace Documents.Tracker.UI.Web.Pages.AppConsumers
             var countries = allcountries
                 .Select(x =>
                 new { label = x.Name, value = x.RefId }).ToList();
-            consumerAddress.CountriesList = allcountries;
+            //consumerAddress.CountriesList = allcountries;
 
             return Partial("_AddEditConsumerAddress", consumerAddress);
         }
